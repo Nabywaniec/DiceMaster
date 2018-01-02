@@ -1,4 +1,4 @@
-package to2.dicemaster.server;
+package agh.to2.dicemaster.server;
 
 import org.springframework.stereotype.Component;
 

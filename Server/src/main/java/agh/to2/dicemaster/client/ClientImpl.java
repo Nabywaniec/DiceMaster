@@ -1,6 +1,6 @@
-package to2.dicemaster.server.api;
+package agh.to2.dicemaster.client;
 
-import to2.dicemaster.server.ServerPrototypeApplication;
+import agh.to2.dicemaster.server.ServerPrototypeApplication;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;

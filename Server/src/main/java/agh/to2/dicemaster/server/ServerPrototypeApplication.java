@@ -1,4 +1,4 @@
-package to2.dicemaster.server;
+package agh.to2.dicemaster.server;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

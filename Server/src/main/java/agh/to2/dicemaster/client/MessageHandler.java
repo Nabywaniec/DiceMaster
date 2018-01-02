@@ -1,4 +1,4 @@
-package to2.dicemaster.server.api;
+package agh.to2.dicemaster.client;
 
 /**
  * @author Adam Gapiński
