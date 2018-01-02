@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.api.common;
+package agh.to2.dicemaster.common.api;
 
 public interface DTO {
     String fromJSON();

@@ -1,6 +1,6 @@
 package agh.to2.dicemaster.client;
 
-import agh.to2.dicemaster.server.ServerPrototypeApplication;
+import agh.to2.dicemaster.server.ServerApplication;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.util.concurrent.TimeoutException;
  */
 public class ClientImpl implements Client {
 
-    private String exchangeName = ServerPrototypeApplication.getExchangeName();
-    private String serverQueueName = ServerPrototypeApplication.getQueueName();
+    private String exchangeName = ServerApplication.getExchangeName();
+    private String serverQueueName = ServerApplication.getQueueName();
 
     private Channel channel;
 

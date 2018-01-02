@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ServerPrototypeApplication {
+public class ServerApplication {
 
 	private final static String queueName = "server-queue";
 	private final static String exchangeName = "exchange";
@@ -49,7 +49,7 @@ public class ServerPrototypeApplication {
 
 
 	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(ServerPrototypeApplication.class, args);
+		SpringApplication.run(ServerApplication.class, args);
 	}
 
     public static String getQueueName() {

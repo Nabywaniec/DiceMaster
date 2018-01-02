@@ -1,7 +1,7 @@
-package agh.to2.dicemaster.api.client;
+package agh.to2.dicemaster.client.api;
 
-import agh.to2.dicemaster.api.common.GameDTO;
-import agh.to2.dicemaster.api.common.MoveDTO;
+import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.MoveDTO;
 
 public abstract class ServerGame {
 

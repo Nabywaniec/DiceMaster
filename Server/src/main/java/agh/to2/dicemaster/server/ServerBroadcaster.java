@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServerBroadcaster implements CommandLineRunner {
 
-    private String exchangeName = ServerPrototypeApplication.getExchangeName();
+    private String exchangeName = ServerApplication.getExchangeName();
     private RabbitTemplate rabbitTemplate;
 
     public ServerBroadcaster(RabbitTemplate rabbitTemplate) {

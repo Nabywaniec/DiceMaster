@@ -1,6 +1,6 @@
-package agh.to2.dicemaster.api.server;
+package agh.to2.dicemaster.server.api;
 
-import agh.to2.dicemaster.api.common.GameConfigDTO;
+import agh.to2.dicemaster.common.api.GameConfigDTO;
 
 import java.util.List;
 
