@@ -1,6 +1,6 @@
 package agh.to2.dicemaster.common.api;
 
-public abstract class GameDTO implements DTO {
+public abstract class GameDTO {
     private int id;
     private GameConfigDTO gameConfigDTO;
 
