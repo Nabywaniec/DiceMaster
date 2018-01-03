@@ -11,6 +11,6 @@ public abstract class ServerGame {
         this.gameDTO = gameDTO;
     }
 
-    abstract void makeMove(MoveDTO moveDTO);
-    abstract void leaveGame();
+    public abstract void makeMove(MoveDTO moveDTO);
+    public abstract void leaveGame();
 }

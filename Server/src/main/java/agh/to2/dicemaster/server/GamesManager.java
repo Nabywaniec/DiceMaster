@@ -7,15 +7,15 @@ import agh.to2.dicemaster.server.api.Game;
 import java.util.Collection;
 
 public class GamesManager {
-    public void createGame(GameConfigDTO gameConfigDTO) {
+    public void createGame(GameConfigDTO gameConfigDTO) { }
 
-    }
-
-    public Game getGameByGameDTO(GameDTO gameDTO) {
+    public Game getGameById(int gameId) {
         return null;
     }
 
     public Collection<GameDTO> getAll() {
         return null;
     }
+
+    public Game removeGame(int gameId) { return null; }
 }
