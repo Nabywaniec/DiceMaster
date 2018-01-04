@@ -3,7 +3,7 @@ package agh.to2.dicemaster.game.model;
 
 import java.util.Random;
 
-class Dice {
+public class Dice {
     private Value value = Value.randomValue();
 
     public enum Value {
@@ -21,7 +21,7 @@ class Dice {
         this.value = Value.randomValue();
     }
 
-    public Value getValue() {
-        return value;
+    public int getValue() {
+        return value.ordinal() + 1;
     }
 }
