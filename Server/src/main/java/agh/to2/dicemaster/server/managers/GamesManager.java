@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.server;
+package agh.to2.dicemaster.server.managers;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;

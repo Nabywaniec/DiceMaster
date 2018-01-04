@@ -1,4 +1,6 @@
-package agh.to2.dicemaster.server;
+package agh.to2.dicemaster.server.managers;
+
+import agh.to2.dicemaster.server.User;
 
 import java.util.Collection;
 
