@@ -1,9 +1,10 @@
+package agh.to2.dicemaster.bot;
+
 import java.util.List;
 
 public class DiceInputDTO {
     private List<Integer> myInput;
     private List<List<Integer>> otherPlayersInputs;
-
 
     public List<Integer> getMyInput() {
         return myInput;

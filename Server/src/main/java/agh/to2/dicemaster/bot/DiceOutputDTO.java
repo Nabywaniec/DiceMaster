@@ -1,3 +1,5 @@
+package agh.to2.dicemaster.bot;
+
 import java.util.List;
 
 public class DiceOutputDTO {

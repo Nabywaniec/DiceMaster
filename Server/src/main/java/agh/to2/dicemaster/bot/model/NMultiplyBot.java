@@ -1,7 +1,12 @@
-import java.util.Arrays;
+package agh.to2.dicemaster.bot.model;
+
+
+import agh.to2.dicemaster.bot.DiceInputDTO;
+import agh.to2.dicemaster.bot.DiceOutputDTO;
+
 import java.util.List;
 
-public class EasyBot extends Bot{
+public class NMultiplyBot extends Bot{
 
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
