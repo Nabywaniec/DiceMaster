@@ -9,8 +9,10 @@ public abstract class Game {
     private GameConfigDTO gameConfigDTO;
 
     private List<GameParticipant> players;
-    abstract void addObserver(GameParticipant gameParticipant);
-    abstract void addPlayer(GameParticipant gameParticipant);
+
+    public abstract void addObserver(GameParticipant gameParticipant);
+
+    public abstract void addPlayer(GameParticipant gameParticipant);
 
     public List<GameParticipant> getPlayers() {
         return players;

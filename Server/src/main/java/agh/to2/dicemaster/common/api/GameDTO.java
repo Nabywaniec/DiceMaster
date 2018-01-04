@@ -1,5 +1,10 @@
 package agh.to2.dicemaster.common.api;
 
+import agh.to2.dicemaster.server.api.GameParticipant;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class GameDTO {
     private int id;
     private GameConfigDTO gameConfigDTO;
