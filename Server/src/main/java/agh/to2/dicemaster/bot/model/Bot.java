@@ -3,6 +3,7 @@ package agh.to2.dicemaster.bot.model;
 import agh.to2.dicemaster.bot.DiceInputDTO;
 import agh.to2.dicemaster.bot.DiceOutputDTO;
 import agh.to2.dicemaster.bot.IOConverter;
+import agh.to2.dicemaster.bot.MoveDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.server.User;
 
@@ -19,7 +20,10 @@ public abstract class Bot extends User{
 
         DiceOutputDTO diceOutput = this.getDicesToThrow(diceInput);
 
-        converter.setGameState(diceOutput);
+        MoveDTO moveDTO = converter.setGameState(diceOutput);
+
+        //this field is assigned to every User
+        this.playerEventHandler.onMoveRequest(moveDTO);
 
     }
 

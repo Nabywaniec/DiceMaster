@@ -12,8 +12,10 @@ public class IOConverter {
         return output;
     }
 
-    public void setGameState(DiceOutputDTO output) {
+    public MoveDTO setGameState(DiceOutputDTO output) {
 
+        // output is converted into MoveDTO....
+        return new MoveDTO();
 
         // TODO implement this method
     }

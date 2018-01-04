@@ -8,6 +8,7 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 import java.util.Collection;
 
 public class User extends GameParticipant {
+
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
 
