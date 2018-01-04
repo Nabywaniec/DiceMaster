@@ -9,7 +9,14 @@ import agh.to2.dicemaster.common.api.GameDTO;
 
 import java.util.List;
 
-public class ServerImpl implements Server {
+public class DiceMasterServer implements Server {
+
+    private String serverAddress;
+
+    public DiceMasterServer(String serverAddress) {
+        this.serverAddress = serverAddress;
+    }
+
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
         return null;
