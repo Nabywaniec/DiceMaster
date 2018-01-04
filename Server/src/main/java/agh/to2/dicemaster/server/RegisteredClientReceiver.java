@@ -7,13 +7,8 @@ import agh.to2.dicemaster.common.api.MoveDTO;
 import com.google.gson.Gson;
 
 public class RegisteredClientReceiver {
-    private User user;
-
-    public void receiveMessage(String json) {
-        System.out.println("Received: " + json);
-
+    public void onRequest(String json) {
         Gson gson = new Gson();
-
         Message message = gson.fromJson(json, Message.class);
 
         Class contentClass = message.getContentClass();
