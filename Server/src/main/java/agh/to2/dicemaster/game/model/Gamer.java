@@ -7,24 +7,28 @@ import java.util.ArrayList;
 public class Gamer extends GameParticipant{
 
     private int id;
-    private ArrayList<Dice.Value> bones = new ArrayList<>();
+    private ArrayList<Dice.Value> dices = new ArrayList<>();
 
     public Gamer(int id) {
         super(id);
-        this.bones.clear();
+        this.dices.clear();
+    }
+
+    public void createDices(){
+
     }
 
     public void changeBones(Dice.Value t[], int n){
 
         for(int i=0;i<n;i++){
-            this.bones.remove(t[i]);
+            this.dices.remove(t[i]);
         }
 
-        this.bones.addAll(this.getBones());
+        this.dices.addAll(this.getBones());
     }
 
     public ArrayList<Dice.Value> getBones() {
-        return bones;
+        return dices;
     }
 
     public int getId() {
