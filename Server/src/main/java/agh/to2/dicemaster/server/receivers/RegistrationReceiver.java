@@ -1,5 +1,7 @@
 package agh.to2.dicemaster.server.receivers;
 
+import agh.to2.dicemaster.server.DTO.RegistrationRejectionDTO;
+import agh.to2.dicemaster.server.DTO.RegistrationRequestDTO;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.managers.UsersManager;
 import agh.to2.dicemaster.server.services.QueueService;
@@ -22,16 +24,16 @@ public class RegistrationReceiver {
     }
 
 
-    public void onRegistrationRequest(String username, String clientQueueName) {
-        if (clientQueueName.equals("undefined")) {
-            return;
-        }
-        if(username.startsWith("bot#")){
-            senderService.sendRegistrationRejection(clientQueueName);
-        } else if(usersManager.getUserById(username).isPresent()){
-            senderService.sendRegistrationRejection(clientQueueName);
+    public void onRegistrationRequest(RegistrationRequestDTO requestDTO) {
+        if(requestDTO.getUsername().startsWith("bot#")){
+            senderService.sendRegistrationRejection(
+                    new RegistrationRejectionDTO(), requestDTO.getClientQueueName());
+        } else if(usersManager.getUserById(requestDTO.getUsername()).isPresent()){
+            senderService.sendRegistrationRejection(
+                    new RegistrationRejectionDTO(), requestDTO.getClientQueueName());
         } else {
-            User createdUser = usersManager.createUser(username, clientQueueName);
+            User createdUser = usersManager.createUser(requestDTO.getUsername(),
+                    requestDTO.getClientQueueName());
             createdUser.sendCreationConfirmation();
             queueService.addRegisteredClientQueue(createdUser.getServerQueueName());
         }

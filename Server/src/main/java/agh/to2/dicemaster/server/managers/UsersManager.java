@@ -31,11 +31,11 @@ public class UsersManager {
     }
 
     public Optional<User> getUserById(String userId) {
-        return Optional.of(users.get(userId));
+        return Optional.ofNullable(users.get(userId));
     }
 
     public Optional<User> getUserByQueueName(String queueName){
-        return Optional.of(users.get(userIdByQueueName.get(queueName)));
+        return Optional.ofNullable(users.get(userIdByQueueName.get(queueName)));
     }
 
     public Collection<User> getAll() {

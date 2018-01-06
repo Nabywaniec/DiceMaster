@@ -1,8 +1,10 @@
 package agh.to2.dicemaster.server.listeners;
 
+import agh.to2.dicemaster.server.DTO.RegistrationRequestDTO;
 import agh.to2.dicemaster.server.receivers.RegistrationReceiver;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,16 +12,19 @@ import org.springframework.stereotype.Component;
 public class RegistrationListener implements MessageListener {
 
     private final RegistrationReceiver registrationReceiver;
+    private final MessageConverter messageConverter;
 
     @Autowired
-    public RegistrationListener(RegistrationReceiver registrationReceiver) {
+    public RegistrationListener(RegistrationReceiver registrationReceiver, MessageConverter messageConverter) {
         this.registrationReceiver = registrationReceiver;
+        this.messageConverter = messageConverter;
     }
 
     @Override
     public void onMessage(Message message) {
-        registrationReceiver.onRegistrationRequest(new String(message.getBody()),
-                message.getMessageProperties()
-                        .getHeaders().getOrDefault("clientQueueName", "undefined").toString());
+        Object body = messageConverter.fromMessage(message);
+        if (body instanceof RegistrationRequestDTO) {
+            registrationReceiver.onRegistrationRequest((RegistrationRequestDTO) body);
+        }
     }
 }
