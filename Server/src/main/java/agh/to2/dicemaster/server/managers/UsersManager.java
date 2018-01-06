@@ -1,9 +1,11 @@
 package agh.to2.dicemaster.server.managers;
 
 import agh.to2.dicemaster.server.User;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class UsersManager {
 
 //    FixMe: Maybe storing this in HashMaps isn't the best idea?
