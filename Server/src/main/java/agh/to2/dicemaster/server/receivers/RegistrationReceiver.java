@@ -22,16 +22,16 @@ public class RegistrationReceiver {
     }
 
 
-    public void onRegistrationRequest(String username, String senderQueueName) {
-        if (senderQueueName.equals("undefined")) {
+    public void onRegistrationRequest(String username, String clientQueueName) {
+        if (clientQueueName.equals("undefined")) {
             return;
         }
         if(username.startsWith("bot#")){
-            senderService.sendRegistrationRejection(senderQueueName);
+            senderService.sendRegistrationRejection(clientQueueName);
         } else if(usersManager.getUserById(username).isPresent()){
-            senderService.sendRegistrationRejection(senderQueueName);
+            senderService.sendRegistrationRejection(clientQueueName);
         } else {
-            User createdUser = usersManager.createUser(username, senderQueueName);
+            User createdUser = usersManager.createUser(username, clientQueueName);
             createdUser.sendCreationConfirmation();
             queueService.addRegisteredClientQueueName(createdUser.getServerQueueName());
         }
