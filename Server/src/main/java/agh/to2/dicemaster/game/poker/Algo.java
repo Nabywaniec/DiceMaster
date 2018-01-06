@@ -114,6 +114,7 @@ public class Algo {
             }
         }
         return -1;
+
     }
 
     public int sum2_2(ArrayList<Dice.Value> dices) {
