@@ -1,10 +1,10 @@
 package agh.to2.dicemaster.server.DTO;
 
-public class UserDTO {
+public class RegistrationRequestDTO {
     private String username;
     private String clientQueueName;
 
-    public UserDTO(String username, String clientQueueName) {
+    public RegistrationRequestDTO(String username, String clientQueueName) {
         this.username = username;
         this.clientQueueName = clientQueueName;
     }
