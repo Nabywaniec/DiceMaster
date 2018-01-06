@@ -45,7 +45,7 @@ public class GameManager {
             if(r > maxy){
                 maxy = algo.getResult(gamer.getDices());
                 maxy_owner = gamer.getId();
-                maxy_owner2 = gamer;
+
             }
         }
         System.out.println("Gamer " + maxy_owner + " win round!");
