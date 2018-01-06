@@ -1,21 +1,25 @@
 package agh.to2.dicemaster.game.model;
 
-import agh.to2.dicemaster.game.poker.GameParticipant;
 
+import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 import java.util.ArrayList;
 
 public class Gamer extends GameParticipant{
 
-    private int id;
+    private String id;
+
     private ArrayList<Dice.Value> dices = new ArrayList<>();
 
-    public Gamer(int id) {
-        super(id);
+    public Gamer(String id) {
+        this.id = id;
         this.dices.clear();
     }
 
     public void createDices(){
+        this.dices.addAll(DiceManager.getDices(5));
 
     }
 
@@ -32,7 +36,15 @@ public class Gamer extends GameParticipant{
         return dices;
     }
 
-    public int getId() {
+    public String  getId() {
         return id;
+    }
+
+
+    public  void notifyGameStateChange(GameDTO gameDTO){
+
+    }
+    public  void registerPlayerEventHandler(PlayerEventHandler playerEventHandler){
+
     }
 }
