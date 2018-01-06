@@ -7,12 +7,12 @@ import agh.to2.dicemaster.bot.model.Bot;
 
 public abstract class AbstractBotFactory {
 
-    abstract void adjustVeryEasyDifficulty();
-    abstract void adjustVeryHardDifficulty();
+  /*  abstract void adjustVeryEasyDifficulty();
+    abstract void adjustVeryHardDifficulty();*/
 
     public abstract Bot createBot(BotType type) throws IllegalBotTypeException;
 
-    public void determineDifficulty(BotType type) throws IllegalBotTypeException {
+    /*public void determineDifficulty(BotType type) throws IllegalBotTypeException {
         switch (type) {
             case EASY:
                 adjustVeryEasyDifficulty();
@@ -22,5 +22,5 @@ public abstract class AbstractBotFactory {
                 throw new IllegalBotTypeException();
         }
 
-    }
+    }*/
 }

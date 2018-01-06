@@ -11,7 +11,7 @@ import agh.to2.dicemaster.bot.model.NMultiplyBotEasy;
  */
 public class NMultiplyBotFactory extends AbstractBotFactory {
 
-    @Override
+/*    @Override
     void adjustVeryEasyDifficulty() {
 
     }
@@ -19,17 +19,17 @@ public class NMultiplyBotFactory extends AbstractBotFactory {
     @Override
     void adjustVeryHardDifficulty() {
 
-    }
+    }*/
 
     @Override
     public Bot createBot(BotType type) throws IllegalBotTypeException {
-        super.determineDifficulty(type);
+        //super.determineDifficulty(type);
         switch (type) {
             case EASY:
                 return new NMultiplyBotEasy();
             case DIFFICULT:
                 return new NMultiplyBotDifficult();
         }
-        return new NMultiplyBotEasy();
+        throw new IllegalBotTypeException();
     }
 }

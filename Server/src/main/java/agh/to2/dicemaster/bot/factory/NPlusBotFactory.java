@@ -13,7 +13,7 @@ import jdk.nashorn.internal.parser.JSONParser;
  */
 public class NPlusBotFactory extends AbstractBotFactory {
 
-    @Override
+   /* @Override
     void adjustVeryEasyDifficulty() {
 
     }
@@ -21,17 +21,17 @@ public class NPlusBotFactory extends AbstractBotFactory {
     @Override
     void adjustVeryHardDifficulty() {
 
-    }
+    }*/
 
     @Override
     public Bot createBot(BotType type) throws IllegalBotTypeException {
-        super.determineDifficulty(type);
+        //super.determineDifficulty(type);
         switch (type) {
             case EASY:
                 return new NPlusBotEasy();
             case DIFFICULT:
                 return new NPlusBotDifficult();
         }
-        return new NPlusBotEasy();
+        throw new IllegalBotTypeException();
     }
 }
