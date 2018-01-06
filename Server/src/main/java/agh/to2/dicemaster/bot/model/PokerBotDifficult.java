@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by kamkalet on 04.01.2018.
+ * Created by Dawid Tomasiewicz on 06.01.2018.
  */
-public class PokerBot extends Bot {
+public class PokerBotDifficult extends Bot {
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input) {
         DiceOutputDTO result = new DiceOutputDTO();

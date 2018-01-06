@@ -7,7 +7,7 @@ import agh.to2.dicemaster.bot.DiceOutputDTO;
 import java.util.Arrays;
 import java.util.List;
 
-public class NPlusBot extends Bot{
+public class NPlusBotEasy extends Bot{
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
         DiceOutputDTO result = new DiceOutputDTO();
