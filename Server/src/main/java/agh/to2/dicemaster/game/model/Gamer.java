@@ -2,6 +2,7 @@ package agh.to2.dicemaster.game.model;
 
 import agh.to2.dicemaster.game.poker.GameParticipant;
 
+
 import java.util.ArrayList;
 
 public class Gamer extends GameParticipant{
@@ -24,7 +25,7 @@ public class Gamer extends GameParticipant{
             this.dices.remove(t[i]);
         }
 
-        this.dices.addAll(this.getBones());
+        this.dices.addAll(DiceManager.getDices(n));
     }
 
     public ArrayList<Dice.Value> getBones() {

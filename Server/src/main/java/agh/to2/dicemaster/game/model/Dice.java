@@ -24,4 +24,6 @@ public class Dice {
     public int getValue() {
         return value.ordinal() + 1;
     }
+
+    public Value getV(){return this.value;}
 }
