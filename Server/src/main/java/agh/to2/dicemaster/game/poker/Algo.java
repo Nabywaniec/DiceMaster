@@ -85,6 +85,7 @@ public class Algo {
 
         if (counter.keySet().contains(4)) return true;
         return false;
+
     }
 
     public boolean have3and2same(ArrayList<Dice.Value> dices) {
