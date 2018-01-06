@@ -1,16 +1,14 @@
 package agh.to2.dicemaster.server;
 
+import agh.to2.dicemaster.server.receivers.RegisteredClientReceiver;
 import agh.to2.dicemaster.server.receivers.RegistrationReceiver;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author Adam Gapiński
@@ -18,37 +16,46 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
-    private static ConnectionFactory cf = new CachingConnectionFactory();
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(Application.class, args);
-        configureRegistrationQueue();
-        setupRegistrationReceiver();
+    @Bean(name = "clientListenerContainer")
+    SimpleMessageListenerContainer registeredClientContainer(ConnectionFactory connectionFactory,
+                                                             RegisteredClientReceiver receiver) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setMessageListener((MessageListener) message -> receiver.onRequest(new String(message.getBody()),
+                message.getMessageProperties().getConsumerQueue()));
+        return container;
     }
 
-    private static void configureRegistrationQueue() {
+    @Bean
+    SimpleMessageListenerContainer registrationContainer(ConnectionFactory connectionFactory,
+                                                         RegistrationReceiver receiver) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames("registrationQueue");
+        container.setMessageListener((MessageListener) message ->
+                receiver.onRegistrationRequest(new String(message.getBody()),
+                        message.getMessageProperties()
+                                .getHeaders().getOrDefault("clientQueueName", "undefined").toString()));
+        return container;
+    }
+
+    @Bean
+    Binding binding(ConnectionFactory connectionFactory) {
         // set up the queue, exchange, binding on the broker
-        RabbitAdmin admin = new RabbitAdmin(cf);
+        RabbitAdmin admin = new RabbitAdmin(connectionFactory);
 
         String registrationQueueName = "registrationQueue";
-        Queue queue = new Queue(registrationQueueName);
+
+        Queue queue = new Queue("registrationQueue");
         admin.declareQueue(queue);
 
         TopicExchange exchange = new TopicExchange("exchange");
         admin.declareExchange(exchange);
-        admin.declareBinding(
-                BindingBuilder.bind(queue).to(exchange).with(registrationQueueName));
+       return BindingBuilder.bind(queue).to(exchange).with(registrationQueueName);
     }
 
-    private static void setupRegistrationReceiver() {
-        // set up the listener and container
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(cf);
-
-        MessageListenerAdapter adapter = new MessageListenerAdapter(new RegistrationReceiver(),
-                "onRegistrationRequest");
-
-        container.setMessageListener(adapter);
-        container.setQueueNames("registrationQueue");
-        container.start();
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
     }
 }
