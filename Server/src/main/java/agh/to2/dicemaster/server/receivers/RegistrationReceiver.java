@@ -33,7 +33,7 @@ public class RegistrationReceiver {
         } else {
             User createdUser = usersManager.createUser(username, senderQueueName);
             createdUser.sendCreationConfirmation();
-            queueService.addClientQueueName(createdUser.getServerQueueName());
+            queueService.addRegisteredClientQueueName(createdUser.getServerQueueName());
         }
     }
 }
