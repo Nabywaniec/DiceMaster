@@ -4,6 +4,9 @@ public class RegistrationRequestDTO {
     private String username;
     private String clientQueueName;
 
+    public RegistrationRequestDTO() { // Converter default constructor
+    }
+
     public RegistrationRequestDTO(String username, String clientQueueName) {
         this.username = username;
         this.clientQueueName = clientQueueName;
