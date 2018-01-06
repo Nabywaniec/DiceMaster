@@ -2,14 +2,35 @@ package agh.to2.dicemaster.server.managers;
 
 import agh.to2.dicemaster.server.User;
 
-import java.util.Collection;
+import java.util.*;
 
 public class UsersManager {
-    public User createUser(String uesername) { return null; }
 
-    public User getUserById(int id) { return null; }
+//    FixMe: Maybe storing this in HashMaps isn't the best idea?
+    private HashMap<String, String> userIdByQueueName = new HashMap<>();
+    private HashMap<String, User> users = new HashMap<>();
 
-    public Collection<User> getAll() { return null; }
+    public User createUser(String username, String clientQueueName) {
+        User user = new User(username, clientQueueName);
+        userIdByQueueName.put(user.getServerQueueName(), user.getId());
+        users.put(user.getId(), user);
+        return user;
+    }
 
-    public User removeUser(int userId) { return null; }
+    public Optional<User> getUserById(String userId) {
+        return Optional.of(users.get(userId));
+    }
+
+    public Optional<User> getUserByQueueName(String queueName){
+        return Optional.of(users.get(userIdByQueueName.get(queueName)));
+    }
+
+    public Collection<User> getAll() {
+        return users.values();
+    }
+
+    public void removeUser(String userId) {
+        User removedUser = users.remove(userId);
+        userIdByQueueName.remove(removedUser.getServerQueueName());
+    }
 }
