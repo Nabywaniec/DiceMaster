@@ -80,6 +80,7 @@ public class Algo {
     }
 
 
+
     public boolean have4same(ArrayList<Dice.Value> dices) {
 
         if (counter.keySet().contains(4)) return true;
