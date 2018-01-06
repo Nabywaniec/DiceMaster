@@ -58,9 +58,8 @@ public class GameManager {
         String maxy_owner = "";
         int r;
         for(Gamer gamer : game_results.keySet()){
-            game_results.put(gamer, r = algo.getResult(gamer.getDices()));
-            if(r > maxy){
-                maxy = algo.getResult(gamer.getDices());
+            if( (r = game_results.get(gamer)) > maxy){
+                maxy = r;
                 maxy_owner = gamer.getId();
             }
         }
