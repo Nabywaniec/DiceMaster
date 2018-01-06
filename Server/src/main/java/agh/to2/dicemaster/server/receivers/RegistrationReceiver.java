@@ -2,10 +2,9 @@ package agh.to2.dicemaster.server.receivers;
 
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.managers.UsersManager;
+import agh.to2.dicemaster.server.services.QueueService;
 import agh.to2.dicemaster.server.services.SenderService;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,16 +12,12 @@ public class RegistrationReceiver {
     private final UsersManager usersManager;
     private final SenderService senderService;
 
-    private final SimpleMessageListenerContainer listenerContainer;
-
-
+    private final QueueService queueService;
 
     @Autowired
-    public RegistrationReceiver(UsersManager usersManager,
-                                @Qualifier("clientListenerContainer") SimpleMessageListenerContainer listenerContainer,
-                                SenderService senderService) {
+    public RegistrationReceiver(UsersManager usersManager, QueueService queueService, SenderService senderService) {
         this.usersManager = usersManager;
-        this.listenerContainer = listenerContainer;
+        this.queueService = queueService;
         this.senderService = senderService;
     }
 
@@ -38,8 +33,7 @@ public class RegistrationReceiver {
         } else {
             User createdUser = usersManager.createUser(username, senderQueueName);
             createdUser.sendCreationConfirmation();
-//            FixMe: Maybe better to create service for doing this
-            listenerContainer.addQueueNames(createdUser.getServerQueueName());
+            queueService.addClientQueueName(createdUser.getServerQueueName());
         }
     }
 }
