@@ -1,5 +1,8 @@
 package agh.to2.dicemaster.game.poker;
 
+import agh.to2.dicemaster.game.model.Gamer;
+import agh.to2.dicemaster.server.api.GameParticipant;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class GameManager {
     public void findWinnerRound(){
 
         int maxy =-1;
-        int maxy_owner =-1;
+        String maxy_owner ="";
         Gamer maxy_owner2 = null;
         for(Gamer gamer:round_results.keySet()){
             int r;
@@ -52,7 +55,7 @@ public class GameManager {
 
     public void findWinnerGame(){
         int maxy =-1;
-        int maxy_owner = -1;
+        String maxy_owner = "";
         int r;
         for(Gamer gamer : game_results.keySet()){
             game_results.put(gamer, r = algo.getResult(gamer.getBones()));
