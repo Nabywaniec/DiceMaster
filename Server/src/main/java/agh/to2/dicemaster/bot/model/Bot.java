@@ -23,7 +23,8 @@ public abstract class Bot extends User{
         MoveDTO moveDTO = converter.setGameState(diceOutput);
 
         //this field is assigned to every User
-        this.playerEventHandler.onMoveRequest(moveDTO);
+        // FIXME the line below is absolutely necessary for proper workflow, but does not compile
+        //this.playerEventHandler.onMoveRequest(moveDTO);
 
     }
 
