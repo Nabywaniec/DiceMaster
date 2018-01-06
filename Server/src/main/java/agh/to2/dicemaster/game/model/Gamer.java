@@ -33,7 +33,12 @@ public class Gamer extends GameParticipant{
     }
 
     public ArrayList<Dice.Value> getDices() {
-        return dices;
+
+        ArrayList<Dice.Value> new_ = new ArrayList<>();
+        for(Dice.Value d : dices){
+            new_.add(d);
+        }
+        return new_;
     }
 
     public String  getId() {
