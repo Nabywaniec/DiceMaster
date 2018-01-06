@@ -30,27 +30,27 @@ public class Algo {
 
     public int getResult(ArrayList<Dice.Value> dices) {
 
-        initialise_counter();
+        initialiseCounter();
         setCounter(dices);
 
-        if (have_5_same(dices)) {
+        if (have5same(dices)) {
             System.out.println("Poker");
             return 500 + sumdices(dices);
         }
 
-        if (have_4_same(dices)) {
+        if (have4same(dices)) {
             System.out.println("Kareta");
             return 300 + sumdices(dices);
         }
-        if (have_3and2_same(dices)) {
+        if (have3and2same(dices)) {
             System.out.println("Full");
             return 200 + sumdices(dices);
         }
-        if (have_bigStrit(dices)) {
+        if (haveBigStrit(dices)) {
             System.out.println("Duży strit");
             return 150;
         }
-        if (have_smallStrit(dices)) {
+        if (haveSmallStrit(dices)) {
             System.out.println("Mały strit");
             return 130;
         }
@@ -58,9 +58,9 @@ public class Algo {
             System.out.println("Trójka");
             return sum3(dices) + 100;
         }
-        if (sum2_2(dices) != -1) {
+        if (sum2And2(dices) != -1) {
             System.out.println("2 Dwójki");
-            return sum2_2(dices) + 50;
+            return sum2And2(dices) + 50;
         }
         if (sum2(dices) != -1) {
             System.out.println("Dwójka");
@@ -72,61 +72,61 @@ public class Algo {
 
     }
 
-    public boolean have_5_same(ArrayList<Dice.Value> dices) {
-        initialise_counter();
+    public boolean have5same(ArrayList<Dice.Value> dices) {
+        initialiseCounter();
         //  setCounter(dices);
-        if (counter.keySet().contains(new Integer(5))) return true;
+        if (counter.keySet().contains(5)) return true;
         return false;
     }
 
 
-    public boolean have_4_same(ArrayList<Dice.Value> dices) {
+    public boolean have4same(ArrayList<Dice.Value> dices) {
 
-        if (counter.keySet().contains(new Integer(4))) return true;
+        if (counter.keySet().contains(4)) return true;
         return false;
     }
 
-    public boolean have_3and2_same(ArrayList<Dice.Value> dices) {
+    public boolean have3and2same(ArrayList<Dice.Value> dices) {
 
 
-        if (counter.values().contains(new Integer(3)) && counter.values().contains(new Integer(2))) {
+        if (counter.values().contains(3) && counter.values().contains(2)) {
             return true;
         }
         return false;
     }
 
-    public boolean have_bigStrit(ArrayList<Dice.Value> dices) {
-        if (!counter.values().contains(new Integer(3)) && !counter.values().contains(new Integer(2))
-                && counter.get(Dice.Value.ONE).equals(new Integer(0))) return true;
+    public boolean haveBigStrit(ArrayList<Dice.Value> dices) {
+        if (!counter.values().contains(3) && !counter.values().contains(2)
+                && counter.get(Dice.Value.ONE).equals(0)) return true;
         return false;
     }
 
-    public boolean have_smallStrit(ArrayList<Dice.Value> dices) {
-        if (!counter.values().contains(new Integer(3)) && !counter.values().contains(new Integer(2))
-                && counter.get(Dice.Value.ONE).equals(new Integer(1))) return true;
+    public boolean haveSmallStrit(ArrayList<Dice.Value> dices) {
+        if (!counter.values().contains(3) && !counter.values().contains(2)
+                && counter.get(Dice.Value.ONE).equals(1)) return true;
         return false;
     }
 
     public int sum3(ArrayList<Dice.Value> dices) {
-        if (counter.values().contains(new Integer(3))) {
+        if (counter.values().contains(3)) {
             for (Dice.Value key : counter.keySet()) {
-                if (counter.get(key).equals(new Integer(3))) return 3 * key.ordinal();
+                if (counter.get(key).equals(3)) return 3 * key.ordinal();
             }
         }
         return -1;
 
     }
 
-    public int sum2_2(ArrayList<Dice.Value> dices) {
+    public int sum2And2(ArrayList<Dice.Value> dices) {
         System.out.println(counter);
         int s = 0;
         for (Dice.Value key : counter.keySet()) {
-            if (counter.get(key).equals(new Integer(2))) s += 1;
+            if (counter.get(key).equals(2)) s += 1;
         }
         if (s == 2) {
             s = 0;
             for (Dice.Value key : counter.keySet()) {
-                if (counter.get(key).equals(new Integer(2))) s += 2 * key.ordinal();
+                if (counter.get(key).equals(2)) s += 2 * key.ordinal();
             }
             return s;
         }
@@ -134,16 +134,16 @@ public class Algo {
     }
 
     public int sum2(ArrayList<Dice.Value> dices) {
-        if (counter.values().contains(new Integer(2))) {
+        if (counter.values().contains(2)) {
             for (Dice.Value key : counter.keySet()) {
-                if (counter.get(key).equals(new Integer(2))) return 2 * key.ordinal();
+                if (counter.get(key).equals(2)) return 2 * key.ordinal();
             }
         }
         return -1;
     }
 
 
-    public void initialise_counter() {
+    public void initialiseCounter() {
         for (Dice.Value b : this.counter.keySet()) {
             counter.put(b, 0);
         }
