@@ -41,9 +41,9 @@ public class GameManager {
         Gamer maxy_owner2 = null;
         for(Gamer gamer:round_results.keySet()){
             int r;
-            round_results.put(gamer, r = algo.getResult(gamer.getBones()));
+            round_results.put(gamer, r = algo.getResult(gamer.getDices()));
             if(r > maxy){
-                maxy = algo.getResult(gamer.getBones());
+                maxy = algo.getResult(gamer.getDices());
                 maxy_owner = gamer.getId();
                 maxy_owner2 = gamer;
             }
@@ -58,9 +58,9 @@ public class GameManager {
         String maxy_owner = "";
         int r;
         for(Gamer gamer : game_results.keySet()){
-            game_results.put(gamer, r = algo.getResult(gamer.getBones()));
+            game_results.put(gamer, r = algo.getResult(gamer.getDices()));
             if(r > maxy){
-                maxy = algo.getResult(gamer.getBones());
+                maxy = algo.getResult(gamer.getDices());
                 maxy_owner = gamer.getId();
             }
         }

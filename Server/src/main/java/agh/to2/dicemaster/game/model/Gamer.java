@@ -23,7 +23,7 @@ public class Gamer extends GameParticipant{
 
     }
 
-    public void changeBones(Dice.Value t[], int n){
+    public void changeDices(Dice.Value t[], int n){
 
         for(int i=0;i<n;i++){
             this.dices.remove(t[i]);
@@ -32,7 +32,7 @@ public class Gamer extends GameParticipant{
         this.dices.addAll(DiceManager.getDices(n));
     }
 
-    public ArrayList<Dice.Value> getBones() {
+    public ArrayList<Dice.Value> getDices() {
         return dices;
     }
 
