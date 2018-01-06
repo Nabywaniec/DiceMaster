@@ -3,16 +3,26 @@ package agh.to2.dicemaster.server.services;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.server.DTO.RegistrationConfirmationDTO;
 import agh.to2.dicemaster.server.api.Game;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-public interface SenderService {
+@Component
+public class SenderService {
 
-    void sendRegistrationRejection(String queueName);
-    void sendGameState(GameDTO gameDTO, String queueName);
+    public void sendRegistrationRejection(String queueName){
 
-    void sendGames(Collection<Game> games, String queueName);
+    }
+    public void sendGameState(GameDTO gameDTO, String queueName){
 
-    void sendRegistrationConfirmation(RegistrationConfirmationDTO registrationConfirmationDTO,
-                                                      String queueName);
+    }
+
+    public void sendGames(Collection<Game> games, String queueName){
+
+    }
+
+    public void sendRegistrationConfirmation(RegistrationConfirmationDTO registrationConfirmationDTO,
+                                                      String queueName){
+
+    }
 }

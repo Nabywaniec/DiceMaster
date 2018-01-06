@@ -17,10 +17,10 @@ public class User extends GameParticipant {
     private PlayerEventHandler playerEventHandler;
     private SenderService senderService;
 
-    public User(String username, String clientQueueName) {
+    public User(String username, String clientQueueName, SenderService senderService) {
         this.clientQueueName = clientQueueName;
         this.setId(username);
-
+        this.senderService = senderService;
         this.serverQueueName = generateQueueName();
     }
 
