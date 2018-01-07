@@ -16,6 +16,7 @@ public class User extends GameParticipant {
     private String clientQueueName;
     private PlayerEventHandler playerEventHandler;
     private SenderService senderService;
+    private boolean userInGame = false;
 
     public User(String username, String clientQueueName, SenderService senderService) {
         this.clientQueueName = clientQueueName;
@@ -31,20 +32,23 @@ public class User extends GameParticipant {
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
-        this.senderService.sendGameState(gameDTO, this.clientQueueName);
+        if(userInGame){
+            this.senderService.sendGameState(gameDTO, this.clientQueueName);
+        }
     }
 
     @Override
     public void registerPlayerEventHandler(PlayerEventHandler playerEventHandler) {
+        this.userInGame = true;
         this.playerEventHandler = playerEventHandler;
     }
 
-    public void sendGames(Collection<Game> games) {
-        this.senderService.sendGames(games, this.clientQueueName);
-    }
-
-    public void sendCreationConfirmation(){
-        senderService.sendRegistrationConfirmation(new RegistrationConfirmationDTO(this.serverQueueName), clientQueueName);
+    public void leaveGame() {
+        if(userInGame){
+            this.userInGame = false;
+            this.playerEventHandler.onPlayerLeft();
+            this.playerEventHandler = null;
+        }
     }
 
     public String getServerQueueName() {
@@ -65,5 +69,13 @@ public class User extends GameParticipant {
 
     public PlayerEventHandler getPlayerEventHandler() {
         return playerEventHandler;
+    }
+
+    public boolean isUserInGame() {
+        return userInGame;
+    }
+
+    public void setUserInGame(boolean userInGame) {
+        this.userInGame = userInGame;
     }
 }

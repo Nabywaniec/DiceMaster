@@ -1,6 +1,7 @@
 package agh.to2.dicemaster.server.api;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
+import agh.to2.dicemaster.common.api.GameDTO;
 
 import java.util.List;
 
@@ -9,8 +10,9 @@ public abstract class Game {
     private GameConfigDTO gameConfigDTO;
 
     private List<GameParticipant> players;
-    abstract void addObserver(GameParticipant gameParticipant);
-    abstract void addPlayer(GameParticipant gameParticipant);
+    public abstract void addObserver(GameParticipant gameParticipant);
+    public abstract void addPlayer(GameParticipant gameParticipant);
+    public abstract GameDTO getGameDTO();
 
     public List<GameParticipant> getPlayers() {
         return players;
@@ -23,4 +25,5 @@ public abstract class Game {
     public void setId(int id) {
         this.id = id;
     }
+
 }
