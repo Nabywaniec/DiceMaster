@@ -3,6 +3,9 @@ package agh.to2.dicemaster.server.DTO;
 public class RegistrationConfirmationDTO {
     private String serverQueueName;
 
+    public RegistrationConfirmationDTO() { // Converter default constructor
+    }
+
     public RegistrationConfirmationDTO(String serverQueueName) {
         this.serverQueueName = serverQueueName;
     }

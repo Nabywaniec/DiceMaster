@@ -1,51 +1,44 @@
 package agh.to2.dicemaster.server.services;
 
-import agh.to2.dicemaster.server.receivers.RegisteredClientReceiver;
-import agh.to2.dicemaster.server.receivers.RegistrationReceiver;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-@Configuration
+@Service
 public class QueueService {
-    @Bean(name = "clientListenerContainer")
-    SimpleMessageListenerContainer registeredClientContainer(ConnectionFactory connectionFactory,
-                                                             RegisteredClientReceiver receiver) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setMessageListener((MessageListener) message -> receiver.onRequest(new String(message.getBody()),
-                message.getMessageProperties().getConsumerQueue()));
-        return container;
+
+    private final SimpleMessageListenerContainer clientListenerContainer;
+    private final RabbitAdmin rabbitAdmin;
+
+    @Autowired
+    public QueueService(@Qualifier("clientListenerContainer") SimpleMessageListenerContainer clientListenerContainer,
+                        ConnectionFactory connectionFactory) {
+        this.clientListenerContainer = clientListenerContainer;
+        this.rabbitAdmin = new RabbitAdmin(connectionFactory);
     }
 
-    @Bean
-    SimpleMessageListenerContainer registrationContainer(ConnectionFactory connectionFactory,
-                                                         RegistrationReceiver receiver) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("registrationQueue");
-        container.setMessageListener((MessageListener) message ->
-                receiver.onRegistrationRequest(new String(message.getBody()),
-                        message.getMessageProperties()
-                                .getHeaders().getOrDefault("clientQueueName", "undefined").toString()));
-        return container;
+    public void addRegisteredClientQueue(String queueName) {
+        Queue queue = new Queue(queueName);
+        rabbitAdmin.declareQueue(queue);
+
+        clientListenerContainer.addQueueNames(queueName);
+
+        TopicExchange exchange = new TopicExchange("diceMasterExchange");
+        rabbitAdmin.declareExchange(exchange);
+
+        rabbitAdmin.declareBinding(
+                BindingBuilder.bind(queue).to(exchange).with(queueName));
     }
 
-    @Bean
-    Binding binding(ConnectionFactory connectionFactory) {
-        // set up the queue, exchange, binding on the broker
-        RabbitAdmin admin = new RabbitAdmin(connectionFactory);
+    public void removeRegisteredClientQueueName(String queueName) {
+        rabbitAdmin.deleteQueue(queueName);
 
-        String registrationQueueName = "registrationQueue";
-
-        Queue queue = new Queue("registrationQueue");
-        admin.declareQueue(queue);
-
-        TopicExchange exchange = new TopicExchange("exchange");
-        admin.declareExchange(exchange);
-        return BindingBuilder.bind(queue).to(exchange).with(registrationQueueName);
+        clientListenerContainer.removeQueueNames(queueName);
     }
 }
