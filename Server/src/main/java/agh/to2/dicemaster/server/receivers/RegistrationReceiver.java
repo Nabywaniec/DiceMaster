@@ -1,6 +1,6 @@
 package agh.to2.dicemaster.server.receivers;
 
-import agh.to2.dicemaster.server.DTO.RegistrationRejectionDTO;
+import agh.to2.dicemaster.server.DTO.RegistrationConfirmationDTO;
 import agh.to2.dicemaster.server.DTO.RegistrationRequestDTO;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.managers.UsersManager;
@@ -24,17 +24,14 @@ public class RegistrationReceiver {
     }
 
 
-    public void onRegistrationRequest(RegistrationRequestDTO requestDTO) {
+    public void onRegistrationRequest(RegistrationRequestDTO requestDTO, String replyToQueueName) {
         if(requestDTO.getUsername().startsWith("bot#")){
-            senderService.sendRegistrationRejection(
-                    new RegistrationRejectionDTO(), requestDTO.getClientQueueName());
+            senderService.sendRequestErrorResponse("Username cannot start with \"bot#\"", replyToQueueName);
         } else if(usersManager.getUserById(requestDTO.getUsername()).isPresent()){
-            senderService.sendRegistrationRejection(
-                    new RegistrationRejectionDTO(), requestDTO.getClientQueueName());
+            senderService.sendRequestErrorResponse(String.format("Username \"%s\"is taken", requestDTO.getUsername()), replyToQueueName);
         } else {
-            User createdUser = usersManager.createUser(requestDTO.getUsername(),
-                    requestDTO.getClientQueueName());
-            createdUser.sendCreationConfirmation();
+            User createdUser = usersManager.createUser(requestDTO.getUsername(), requestDTO.getClientQueueName());
+            senderService.sendRegistrationConfirmation(new RegistrationConfirmationDTO(createdUser.getServerQueueName()), replyToQueueName);
             queueService.addRegisteredClientQueue(createdUser.getServerQueueName());
         }
     }

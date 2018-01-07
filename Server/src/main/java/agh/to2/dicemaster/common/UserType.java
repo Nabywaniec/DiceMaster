@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.client.api;
+package agh.to2.dicemaster.common;
 
 public enum UserType {
     PLAYER, OBSERVER

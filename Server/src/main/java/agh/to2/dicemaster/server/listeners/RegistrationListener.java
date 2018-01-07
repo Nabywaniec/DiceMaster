@@ -24,7 +24,7 @@ public class RegistrationListener implements MessageListener {
     public void onMessage(Message message) {
         Object body = messageConverter.fromMessage(message);
         if (body instanceof RegistrationRequestDTO) {
-            registrationReceiver.onRegistrationRequest((RegistrationRequestDTO) body);
+            registrationReceiver.onRegistrationRequest((RegistrationRequestDTO) body, message.getMessageProperties().getReplyToAddress().getRoutingKey());
         }
     }
 }

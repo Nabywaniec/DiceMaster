@@ -3,7 +3,7 @@ package agh.to2.dicemaster.client;
 import agh.to2.dicemaster.client.api.GameEventHandler;
 import agh.to2.dicemaster.client.api.Server;
 import agh.to2.dicemaster.client.api.ServerGame;
-import agh.to2.dicemaster.client.api.UserType;
+import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 
