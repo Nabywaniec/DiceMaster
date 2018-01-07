@@ -23,21 +23,26 @@ public class SenderService {
         send(gameDTO, queueName);
     }
 
-    public void sendGames(Collection<GameDTO> games, String queueName){
-        send(games, queueName);
+    public void sendGames(Collection<GameDTO> games, String queueName) {
+        directSend(games, queueName);
     }
 
     public void sendRegistrationConfirmation(RegistrationConfirmationDTO registrationConfirmationDTO,
                                                       String queueName){
-        send(registrationConfirmationDTO, queueName);
+        directSend(registrationConfirmationDTO, queueName);
     }
 
     public void sendRequestErrorResponse(String message, String queueName) {
-        send(message, queueName);
+        // fixme change content type
+        directSend(message, queueName);
     }
 
     private void send(Object object, String queueName) {
         rabbitTemplate.convertAndSend("diceMasterExchange", queueName, object, this::setJsonContentType);
+    }
+
+    private void directSend(Object object, String routingKey) {
+        rabbitTemplate.convertAndSend(routingKey, object, this::setJsonContentType);
     }
 
     private Message setJsonContentType(Message message) {
