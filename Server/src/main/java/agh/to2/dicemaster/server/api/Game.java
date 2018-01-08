@@ -9,14 +9,12 @@ public abstract class Game {
     private int id;
     private GameConfigDTO gameConfigDTO;
 
-    private List<GameParticipant> players;
     public abstract void addObserver(GameParticipant gameParticipant);
     public abstract void addPlayer(GameParticipant gameParticipant);
     public abstract GameDTO getGameDTO();
 
-    public List<GameParticipant> getPlayers() {
-        return players;
-    }
+    public abstract List<GameParticipant> getPlayers();
+    public abstract List<GameParticipant> getObservers();
 
     public int getId() {
         return id;
