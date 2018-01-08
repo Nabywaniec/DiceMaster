@@ -33,7 +33,6 @@ public class SenderService {
     }
 
     public void sendRequestErrorResponse(String message, String queueName) {
-        // fixme change content type
         directSend(message, queueName);
     }
 

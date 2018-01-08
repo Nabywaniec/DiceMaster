@@ -28,7 +28,7 @@ public class RegistrationReceiver {
         if(requestDTO.getUsername().startsWith("bot#")){
             senderService.sendRequestErrorResponse("Username cannot start with \"bot#\"", replyToQueueName);
         } else if(usersManager.getUserById(requestDTO.getUsername()).isPresent()){
-            senderService.sendRequestErrorResponse(String.format("Username \"%s\"is taken", requestDTO.getUsername()), replyToQueueName);
+            senderService.sendRequestErrorResponse(String.format("Username \"%s\" is taken", requestDTO.getUsername()), replyToQueueName);
         } else {
             User createdUser = usersManager.createUser(requestDTO.getUsername(), requestDTO.getClientQueueName());
             senderService.sendRegistrationConfirmation(new RegistrationConfirmationDTO(createdUser.getServerQueueName()), replyToQueueName);
