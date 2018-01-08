@@ -37,7 +37,6 @@ public class SenderService {
     }
 
     public Optional<Object> requestGames() {
-        //todo check what happens if serverQueueName is null
         return Optional.ofNullable(rabbitTemplate.convertSendAndReceive(serverQueueName, "no-content",
                 message -> {
                     setRequestType(message, RequestType.GET_AVAILABLE_GAMES);

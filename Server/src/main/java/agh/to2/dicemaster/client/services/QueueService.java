@@ -1,17 +1,19 @@
 package agh.to2.dicemaster.client.services;
 
 import agh.to2.dicemaster.client.api.GameEventHandler;
+import agh.to2.dicemaster.common.api.GameDTO;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 
 public class QueueService {
 
     private final ConnectionFactory connectionFactory;
     private SimpleMessageListenerContainer container;
+    private MessageConverter messageConverter;
 
     public QueueService(String serverAddress) {
         connectionFactory = new CachingConnectionFactory(serverAddress);
@@ -27,8 +29,9 @@ public class QueueService {
         rabbitAdmin.declareExchange(exchange);
 
         container.setQueueNames(queue.getName());
+        container.setRabbitAdmin(rabbitAdmin);
         container.setConnectionFactory(connectionFactory);
-        container.setMessageConverter(new Jackson2JsonMessageConverter());
+        container.setMessageConverter(messageConverter);
 
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(queue.getName()));
 
@@ -36,7 +39,12 @@ public class QueueService {
     }
 
     public void startListeningToGameStateChange(GameEventHandler gameEventHandler) {
-        container.setupMessageListener(gameEventHandler);
+        container.setupMessageListener((MessageListener) message -> {
+            Object body = messageConverter.fromMessage(message);
+            if (body instanceof GameDTO) {
+                gameEventHandler.onGameChange((GameDTO) body);
+            }
+        });
         container.start();
     }
 

@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.client.game;
+package agh.to2.dicemaster.client;
 
 import agh.to2.dicemaster.client.api.GameEventHandler;
 import agh.to2.dicemaster.client.api.ServerGame;
@@ -11,10 +11,10 @@ public class DiceMasterServerGame extends ServerGame {
     private final SenderService senderService;
     private final QueueService queueService;
 
-    public DiceMasterServerGame(GameDTO gameDTO,
-                                SenderService senderService,
-                                QueueService queueService,
-                                GameEventHandler gameEventHandler) {
+    DiceMasterServerGame(GameDTO gameDTO,
+                         SenderService senderService,
+                         QueueService queueService,
+                         GameEventHandler gameEventHandler) {
         super(gameDTO);
         this.senderService = senderService;
         this.queueService = queueService;
