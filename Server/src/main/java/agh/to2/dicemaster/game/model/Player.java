@@ -7,13 +7,13 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 import java.util.ArrayList;
 
-public class Gamer extends GameParticipant{
+public class Player extends GameParticipant{
 
     private String id;
 
     private ArrayList<Dice.Value> dices = new ArrayList<>();
 
-    public Gamer(String id) {
+    public Player(String id) {
         this.id = id;
         this.dices.clear();
     }
@@ -23,13 +23,13 @@ public class Gamer extends GameParticipant{
 
     }
 
-    public void changeDices(Dice.Value t[], int n){
+    public void changeDices(Dice.Value t[]){
 
-        for(int i=0;i<n;i++){
+        for(int i=0;i<t.length;i++){
             this.dices.remove(t[i]);
         }
 
-        this.dices.addAll(DiceManager.getDices(n));
+        this.dices.addAll(DiceManager.getDices(t.length));
     }
 
     public ArrayList<Dice.Value> getDices() {

@@ -1,6 +1,6 @@
 package agh.to2.dicemaster.game.poker;
 
-import agh.to2.dicemaster.game.model.Gamer;
+import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import java.util.List;
 
 public class GameManager {
 
-    private HashMap<Gamer, Integer> game_results;
-    private HashMap<Gamer, Integer> round_results;
+    private HashMap<Player, Integer> game_results;
+    private HashMap<Player, Integer> round_results;
     private Algo algo;
     private List<GameParticipant> observers;
 
@@ -19,15 +19,15 @@ public class GameManager {
         this.algo = algo;
     }
 
-    public HashMap<Gamer, Integer> initialize(HashMap<Gamer, Integer> results){
+    public HashMap<Player, Integer> initialize(HashMap<Player, Integer> results){
 
-        for(Gamer key : results.keySet()){
+        for(Player key : results.keySet()){
             results.put(key, new Integer(0));
         }
         return results;
     }
 
-    public void addGamer(Gamer gamer){
+    public void addGamer(Player gamer){
         this.game_results.put(gamer, new Integer(0));
         this.round_results.put(gamer, new Integer(0));
         this.observers.add(gamer);
@@ -38,8 +38,8 @@ public class GameManager {
 
         int maxy =-1;
         String maxy_owner ="";
-        Gamer maxy_owner2 = null;
-        for(Gamer gamer:round_results.keySet()){
+        Player maxy_owner2 = null;
+        for(Player gamer:round_results.keySet()){
             int r;
             round_results.put(gamer, r = algo.getResult(gamer.getDices()));
             if(r > maxy){
@@ -48,7 +48,7 @@ public class GameManager {
 
             }
         }
-        System.out.println("Gamer " + maxy_owner + " win round!");
+        System.out.println("Player " + maxy_owner + " win round!");
         int r = this.game_results.get(maxy_owner2);
         game_results.put(maxy_owner2, r +1);
     }
@@ -57,16 +57,16 @@ public class GameManager {
         int maxy =-1;
         String maxy_owner = "";
         int r;
-        for(Gamer gamer : game_results.keySet()){
+        for(Player gamer : game_results.keySet()){
             if( (r = game_results.get(gamer)) > maxy){
                 maxy = r;
                 maxy_owner = gamer.getId();
             }
         }
-        System.out.println("Gamer " + maxy_owner + " win game !");
+        System.out.println("Player " + maxy_owner + " win game !");
     }
 
-    public void deleteGamer(Gamer gamerToDelete){
+    public void deleteGamer(Player gamerToDelete){
         this.game_results.remove(gamerToDelete);
         this.round_results.remove(gamerToDelete);
     }
