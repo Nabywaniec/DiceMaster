@@ -1,29 +1,21 @@
 package agh.to2.dicemaster.server.listeners;
 
 import agh.to2.dicemaster.common.RequestType;
-import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.server.DTO.CreateGameRequestDTO;
 import agh.to2.dicemaster.server.DTO.JoinGameRequestDTO;
 import agh.to2.dicemaster.server.receivers.RegisteredClientReceiver;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Component
 public class RegisteredClientListener implements MessageListener {
 
     private final RegisteredClientReceiver registeredClientReceiver;
     private final MessageConverter messageConverter;
-
-    private Map<Class, Runnable> actionMap = new HashMap<>();
 
     @Autowired
     public RegisteredClientListener(RegisteredClientReceiver registeredClientReceiver, MessageConverter messageConverter) {
