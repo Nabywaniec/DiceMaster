@@ -9,6 +9,8 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.MessageConverter;
 
+import java.util.UUID;
+
 public class QueueService {
 
     private final ConnectionFactory connectionFactory;
@@ -23,7 +25,7 @@ public class QueueService {
         container = new SimpleMessageListenerContainer();
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         TopicExchange exchange = new TopicExchange("diceMasterExchange");
-        Queue queue = new AnonymousQueue();
+        Queue queue = new Queue(UUID.randomUUID().toString(), false, true, false);
 
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
