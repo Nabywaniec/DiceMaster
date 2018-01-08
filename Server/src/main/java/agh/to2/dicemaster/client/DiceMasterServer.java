@@ -63,13 +63,11 @@ public class DiceMasterServer implements Server {
     public List<GameDTO> getAvailableGames() {
         validateRegistered();
 
-        List<GameDTO> result = new ArrayList<>();
-        senderService.requestGames().ifPresent(o -> convertToGameDTOList(o, result));
-
-        return result;
+        return senderService.requestGames().map(this::convertToGameDTOList).orElse(new ArrayList<>());
     }
 
-    private void convertToGameDTOList(Object responseObject, List<GameDTO> result) {
+    private List<GameDTO> convertToGameDTOList(Object responseObject) {
+        List<GameDTO> result = new ArrayList<>();
         if (responseObject instanceof List) {
             List gameDTOS = (List) responseObject;
 
@@ -79,6 +77,8 @@ public class DiceMasterServer implements Server {
                 }
             }
         }
+
+        return result;
     }
 
     @Override
