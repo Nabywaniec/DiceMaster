@@ -14,26 +14,25 @@ public class GameManager {
     private HashMap<Player, Integer> round_results;
     private Algo algo;
     private List<GameParticipant> observers;
-    private GameDTO game;
 
-    public GameManager(GameDTO game){
+    public GameManager(){
         this.game_results.clear();
         this.round_results.clear();
         this.algo = algo;
-        this.game = game;
+
     }
 
     public HashMap<Player, Integer> initialize(HashMap<Player, Integer> results){
 
         for(Player key : results.keySet()){
-            results.put(key, new Integer(0));
+            results.put(key, 0);
         }
         return results;
     }
 
     public void addGamer(Player gamer){
-        this.game_results.put(gamer, new Integer(0));
-        this.round_results.put(gamer, new Integer(0));
+        this.game_results.put(gamer, 0);
+        this.round_results.put(gamer, 0);
         this.observers.add(gamer);
     }
 

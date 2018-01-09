@@ -22,7 +22,7 @@ public class Information {
     public String format(){
 
         //TODO
-        return "";
+        return "Type : " + getType() + "message : " + getMessage();
 
     }
 
