@@ -10,9 +10,6 @@ import java.util.HashMap;
 
 public class Observer extends GameParticipant {
 
-
-    private ArrayList<GameDTO> gamesToObserve;
-
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
 
@@ -23,22 +20,5 @@ public class Observer extends GameParticipant {
 
     }
 
-    public HashMap<Player, Integer> getRoundResult(GameDTO game){
-        for(GameDTO gameDTO:gamesToObserve){
-            if(gameDTO.getId() == game.getId()){
-                return game.getGameManager().getRound_results();
-            }
-        }
-        return null;
-    }
-
-    public HashMap<Player, Integer> getGameResult(GameDTO game){
-        for(GameDTO gameDTO:gamesToObserve){
-            if(gameDTO.getId() == game.getId()){
-                return game.getGameManager().getGame_results();
-            }
-        }
-        return null;
-    }
 }
 
