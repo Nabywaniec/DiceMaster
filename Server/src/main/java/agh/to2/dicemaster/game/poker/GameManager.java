@@ -1,6 +1,7 @@
 package agh.to2.dicemaster.game.poker;
 
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.game.model.Observer;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.server.api.GameParticipant;
 
@@ -36,6 +37,9 @@ public class GameManager {
         this.observers.add(gamer);
     }
 
+    public void addObserver(GameParticipant observer){
+        this.observers.add(observer);
+    }
 
     public void findWinnerRound(){
 
