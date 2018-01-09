@@ -7,9 +7,13 @@ import agh.to2.dicemaster.server.api.Game;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class GameFactory {
+
+    private int id = 0;
+
     public Game createGame(GameConfigDTO gameConfigDTO) {
+        this.id += 1;
         if(gameConfigDTO.getGameType().equals(GameType.POKER)){
-            return new PokerGame();
+            return new PokerGame(this.id,gameConfigDTO);
         }
 
         throw new NotImplementedException();
