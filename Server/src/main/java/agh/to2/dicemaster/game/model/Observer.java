@@ -1,13 +1,12 @@
 package agh.to2.dicemaster.game.model;
 
 import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
+
 
 public class Observer extends GameParticipant {
 
