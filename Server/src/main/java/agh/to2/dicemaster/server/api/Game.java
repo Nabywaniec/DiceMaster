@@ -45,4 +45,8 @@ public abstract class Game {
     public void setGameConfigDTO(GameConfigDTO configDTO){
         this.gameConfigDTO=configDTO;
     }
+
+    public GameConfigDTO getGameConfigDTO() {
+        return gameConfigDTO;
+    }
 }

@@ -8,7 +8,7 @@ import agh.to2.dicemaster.server.api.GameParticipant;
 
 public class PokerGame extends Game {
 
-    public  PokerGame(int id, GameConfigDTO gameConfigDTO){
+    public PokerGame(int id, GameConfigDTO gameConfigDTO) {
         setId(id);
         setGameConfigDTO(gameConfigDTO);
         setGameManager(new GameManager());
@@ -16,11 +16,14 @@ public class PokerGame extends Game {
 
     @Override
     public void addObserver(GameParticipant gameParticipant) {
+
         this.getGameManager().addObserver(gameParticipant);
     }
 
     @Override
     public void addPlayer(GameParticipant player) {
-        this.getGameManager().addGamer((Player) player);
+        if (this.getGameConfigDTO().getMaxPlayers() >= this.getPlayers().size() + 1) {
+            this.getGameManager().addGamer((Player) player);
+        }
     }
 }
