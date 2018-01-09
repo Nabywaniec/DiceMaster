@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.game.poker;
 
+import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.server.api.GameParticipant;
 
@@ -12,11 +13,13 @@ public class GameManager {
     private HashMap<Player, Integer> round_results;
     private Algo algo;
     private List<GameParticipant> observers;
+    private GameDTO game;
 
-    public GameManager(){
+    public GameManager(GameDTO game){
         this.game_results.clear();
         this.round_results.clear();
         this.algo = algo;
+        this.game = game;
     }
 
     public HashMap<Player, Integer> initialize(HashMap<Player, Integer> results){
@@ -75,6 +78,11 @@ public class GameManager {
         return this.observers;
     }
 
+    public HashMap<Player, Integer> getGame_results() {
+        return game_results;
+    }
 
-
+    public HashMap<Player, Integer> getRound_results() {
+        return round_results;
+    }
 }
