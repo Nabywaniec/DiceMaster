@@ -74,7 +74,7 @@ public class Algo {
 
     public boolean have5same(ArrayList<Dice.Value> dices) {
         initialiseCounter();
-        //  setCounter(dices);
+        setCounter(dices);
         if (counter.keySet().contains(5)) return true;
         return false;
     }

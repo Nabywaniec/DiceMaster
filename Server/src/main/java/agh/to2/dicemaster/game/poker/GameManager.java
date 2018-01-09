@@ -16,8 +16,6 @@ public class GameManager {
     private List<GameParticipant> observers;
 
     public GameManager(){
-        this.game_results.clear();
-        this.round_results.clear();
         this.algo = algo;
 
     }
@@ -44,7 +42,7 @@ public class GameManager {
 
         int maxy =-1;
         String maxy_owner ="";
-        Player maxy_owner2 = null;
+        Player maxy_owner2 = new Player("");
         for(Player gamer:round_results.keySet()){
             int r;
             round_results.put(gamer, r = algo.getResult(gamer.getDices()));

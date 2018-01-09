@@ -15,7 +15,6 @@ public class Player extends GameParticipant{
 
     public Player(String id) {
         this.id = id;
-        this.dices.clear();
     }
 
     public void createDices(){
