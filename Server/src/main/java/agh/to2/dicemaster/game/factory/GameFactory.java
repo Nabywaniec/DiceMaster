@@ -15,6 +15,12 @@ public class GameFactory {
         if(gameConfigDTO.getGameType().equals(GameType.POKER)){
             return new PokerGame(this.id,gameConfigDTO);
         }
+        if(gameConfigDTO.getGameType().equals(GameType.NPLUS)){
+            return new NGame(this.id,gameConfigDTO);
+        }
+        if(gameConfigDTO.getGameType().equals(GameType.NTIMES)){
+            return new NGame(this.id,gameConfigDTO);
+        }
 
         throw new NotImplementedException();
     }
