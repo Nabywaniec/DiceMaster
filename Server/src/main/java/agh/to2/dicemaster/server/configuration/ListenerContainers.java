@@ -2,6 +2,7 @@ package agh.to2.dicemaster.server.configuration;
 
 import agh.to2.dicemaster.server.listeners.RegisteredClientListener;
 import agh.to2.dicemaster.server.listeners.RegistrationListener;
+import agh.to2.dicemaster.server.listeners.UnregistrationListener;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,16 @@ public class ListenerContainers {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listener);
+        return container;
+    }
+
+    @Bean(name = "unregistrationListenerContainer")
+    SimpleMessageListenerContainer unregistrationContainer(ConnectionFactory connectionFactory,
+                                                           UnregistrationListener listener) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setMessageListener(listener);
+        container.setQueueNames("queueDeletion");
         return container;
     }
 }

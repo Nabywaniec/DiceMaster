@@ -26,6 +26,7 @@ public class UsersManager {
     public User createUser(String username, String clientQueueName) {
         User user = new User(username, clientQueueName, senderService);
         userIdByQueueName.put(user.getServerQueueName(), user.getId());
+        userIdByQueueName.put(user.getClientQueueName(), user.getId());
         users.put(user.getId(), user);
         return user;
     }
@@ -45,5 +46,6 @@ public class UsersManager {
     public void removeUser(String userId) {
         User removedUser = users.remove(userId);
         userIdByQueueName.remove(removedUser.getServerQueueName());
+        userIdByQueueName.remove(removedUser.getClientQueueName());
     }
 }

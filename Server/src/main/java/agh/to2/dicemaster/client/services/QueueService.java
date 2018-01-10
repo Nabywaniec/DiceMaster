@@ -3,10 +3,10 @@ package agh.to2.dicemaster.client.services;
 import agh.to2.dicemaster.client.api.GameEventHandler;
 import agh.to2.dicemaster.common.api.GameDTO;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 
 import java.util.UUID;
@@ -17,8 +17,9 @@ public class QueueService {
     private SimpleMessageListenerContainer container;
     private MessageConverter messageConverter;
 
-    public QueueService(String serverAddress) {
-        connectionFactory = new CachingConnectionFactory(serverAddress);
+    public QueueService(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+        this.messageConverter = new Jackson2JsonMessageConverter();
     }
 
     public String configureClientQueue() {
