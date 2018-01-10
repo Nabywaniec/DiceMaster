@@ -23,11 +23,20 @@ public class Player extends GameParticipant {
     }
 
     public void rollDices(Iterable<Integer> dicesToRoll) {
-
         for (Integer diceNumber : dicesToRoll) {
             dices[diceNumber].roll();
         }
     }
+
+    public void rollDices(boolean[] dicesToRoll) {
+        for (int i = 0; i < dicesToRoll.length; i++) {
+            if(dicesToRoll[i]) {
+                dices[i].roll();
+            }
+        }
+    }
+
+
 
     public Dice[] getDices() {
         return dices.clone();
@@ -77,4 +86,5 @@ public class Player extends GameParticipant {
     public void incereaseRoundScore(int score) {
         this.roundScore += score;
     }
+
 }

@@ -2,9 +2,11 @@ package agh.to2.dicemaster.common.api;
 
 
 public class MoveDTO implements DTO {
+    private String playerId;
     private boolean[] dicesToReRoll;
 
-    public MoveDTO(boolean[] dicesToReRoll) {
+    public MoveDTO(String playerId, boolean[] dicesToReRoll) {
+        this.playerId = playerId;
         this.dicesToReRoll = dicesToReRoll;
     }
 
@@ -24,5 +26,13 @@ public class MoveDTO implements DTO {
     @Override
     public String toJSON() {
         return null;
+    }
+
+    public String getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
     }
 }
