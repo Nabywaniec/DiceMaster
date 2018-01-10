@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.server.DTO;
+package agh.to2.dicemaster.common.DTO;
 
 public class RegistrationConfirmationDTO {
     private String serverQueueName;
