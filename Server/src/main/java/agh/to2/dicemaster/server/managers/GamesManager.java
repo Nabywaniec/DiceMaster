@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,7 +18,7 @@ import java.util.stream.Stream;
 @Service
 public class GamesManager {
 
-    private HashMap<Integer, Game> games = new HashMap<>();
+    private Map<Integer, Game> games = new HashMap<>();
 
     public synchronized Game createGame(GameConfigDTO gameConfigDTO) {
 //        TODO: GameFactory.createGame(gameConfigDTO)
@@ -51,11 +52,10 @@ public class GamesManager {
 
     @Scheduled(fixedRate = 20000) //every 20 sec
     public synchronized void removeIdleGames(){
-        games.values()
+        this.games = games.entrySet()
                 .stream()
-                .filter(game ->
-                        Stream.concat(game.getPlayers().stream(), game.getObservers().stream())
-                        .noneMatch(player -> player instanceof User))
-                .forEach(game -> games.remove(game.getId()));
+                .filter(entry ->
+                        Stream.concat(entry.getValue().getPlayers().stream(), entry.getValue().getObservers().stream())
+                        .anyMatch(player -> player instanceof User)).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
