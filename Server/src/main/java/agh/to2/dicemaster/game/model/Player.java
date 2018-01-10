@@ -12,7 +12,6 @@ public class Player extends GameParticipant {
     private final GameParticipant gameParticipant;
     private final Dice[] dices = DiceManager.getDices(NUMBER_OF_DICES);
     private int gameScore = 0;
-    private int roundScore = 0;
 
     public Player(GameParticipant gameParticipant) {
         this.gameParticipant = gameParticipant;
@@ -23,11 +22,20 @@ public class Player extends GameParticipant {
     }
 
     public void rollDices(Iterable<Integer> dicesToRoll) {
-
         for (Integer diceNumber : dicesToRoll) {
             dices[diceNumber].roll();
         }
     }
+
+    public void rollDices(boolean[] dicesToRoll) {
+        for (int i = 0; i < dicesToRoll.length; i++) {
+            if(dicesToRoll[i]) {
+                dices[i].roll();
+            }
+        }
+    }
+
+
 
     public Dice[] getDices() {
         return dices.clone();
@@ -67,14 +75,7 @@ public class Player extends GameParticipant {
     }
 
     public int getRoundScore() {
-        return roundScore;
+        return PokerScore.getScore(dices);
     }
 
-    public void setRoundScore(int roundScore) {
-        this.roundScore = roundScore;
-    }
-
-    public void incereaseRoundScore(int score) {
-        this.roundScore += score;
-    }
 }

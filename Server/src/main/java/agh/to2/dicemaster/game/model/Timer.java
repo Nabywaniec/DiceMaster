@@ -1,32 +1,27 @@
 package agh.to2.dicemaster.game.model;
 
+import agh.to2.dicemaster.game.poker.PokerGameManager;
+import agh.to2.dicemaster.server.GamesManager;
+
 import java.util.concurrent.TimeUnit;
 
-public class Timer {
+public class Timer implements Runnable {
 
-    private int id;
+    private PokerGameManager gameManager;
+    private int secondsToCount;
 
-    public Timer(int id){
-        this.id = id;
+    public Timer(PokerGameManager gameManager, int secondsToCount) {
+        this.gameManager = gameManager;
+        this.secondsToCount = secondsToCount;
     }
 
-    public int countTime(long seconds){
-
+    @Override
+    public void run() {
         try {
-            TimeUnit.SECONDS.sleep(seconds);
-        }catch (InterruptedException ie){
+            TimeUnit.SECONDS.sleep(secondsToCount);
+        } catch (InterruptedException ie) {
             ie.printStackTrace();
         }
-        return 0;
+        gameManager.onTurnEnd();
     }
-
-    public int getId(){
-
-        return  id;
-    }
-
-
-
-
-
 }
