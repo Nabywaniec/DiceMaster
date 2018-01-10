@@ -48,6 +48,7 @@ public class PokerGameManager {
     public synchronized void onRoundEnd() {
         findRoundWinner();
         roundNumber++;
+        notifyAllGameParticipants();
         onRoundStart();
     }
 
@@ -56,6 +57,7 @@ public class PokerGameManager {
     }
 
     public synchronized void onGameEnd() {
+        notifyAllGameParticipants();
     }
 
     private void notifyAllGameParticipants() {
