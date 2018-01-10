@@ -35,7 +35,7 @@ public class ListenerContainers {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listener);
-        container.setQueueNames("queueDeletion");
+        container.setQueueNames("queueDeletionEvents");
         return container;
     }
 }
