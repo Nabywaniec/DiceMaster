@@ -1,17 +1,15 @@
 package agh.to2.dicemaster.game.model;
 
-import java.util.ArrayList;
 
 public class DiceManager {
 
+    public static Dice[] getDices(int numberOfDices) {
+        Dice[] dices = new Dice[numberOfDices];
 
-
-    public static ArrayList<Dice.Value> getDices(int n){
-        ArrayList<Dice.Value> newDices = new ArrayList<>();
-        for(int i=0;i<n;i++){
-            newDices.add(new Dice().getV());
+        for (int i = 0; i < dices.length; i++) {
+            dices[i] = new Dice();
         }
-        return newDices;
+        return dices;
     }
 
 

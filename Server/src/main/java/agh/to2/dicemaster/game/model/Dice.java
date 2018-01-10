@@ -21,9 +21,9 @@ public class Dice {
         this.value = Value.randomValue();
     }
 
-    public int getValue() {
+    public int getNumberOnDice() {
         return value.ordinal() + 1;
     }
 
-    public Value getV(){return this.value;}
+    public Value getValue(){return this.value;}
 }

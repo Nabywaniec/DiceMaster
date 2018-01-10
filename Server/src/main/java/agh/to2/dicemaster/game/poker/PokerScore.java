@@ -1,157 +1,110 @@
 package agh.to2.dicemaster.game.poker;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import agh.to2.dicemaster.game.model.Dice;
 
 
-public class Algo {
+public class PokerScore {
 
-    private HashMap<Dice.Value, Integer> counter = new HashMap<>();
+    private static class Counter {
+        Map<Dice.Value, Integer> counter = new HashMap<>();
 
-    public Algo() {
-        Stream.of(Dice.Value.values())
-                .forEach(value -> counter.put(value, 0));
-    }
-
-    private int sumdices(Dice.Value[] dices) {
-        int s = 0;
-        for (Dice.Value b : dices) {
-            s += b.ordinal();
-        }
-        return s;
-    }
-
-    public int getResult(Dice.Value[] dices) {
-
-        initialiseCounter();
-        setCounter(dices);
-
-        if (have5same(dices)) {
-            System.out.println("Poker");
-            return 500 + sumdices(dices);
+        Counter(Dice[] dices) {
+            Stream.of(Dice.Value.values())
+                    .forEach(value -> counter.put(value, 0));
+            Stream.of(dices)
+                    .forEach(dice ->
+                            counter.compute(dice.getValue(), (k, v) -> v + 1));
         }
 
-        if (have4same()) {
-            System.out.println("Kareta");
-            return 300 + sumdices(dices);
+        boolean hasFiveSame() {
+            return counter.values().contains(5);
         }
-        if (have3and2same()) {
-            System.out.println("Full");
-            return 200 + sumdices(dices);
+
+        boolean hasFourSame() {
+            return counter.values().contains(4);
         }
-        if (haveBigStrit()) {
-            System.out.println("Duży strit");
-            return 150;
+
+        boolean hasThreeAndTwoSame() {
+            return counter.values().contains(3) && counter.values().contains(2);
         }
-        if (haveSmallStrit()) {
-            System.out.println("Mały strit");
-            return 130;
+
+        boolean hasBigStraight() {
+            return !counter.values().contains(3) && !counter.values().contains(2)
+                    && counter.get(Dice.Value.ONE).equals(0);
         }
-        if (sum3() != -1) {
-            System.out.println("Trójka");
-            return sum3() + 100;
+
+        boolean hasSmallStraight() {
+            return !counter.values().contains(3) && !counter.values().contains(2)
+                    && counter.get(Dice.Value.ONE).equals(1);
         }
-        if (sum2And2() != -1) {
-            System.out.println("2 Dwójki");
-            return sum2And2() + 50;
-        }
-        if (sum2() != -1) {
-            System.out.println("Dwójka");
-            return sum2() + 30;
-        }
-        System.out.println("Nic");
-        return sumdices(dices);
 
-
-    }
-
-    public boolean have5same(Dice.Value[] dices) {
-        initialiseCounter();
-        setCounter(dices);
-        if (counter.keySet().contains(5)) return true;
-        return false;
-    }
-
-
-    public boolean have4same() {
-        if (counter.keySet().contains(4)) return true;
-        return false;
-
-    }
-
-    public boolean have3and2same() {
-        if (counter.values().contains(3) && counter.values().contains(2)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean haveBigStrit() {
-        if (!counter.values().contains(3) && !counter.values().contains(2)
-                && counter.get(Dice.Value.ONE).equals(0)) return true;
-        return false;
-    }
-
-    public boolean haveSmallStrit() {
-        if (!counter.values().contains(3) && !counter.values().contains(2)
-                && counter.get(Dice.Value.ONE).equals(1)) return true;
-        return false;
-    }
-
-    public int sum3() {
-        if (counter.values().contains(3)) {
-            for (Dice.Value key : counter.keySet()) {
-                if (counter.get(key).equals(3)) {
-                    return 3 * key.ordinal();
+        Optional<Integer> sumThreeOfKind() {
+            if (counter.values().contains(3)) {
+                for (Dice.Value key : counter.keySet()) {
+                    if (counter.get(key).equals(3)) {
+                        return Optional.of(3 * (key.ordinal() + 1));
+                    }
                 }
             }
-        }
-        return -1;
+            return Optional.empty();
 
-    }
-
-    public int sum2And2() {
-        System.out.println(counter);
-        int s = 0;
-        for (Dice.Value key : counter.keySet()) {
-            if (counter.get(key).equals(2)) s += 1;
         }
-        if (s == 2) {
-            s = 0;
-            for (Dice.Value key : counter.keySet()) {
-                if (counter.get(key).equals(2)) s += 2 * key.ordinal();
+
+        Optional<Integer> sumTwoPairs() {
+            long pairCount = counter.entrySet()
+                    .stream()
+                    .filter(entry -> entry.getValue() == 2)
+                    .count();
+            if (pairCount == 2) {
+                int sum = counter.entrySet()
+                        .stream()
+                        .filter(entry -> entry.getValue() == 2)
+                        .mapToInt(entry -> 2 * (entry.getKey().ordinal() + 1))
+                        .sum();
+                return Optional.of(sum);
             }
-            return s;
+            return Optional.empty();
         }
-        return -1;
-    }
 
-    public int sum2() {
-        if (counter.values().contains(2)) {
-            for (Dice.Value key : counter.keySet()) {
-                if (counter.get(key).equals(2)) {
-                    return 2 * key.ordinal();
+        Optional<Integer> sumPair() {
+            if (counter.values().contains(2)) {
+                for (Dice.Value key : counter.keySet()) {
+                    if (counter.get(key).equals(2)) {
+                        return Optional.of(2 * (key.ordinal() + 1));
+                    }
                 }
             }
-        }
-        return -1;
-    }
-
-
-    public void initialiseCounter() {
-        for (Dice.Value b : this.counter.keySet()) {
-            counter.put(b, 0);
+            return Optional.empty();
         }
     }
 
-    public void setCounter(Dice.Value[] dices) {
-        for (Dice.Value dice : dices) {
-            this.counter.put(dice, counter.get(dice) + 1);
+    private static int sumDices(Dice[] dices) {
+        int sum = 0;
+        for (Dice dice : dices) {
+            sum += dice.getNumberOnDice();
         }
-
+        return sum;
     }
 
+
+    public static int getScore(Dice[] dices) {
+        Counter counter = new Counter(dices);
+        int dicesSum = sumDices(dices);
+
+        if (counter.hasFiveSame()) return 500 + dicesSum;
+        if (counter.hasFourSame()) return 300 + dicesSum;
+        if (counter.hasThreeAndTwoSame()) return 200 + dicesSum;
+        if (counter.hasBigStraight()) return 150;
+        if (counter.hasSmallStraight()) return 130;
+        if (counter.sumThreeOfKind().isPresent()) return counter.sumThreeOfKind().get() + 100;
+        if (counter.sumTwoPairs().isPresent()) return counter.sumTwoPairs().get() + 50;
+        if (counter.sumPair().isPresent()) return counter.sumPair().get() + 30;
+        return dicesSum;
+
+    }
 }

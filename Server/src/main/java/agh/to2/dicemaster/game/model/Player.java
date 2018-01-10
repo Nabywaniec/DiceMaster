@@ -2,53 +2,56 @@ package agh.to2.dicemaster.game.model;
 
 
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
-import java.util.ArrayList;
+public class Player extends GameParticipant {
+    private static final int NUMBER_OF_DICES = 5;
+    private final GameParticipant gameParticipant;
+    private final Dice[] dices = DiceManager.getDices(NUMBER_OF_DICES);
+    private int score = 0;
 
-public class Player extends GameParticipant{
-
-    private String id;
-
-    private ArrayList<Dice.Value> dices = new ArrayList<>();
-
-    public Player(String id) {
-        this.id = id;
+    public Player(GameParticipant gameParticipant, Game game) {
+        this.gameParticipant = gameParticipant;
     }
 
-    public void createDices(){
-        this.dices.addAll(DiceManager.getDices(5));
+    public void rollDices(Iterable<Integer> dicesToRoll) {
 
+        for (Integer diceNumber : dicesToRoll) {
+            dices[diceNumber].roll();
+        }
     }
 
-    public void changeDices(Dice.Value t[]){
+    public Dice[] getDices() {
+        return dices.clone();
+    }
 
-        for(int i=0;i<t.length;i++){
-            this.dices.remove(t[i]);
+    public Dice.Value[] getDicesValues() {
+        Dice.Value[] values = new Dice.Value[dices.length];
+
+        for (int i = 0; i < values.length; i++) {
+            values[i] = dices[i].getValue();
         }
 
-        this.dices.addAll(DiceManager.getDices(t.length));
+        return values;
     }
 
-    public ArrayList<Dice.Value> getDices() {
-
-        ArrayList<Dice.Value> new_ = new ArrayList<>();
-        for(Dice.Value d : dices){
-            new_.add(d);
-        }
-        return new_;
+    public int getScore() {
+        return score;
     }
 
-    public String  getId() {
-        return id;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-
-    public  void notifyGameStateChange(GameDTO gameDTO){
-
+    @Override
+    public void notifyGameStateChange(GameDTO gameDTO) {
+        gameParticipant.notifyGameStateChange(gameDTO);
     }
-    public  void registerPlayerEventHandler(PlayerEventHandler playerEventHandler){
 
+    @Override
+    public void registerPlayerEventHandler(PlayerEventHandler playerEventHandler) {
+        gameParticipant.registerPlayerEventHandler(playerEventHandler);
     }
 }
