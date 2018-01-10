@@ -9,6 +9,8 @@ import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,9 @@ public class DiceMasterServer implements Server {
     private final SenderService senderService;
 
     public DiceMasterServer(String serverAddress) {
-        senderService = new SenderService(serverAddress, 5000);
-        queueService = new QueueService(serverAddress);
+        ConnectionFactory connectionFactory = new CachingConnectionFactory(serverAddress, 5672);
+        senderService = new SenderService(connectionFactory, 5000);
+        queueService = new QueueService(connectionFactory);
 
         queueService.configureClientQueue();
     }

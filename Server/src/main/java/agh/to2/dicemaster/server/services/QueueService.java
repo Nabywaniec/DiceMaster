@@ -36,9 +36,8 @@ public class QueueService {
                 BindingBuilder.bind(queue).to(exchange).with(queueName));
     }
 
-    public void removeRegisteredClientQueueName(String queueName) {
-        rabbitAdmin.deleteQueue(queueName);
-
+    public void removeRegisteredClientQueue(String queueName) {
         clientListenerContainer.removeQueueNames(queueName);
+        rabbitAdmin.deleteQueue(queueName);
     }
 }

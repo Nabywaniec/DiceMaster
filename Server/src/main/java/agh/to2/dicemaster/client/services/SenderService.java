@@ -9,7 +9,6 @@ import agh.to2.dicemaster.common.DTO.CreateGameRequestDTO;
 import agh.to2.dicemaster.common.DTO.JoinGameRequestDTO;
 import agh.to2.dicemaster.common.DTO.RegistrationRequestDTO;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -21,9 +20,7 @@ public class SenderService {
     private final RabbitTemplate rabbitTemplate;
     private String serverQueueName;
 
-    public SenderService(String serverAddress, int timeout) {
-        ConnectionFactory connectionFactory = new CachingConnectionFactory(serverAddress);
-
+    public SenderService(ConnectionFactory connectionFactory, int timeout) {
         rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setExchange("diceMasterExchange");
         rabbitTemplate.setReplyTimeout(timeout);
