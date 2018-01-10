@@ -2,6 +2,7 @@ package agh.to2.dicemaster.game.model;
 
 
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.game.poker.PokerScore;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;
@@ -10,10 +11,15 @@ public class Player extends GameParticipant {
     private static final int NUMBER_OF_DICES = 5;
     private final GameParticipant gameParticipant;
     private final Dice[] dices = DiceManager.getDices(NUMBER_OF_DICES);
-    private int score = 0;
+    private int gameScore = 0;
+    private int roundScore = 0;
 
-    public Player(GameParticipant gameParticipant, Game game) {
+    public Player(GameParticipant gameParticipant) {
         this.gameParticipant = gameParticipant;
+    }
+
+    public int getValueOfDies() {
+        return PokerScore.getScore(dices);
     }
 
     public void rollDices(Iterable<Integer> dicesToRoll) {
@@ -37,13 +43,6 @@ public class Player extends GameParticipant {
         return values;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
@@ -53,5 +52,29 @@ public class Player extends GameParticipant {
     @Override
     public void registerPlayerEventHandler(PlayerEventHandler playerEventHandler) {
         gameParticipant.registerPlayerEventHandler(playerEventHandler);
+    }
+
+    public int getGameScore() {
+        return gameScore;
+    }
+
+    public void setGameScore(int gameScore) {
+        this.gameScore = gameScore;
+    }
+
+    public void incereaseGameScore(int score) {
+        this.gameScore += score;
+    }
+
+    public int getRoundScore() {
+        return roundScore;
+    }
+
+    public void setRoundScore(int roundScore) {
+        this.roundScore = roundScore;
+    }
+
+    public void incereaseRoundScore(int score) {
+        this.roundScore += score;
     }
 }
