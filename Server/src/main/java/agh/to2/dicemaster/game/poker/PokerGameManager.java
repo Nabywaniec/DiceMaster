@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.game.poker;
 
+import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.game.model.Timer;
@@ -22,7 +23,7 @@ public class PokerGameManager {
 
 
     public synchronized void onTurnStart() {
-        if (currentPlayer == game.getPlayerList().size()) {
+        if (currentPlayer >= game.getPlayerList().size()) {
             onRoundEnd();
         }
         timerThread = new Thread(new Timer(this, ROUND_DURATION));
@@ -31,24 +32,23 @@ public class PokerGameManager {
 
     public synchronized void onTurnEnd() {
         currentPlayer++;
+        notifyAllGameParticipants();
         onTurnStart();
     }
 
     public synchronized void onRoundStart() {
-        currentPlayer = 0;
-        game.getPlayerList()
-                .forEach(player -> player.setRoundScore(0));
-        onTurnStart();
+        if (roundNumber > ROUND_COUNT) {
+            onGameEnd();
+        } else {
+            currentPlayer = 0;
+            onTurnStart();
+        }
     }
 
     public synchronized void onRoundEnd() {
         findRoundWinner();
-        if (roundNumber > ROUND_COUNT) {
-            onGameEnd();
-        } else {
-            roundNumber++;
-            onRoundStart();
-        }
+        roundNumber++;
+        onRoundStart();
     }
 
     public synchronized void onGameStart() {
@@ -56,6 +56,12 @@ public class PokerGameManager {
     }
 
     public synchronized void onGameEnd() {
+    }
+
+    private void notifyAllGameParticipants() {
+        GameDTO gameDTO = game.getGameDTO();
+        game.getPlayers().forEach(player -> player.notifyGameStateChange(gameDTO));
+        game.getObservers().forEach(observer -> observer.notifyGameStateChange(gameDTO));
     }
 
     public synchronized void performMove(MoveDTO moveDTO) {
@@ -70,7 +76,7 @@ public class PokerGameManager {
         timerThread.interrupt();
     }
 
-    public Player findRoundWinner() {
+    private Player findRoundWinner() {
         Player winner = game.getPlayerList()
                 .stream()
                 .max(Comparator.comparingInt(Player::getRoundScore))
@@ -79,7 +85,7 @@ public class PokerGameManager {
         return winner;
     }
 
-    public Player findGameWinner() {
+    private Player findGameWinner() {
         return game.getPlayerList()
                 .stream()
                 .max(Comparator.comparingInt(Player::getGameScore))

@@ -6,9 +6,14 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 public class PokerPlayerEventHandler implements PlayerEventHandler {
     private PokerGameManager manager;
 
+    public PokerPlayerEventHandler(PokerGameManager manager) {
+        this.manager = manager;
+    }
+
+
     @Override
     public void onMoveRequest(MoveDTO moveDTO) {
-
+        manager.performMove(moveDTO);
     }
 
     @Override
