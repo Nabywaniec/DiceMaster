@@ -20,7 +20,7 @@ public abstract class Bot extends User{
 
         DiceOutputDTO diceOutput = this.getDicesToThrow(diceInput);
 
-        MoveDTO moveDTO = converter.setGameState(diceOutput);
+        MoveDTO moveDTO = converter.makeNewMoveDTO(diceOutput);
 
         //this field is assigned to every User
         // FIXME the line below is absolutely necessary for proper workflow, but does not compile

@@ -5,7 +5,7 @@ import agh.to2.dicemaster.bot.BotType;
 import agh.to2.dicemaster.bot.IllegalBotTypeException;
 import agh.to2.dicemaster.bot.model.Bot;
 
-public abstract class AbstractBotFactory {
+public abstract class BotFactory {
 
   /*  abstract void adjustVeryEasyDifficulty();
     abstract void adjustVeryHardDifficulty();*/

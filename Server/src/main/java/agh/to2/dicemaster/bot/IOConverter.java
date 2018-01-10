@@ -12,7 +12,7 @@ public class IOConverter {
         return output;
     }
 
-    public MoveDTO setGameState(DiceOutputDTO output) {
+    public MoveDTO makeNewMoveDTO(DiceOutputDTO output) {
 
         // output is converted into MoveDTO....
         return new MoveDTO();

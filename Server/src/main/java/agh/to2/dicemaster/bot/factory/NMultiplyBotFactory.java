@@ -9,7 +9,7 @@ import agh.to2.dicemaster.bot.model.NMultiplyBotEasy;
 /**
  * Created by kamkalet on 03.01.2018.
  */
-public class NMultiplyBotFactory extends AbstractBotFactory {
+public class NMultiplyBotFactory extends BotFactory {
 
 /*    @Override
     void adjustVeryEasyDifficulty() {

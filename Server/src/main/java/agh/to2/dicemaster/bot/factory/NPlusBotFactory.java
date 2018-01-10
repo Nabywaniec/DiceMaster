@@ -6,12 +6,11 @@ import agh.to2.dicemaster.bot.IllegalBotTypeException;
 import agh.to2.dicemaster.bot.model.Bot;
 import agh.to2.dicemaster.bot.model.NPlusBotDifficult;
 import agh.to2.dicemaster.bot.model.NPlusBotEasy;
-import jdk.nashorn.internal.parser.JSONParser;
 
 /**
  * Created by kamkalet on 03.01.2018.
  */
-public class NPlusBotFactory extends AbstractBotFactory {
+public class NPlusBotFactory extends BotFactory {
 
    /* @Override
     void adjustVeryEasyDifficulty() {
