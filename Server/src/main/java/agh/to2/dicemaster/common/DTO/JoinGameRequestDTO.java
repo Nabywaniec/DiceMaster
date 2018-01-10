@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.server.DTO;
+package agh.to2.dicemaster.common.DTO;
 
 import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameDTO;

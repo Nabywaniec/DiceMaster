@@ -1,7 +1,7 @@
 package agh.to2.dicemaster.server.services;
 
 import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.server.DTO.RegistrationConfirmationDTO;
+import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

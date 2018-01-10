@@ -1,7 +1,7 @@
 package agh.to2.dicemaster.server.receivers;
 
-import agh.to2.dicemaster.server.DTO.RegistrationConfirmationDTO;
-import agh.to2.dicemaster.server.DTO.RegistrationRequestDTO;
+import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
+import agh.to2.dicemaster.common.DTO.RegistrationRequestDTO;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.managers.UsersManager;
 import agh.to2.dicemaster.server.services.QueueService;

@@ -2,8 +2,8 @@ package agh.to2.dicemaster.server.listeners;
 
 import agh.to2.dicemaster.common.RequestType;
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.server.DTO.CreateGameRequestDTO;
-import agh.to2.dicemaster.server.DTO.JoinGameRequestDTO;
+import agh.to2.dicemaster.common.DTO.CreateGameRequestDTO;
+import agh.to2.dicemaster.common.DTO.JoinGameRequestDTO;
 import agh.to2.dicemaster.server.receivers.RegisteredClientReceiver;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;

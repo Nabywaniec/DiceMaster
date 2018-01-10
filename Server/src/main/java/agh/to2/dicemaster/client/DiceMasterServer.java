@@ -8,7 +8,7 @@ import agh.to2.dicemaster.client.services.SenderService;
 import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.server.DTO.RegistrationConfirmationDTO;
+import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
