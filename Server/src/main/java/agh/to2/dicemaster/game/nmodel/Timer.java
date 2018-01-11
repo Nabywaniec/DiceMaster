@@ -20,7 +20,7 @@ public class Timer implements Runnable {
         try {
             TimeUnit.SECONDS.sleep(secondsToCount);
         } catch (InterruptedException ie) {
-            ie.printStackTrace();
+
         }
         gameRunner.kickPlayer();
 

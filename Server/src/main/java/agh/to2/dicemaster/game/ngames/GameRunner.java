@@ -26,7 +26,7 @@ public class GameRunner {
             rules.initializeDices((Player) p);
         }
         notifyAllGameParticipants();
-        runGame();
+        runRound();
     }
 
     private void notifyAllGameParticipants() {
@@ -37,7 +37,7 @@ public class GameRunner {
         timerThread.start();
     }
 
-    public synchronized void runGame(){
+    public synchronized void runRound(){
         for (Player p:players) {
             checkIfWon(p);
         }

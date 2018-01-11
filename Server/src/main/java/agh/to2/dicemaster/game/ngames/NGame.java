@@ -13,6 +13,7 @@ import java.util.*;
 public class NGame extends Game {
     GameConfigDTO gameConfigDTO;
     Rules rules;
+    GameDTO gameDTO;
     List<Player> players = new ArrayList<>();
     List<GameParticipant> observers=new LinkedList<GameParticipant>();
 
@@ -48,7 +49,6 @@ public class NGame extends Game {
     }
 
 
-
     @Override
     public List<GameParticipant> getPlayers() {
         return Collections.unmodifiableList(players);
@@ -61,7 +61,7 @@ public class NGame extends Game {
 
     @Override
     public GameDTO getGameDTO() {
-        return null;
+        return gameDTO;
     }
 
 
