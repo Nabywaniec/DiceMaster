@@ -13,4 +13,8 @@ public abstract class ServerGame {
 
     public abstract void makeMove(MoveDTO moveDTO);
     public abstract void leaveGame();
+
+    public GameDTO getGameDTO() {
+        return gameDTO;
+    }
 }
