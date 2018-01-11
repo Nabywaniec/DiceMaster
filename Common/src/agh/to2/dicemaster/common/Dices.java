@@ -5,6 +5,12 @@ public class Dices {
 
     public Dices() {
         dicesScore = new DiceNumbers[5];
+        dicesScore[0] = DiceNumbers.UNKNOWN;
+        dicesScore[1] = DiceNumbers.UNKNOWN;
+        dicesScore[2] = DiceNumbers.UNKNOWN;
+        dicesScore[3] = DiceNumbers.UNKNOWN;
+        dicesScore[4] = DiceNumbers.UNKNOWN;
+        
     }
 
     public Dices(DiceNumbers[] dicesNumbers) {
