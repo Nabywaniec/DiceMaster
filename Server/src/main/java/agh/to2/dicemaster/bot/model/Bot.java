@@ -9,7 +9,13 @@ import agh.to2.dicemaster.server.User;
 
 public abstract class Bot extends User{
 
+    protected DiceOutputDTO result;
+
     abstract DiceOutputDTO getDicesToThrow(DiceInputDTO input);
+
+    Bot(){
+        result = new DiceOutputDTO();
+    }
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
@@ -24,7 +30,7 @@ public abstract class Bot extends User{
 
         //this field is assigned to every User
         // FIXME the line below is absolutely necessary for proper workflow, but does not compile
-        //this.playerEventHandler.onMoveRequest(moveDTO);
+      //  this.playerEventHandler.onMoveRequest(moveDTO);
 
     }
 

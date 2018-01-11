@@ -10,21 +10,10 @@ import agh.to2.dicemaster.bot.model.PokerBotEasy;
 /**
  * Created by kamkalet on 03.01.2018.
  */
-public class PokerBotFactory extends AbstractBotFactory {
-/*
-    @Override
-    void adjustVeryEasyDifficulty() {
-
-    }
-
-    @Override
-    void adjustVeryHardDifficulty() {
-
-    }*/
+public class PokerBotFactory extends BotFactory {
 
     @Override
     public Bot createBot(BotType type) throws IllegalBotTypeException {
-        //super.determineDifficulty(type);
         switch (type) {
             case EASY:
                 return new PokerBotEasy();
@@ -33,4 +22,5 @@ public class PokerBotFactory extends AbstractBotFactory {
         }
         throw new IllegalBotTypeException();
     }
+
 }

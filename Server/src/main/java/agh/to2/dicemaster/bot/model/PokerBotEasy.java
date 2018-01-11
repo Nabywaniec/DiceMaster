@@ -7,8 +7,6 @@ import agh.to2.dicemaster.bot.helpers.Hand;
 import agh.to2.dicemaster.bot.helpers.HandChecker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,7 +15,6 @@ import java.util.List;
 public class PokerBotEasy extends Bot {
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input) {
-        DiceOutputDTO result = new DiceOutputDTO();
         // TODO implement this method
 
         List<Integer> dicesToThrow = new ArrayList<>();

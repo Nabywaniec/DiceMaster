@@ -14,7 +14,6 @@ import java.util.List;
 public class NPlusBotDifficult extends Bot{
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
-        DiceOutputDTO result = new DiceOutputDTO();
 
 
         //FIXME mocked result prepared

@@ -12,8 +12,6 @@ import java.util.List;
 public class PokerBotDifficult extends Bot {
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input) {
-        DiceOutputDTO result = new DiceOutputDTO();
-
 
         //FIXME mocked result prepared
         List<Integer> tmp = Arrays.asList(4,5,6);

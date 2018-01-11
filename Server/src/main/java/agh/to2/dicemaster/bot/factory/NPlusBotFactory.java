@@ -12,19 +12,8 @@ import agh.to2.dicemaster.bot.model.NPlusBotEasy;
  */
 public class NPlusBotFactory extends BotFactory {
 
-   /* @Override
-    void adjustVeryEasyDifficulty() {
-
-    }
-
-    @Override
-    void adjustVeryHardDifficulty() {
-
-    }*/
-
     @Override
     public Bot createBot(BotType type) throws IllegalBotTypeException {
-        //super.determineDifficulty(type);
         switch (type) {
             case EASY:
                 return new NPlusBotEasy();
