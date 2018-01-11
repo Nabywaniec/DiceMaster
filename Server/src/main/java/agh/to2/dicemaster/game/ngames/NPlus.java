@@ -33,9 +33,10 @@ public class NPlus implements Rules {
 
 
     @Override
-    public void drawDices(Player player, MoveDTO move) {
-        for (int i = 0; i < 5; i++) {
-
+    public void drawDices(Player player, MoveDTO move){
+        boolean [] dicesToReroll = move.getDicesToReRoll();
+        for(int i = 0; i < 5; i++){
+            if(dicesToReroll[i]) player.setDice(i, Dice.randomDice());
         }
     }
 

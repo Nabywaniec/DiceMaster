@@ -37,10 +37,10 @@ public class NTimes implements Rules {
 
 
     @Override
-    public void drawDices(Player player, MoveDTO move) {
-        for (int i = 0; i < 5; i++) {
-            //TODO
-           // if (move.getDicesToReRoll() player.setDice(i, Dice.randomDice());
+    public void drawDices(Player player, MoveDTO move){
+        boolean [] dicesToReroll = move.getDicesToReRoll();
+        for(int i = 0; i < 5; i++){
+            if(dicesToReroll[i]) player.setDice(i, Dice.randomDice());
         }
     }
 

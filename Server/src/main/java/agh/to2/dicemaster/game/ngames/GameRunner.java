@@ -8,8 +8,6 @@ import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.List;
 
-import static sun.audio.AudioPlayer.player;
-
 /**
  * Created by werka on 10.01.18.
  */
@@ -39,7 +37,7 @@ public class GameRunner {
         timerThread.start();
     }
 
-    public void runGame(){
+    public synchronized void runGame(){
         for (Player p:players) {
             checkIfWon(p);
         }
@@ -82,8 +80,7 @@ public class GameRunner {
     public synchronized void performMove(MoveDTO moveDTO) {
         for (Player p :players){
             if(moveDTO.getPlayerId().equals(p.getId())&& players.get(turn) ==(p));
-           //TODO
-            // rules.drawDices(p,);
+            rules.drawDices(p,moveDTO);
         }
         timerThread.interrupt();
     }
