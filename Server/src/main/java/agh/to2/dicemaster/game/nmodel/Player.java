@@ -10,7 +10,7 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
  */
 public class Player extends GameParticipant{
 
-    Dice[] dices = new Dice[5];
+    public Dice[] dices = new Dice[5];
     Integer score;
     GameParticipant gameParticipant;
     public Player(GameParticipant gameParticipant) {
@@ -25,6 +25,14 @@ public class Player extends GameParticipant{
 
     public void setDice(int  i, Dice dice){
         dices[i] = dice;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void addRoundWon() {
+        this.score = score+1;
     }
 
 

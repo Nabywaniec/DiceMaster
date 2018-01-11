@@ -3,7 +3,7 @@ package agh.to2.dicemaster.game.ngames;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.nmodel.Dice;
 import agh.to2.dicemaster.game.nmodel.Player;
-import com.sun.xml.internal.bind.v2.TODO;
+import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.List;
 import java.util.Random;
@@ -21,6 +21,11 @@ public class NTimes implements Rules {
             result *= d.getValue();
         }
         return result;
+    }
+
+    @Override
+    public boolean countPoints(Player player) {
+        return false;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class NTimes implements Rules {
     }
 
     @Override
-    public void initializeRound(List<Player> players) {
+    public int initializeRound(List<Player> players) {
         int[] dices = new int[5];
         Integer aim = 1;
         Random generator = new Random();
@@ -53,5 +58,8 @@ public class NTimes implements Rules {
             dices[i] = generator.nextInt(6) + 1;
             aim *= dices[i];
         }
+        return generator.nextInt(players.size());
     }
+
+
 }

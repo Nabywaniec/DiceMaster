@@ -13,28 +13,27 @@ import java.util.*;
 public class NGame extends Game {
     GameConfigDTO gameConfigDTO;
     Rules rules;
-    List<Player> players = new ArrayList<Player>();
+    List<Player> players = new ArrayList<>();
     List<GameParticipant> observers=new LinkedList<GameParticipant>();
 
     public NGame(int id, GameConfigDTO gameConfigDTO) {
         super(id,gameConfigDTO);
         this.gameConfigDTO=gameConfigDTO;
-        if (gameConfigDTO.getGameType() == GameType.NPLUS) {
-            rules = new NPlus();
-        }
-        if (gameConfigDTO.getGameType() == GameType.NTIMES) {
-            rules = new NTimes();
-        }
-      /* for (int i=0; i< gameConfigDTO.getEasyBotsCount();i++) {
+         /* for (int i=0; i< gameConfigDTO.getEasyBotsCount();i++) {
 
        }
         for (int i=0; i< gameConfigDTO.getHardBotsCount();i++) {
 
         }*/
-      rules.initializeRound(players);
-        for (Player p:players) {
-            rules.initializeDices(p);
+        if (gameConfigDTO.getGameType() == GameType.NPLUS) {
+            this.rules = new NPlus();
         }
+        if (gameConfigDTO.getGameType() == GameType.NTIMES) {
+            this.rules = new NTimes();
+        }
+        GameRunner gameRunner=new GameRunner(rules,players,this);
+
+
     }
 
     @Override
@@ -51,13 +50,13 @@ public class NGame extends Game {
 
 
     @Override
-    public List<GameParticipant> getPlayers() {
-        return null;
+    public List<Player> getPlayers() {
+        return players;
     }
 
     @Override
     public List<GameParticipant> getObservers() {
-        return null;
+        return observers;
     }
 
     @Override
