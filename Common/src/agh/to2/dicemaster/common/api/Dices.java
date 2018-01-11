@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.common;
+package agh.to2.dicemaster.common.api;
 
 public class Dices {
     private DiceNumbers dicesScore[];
@@ -10,7 +10,7 @@ public class Dices {
         dicesScore[2] = DiceNumbers.UNKNOWN;
         dicesScore[3] = DiceNumbers.UNKNOWN;
         dicesScore[4] = DiceNumbers.UNKNOWN;
-        
+
     }
 
     public Dices(DiceNumbers[] dicesNumbers) {

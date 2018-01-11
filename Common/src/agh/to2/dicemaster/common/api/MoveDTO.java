@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.common;
+package agh.to2.dicemaster.common.api;
 
 public class MoveDTO {
     private boolean[] dicesToReRoll;
