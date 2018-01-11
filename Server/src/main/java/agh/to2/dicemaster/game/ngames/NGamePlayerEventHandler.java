@@ -12,7 +12,7 @@ public class NGamePlayerEventHandler implements PlayerEventHandler {
 
     @Override
     public void onMoveRequest(MoveDTO moveDTO) {
-
+        gameRunner.performMove(moveDTO);
     }
 
     @Override

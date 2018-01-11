@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface Rules {
 
-    Integer getresult(Player player);
-
     boolean countPoints(Player player);
 
     void initializeDices(Player player);

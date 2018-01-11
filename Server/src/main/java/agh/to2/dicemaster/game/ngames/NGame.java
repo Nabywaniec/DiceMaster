@@ -21,7 +21,7 @@ public class NGame extends Game {
         this.gameConfigDTO=gameConfigDTO;
          /* for (int i=0; i< gameConfigDTO.getEasyBotsCount();i++) {
 
-       }
+        }
         for (int i=0; i< gameConfigDTO.getHardBotsCount();i++) {
 
         }*/
@@ -50,8 +50,8 @@ public class NGame extends Game {
 
 
     @Override
-    public List<Player> getPlayers() {
-        return players;
+    public List<GameParticipant> getPlayers() {
+        return Collections.unmodifiableList(players);
     }
 
     @Override
