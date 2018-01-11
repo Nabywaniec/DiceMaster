@@ -13,7 +13,7 @@ public class PlayerPresenter {
 
     private Server server;
     private ServerGame serverGame;
-    private Player player;
+    private UserInGame userInGame;
     private String userName;
 
     public PlayerPresenter() {

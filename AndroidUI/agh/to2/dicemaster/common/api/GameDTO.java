@@ -1,6 +1,7 @@
 package agh.to2.dicemaster.common.api;
 
 public abstract class GameDTO {
+    //needs verification
     private int id;
     private GameConfigDTO gameConfigDTO;
 
@@ -19,4 +20,7 @@ public abstract class GameDTO {
     public void setGameConfigDTO(GameConfigDTO gameConfigDTO) {
         this.gameConfigDTO = gameConfigDTO;
     }
+
+    public abstract void fromJSON(String JSON);
+    public abstract void toJSON(String JSON);
 }
