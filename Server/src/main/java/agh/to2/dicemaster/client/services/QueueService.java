@@ -26,7 +26,8 @@ public class QueueService {
         container = new SimpleMessageListenerContainer();
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         TopicExchange exchange = new TopicExchange("diceMasterExchange");
-        Queue queue = new Queue(UUID.randomUUID().toString(), false, true, false);
+        Queue queue = new Queue("diceMaster" + UUID.randomUUID().toString(),
+                false, true, false);
 
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
