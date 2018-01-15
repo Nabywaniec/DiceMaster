@@ -36,6 +36,7 @@ public class QueueService {
         container.setRabbitAdmin(rabbitAdmin);
         container.setConnectionFactory(connectionFactory);
         container.setMessageConverter(messageConverter);
+        container.setDefaultRequeueRejected(false);
 
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(queue.getName()));
 
