@@ -32,10 +32,6 @@ public class DiceMasterServer implements Server {
         queueService.configureClientQueue();
     }
 
-    public DiceMasterServer(String serverAddress) {
-        this(serverAddress, "guest", "guest");
-    }
-
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
         validateRegistered();
