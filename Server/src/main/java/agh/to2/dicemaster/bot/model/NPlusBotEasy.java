@@ -11,6 +11,7 @@ import java.util.Random;
 public class NPlusBotEasy extends Bot{
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
+
         DiceOutputDTO result = new DiceOutputDTO();
         result.setNumToFinishGame(input.getNumToFinishGame());
 

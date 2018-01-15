@@ -11,13 +11,14 @@ import java.util.stream.IntStream;
 
 public class NMultiplyBotEasy extends Bot{
 
+
     private boolean isPrime(int number) {
         return number > 2
                 && IntStream.rangeClosed(2, (int) Math.sqrt(number))
                 .noneMatch(n -> (number % n == 0));
     }
 
-
+    @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input) {
         DiceOutputDTO result = new DiceOutputDTO();
         result.setNumToFinishGame(input.getNumToFinishGame());

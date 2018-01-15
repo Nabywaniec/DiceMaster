@@ -2,12 +2,14 @@ package agh.to2.dicemaster.bot.helpers;
 
 import agh.to2.dicemaster.bot.IllegalBotTypeException;
 import agh.to2.dicemaster.bot.IllegalHandException;
+import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-public class HandChecker {
+public class HandUtils {
 
     public static List<Integer> getDicesNotFromHand(List<Integer> inputHand) throws IllegalHandException {
         Collections.sort(inputHand);
@@ -98,6 +100,92 @@ public class HandChecker {
         }
         return Hand.Bust;
 
+    }
+
+    public static String getFileName(List<Integer> inputHand) {
+        StringBuilder result = new StringBuilder("agh/to2/dicemaster/bot/helpers/data");
+
+        for (Integer i :
+                inputHand) {
+            result.append(i);
+        }
+
+        result.append(".json");
+
+        return result.toString();
+    }
+
+    public static Double getHandValue(Long hand) {
+        switch (hand.intValue()) {
+            case 1:
+                return 0.0;
+            case 2:
+                return 30.0;
+            case 3:
+                return 50.0;
+            case 4:
+                return 100.0;
+            case 5:
+                return 140.0;
+            case 6:
+                return 200.0;
+            case 7:
+                return 300.0;
+            case 8:
+                return 500.0;
+        }
+        return 0.0;
+    }
+
+    public static Integer getHandNumber(Hand hand){
+        switch (hand) {
+            case Bust:
+                return 1;
+            case OnePair:
+                return 2;
+            case TwoPairs:
+                return 3;
+            case Three:
+                return 4;
+            case Straight:
+                return 5;
+            case Full:
+                return 6;
+            case Four:
+                return 7;
+            case Five:
+                return 8;
+        }
+        return 0;
+    }
+
+    public static List<Integer> integerListFromLongList(JSONArray mask) {
+        List<Long> longs = new LinkedList<>();
+        List<Integer> results = new LinkedList<>();
+
+        for (Object val :
+                mask) {
+            longs.add((Long) val);
+        }
+
+        for (Long l :
+                longs) {
+            results.add(l.intValue());
+        }
+        return results;
+    }
+
+    public static Integer getMaxIndex(ArrayList<Double> input) {
+        Integer result = 0;
+        Double tmp = input.get(0);
+        int len = input.size();
+        for (int i = 1; i < len; i++) {
+            if (input.get(i) >= tmp) {
+                tmp = input.get(i);
+                result = i;
+            }
+        }
+        return result;
     }
 
     private static boolean sortedContainsFive(List<Integer> inputHand){

@@ -10,7 +10,6 @@ public class NMultiplyBotDifficult extends Bot{
 
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
-        DiceOutputDTO result = new DiceOutputDTO();
 
 
         //FIXME mocked result prepared

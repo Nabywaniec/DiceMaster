@@ -1,6 +1,7 @@
 package agh.to2.dicemaster.bot;
 
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.MoveDTO;
 
 public class IOConverter {
 
@@ -12,11 +13,11 @@ public class IOConverter {
         return output;
     }
 
-    public MoveDTO setGameState(DiceOutputDTO output) {
+    public MoveDTO makeNewMoveDTO(DiceOutputDTO output) {
 
         // output is converted into MoveDTO....
-        return new MoveDTO();
-
+//        return new MoveDTO();
+        return null;
         // TODO implement this method
     }
 }

@@ -9,6 +9,8 @@ import java.util.Collection;
 
 public class User extends GameParticipant {
 
+    public PlayerEventHandler playerEventHandler;
+
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
 
