@@ -24,7 +24,7 @@ public class QueueService {
     }
 
     public void addRegisteredClientQueue(String queueName) {
-        Queue queue = new Queue(queueName);
+        Queue queue = new Queue(queueName, false, true, false);
         rabbitAdmin.declareQueue(queue);
 
         clientListenerContainer.addQueueNames(queueName);
