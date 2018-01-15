@@ -17,6 +17,7 @@ public class ListenerContainers {
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames("registrationQueue");
         container.setMessageListener(listener);
+        container.setDefaultRequeueRejected(false);
         return container;
     }
 
@@ -26,6 +27,7 @@ public class ListenerContainers {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listener);
+        container.setDefaultRequeueRejected(false);
         return container;
     }
 
@@ -36,6 +38,7 @@ public class ListenerContainers {
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listener);
         container.setQueueNames("queueDeletionEvents");
+        container.setDefaultRequeueRejected(false);
         return container;
     }
 }
