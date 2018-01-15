@@ -5,7 +5,7 @@ import agh.to2.dicemaster.common.api.GameDTO;
 public class IOConverter {
 
     public DiceInputDTO getDiceInputDTO(GameDTO input){
-        DiceInputDTO output = new DiceInputDTO();
+        DiceInputDTO output = new DiceInputDTO(input.getGameConfigDTO().getNumToFinishGame());
 
         //TODO implement this method
 

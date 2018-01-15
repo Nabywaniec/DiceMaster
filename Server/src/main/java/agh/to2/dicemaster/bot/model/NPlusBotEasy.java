@@ -5,7 +5,6 @@ import agh.to2.dicemaster.bot.DiceInputDTO;
 import agh.to2.dicemaster.bot.DiceOutputDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +12,7 @@ public class NPlusBotEasy extends Bot{
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
         DiceOutputDTO result = new DiceOutputDTO();
+        result.setNumToFinishGame(input.getNumToFinishGame());
 
         int dicesAvailabletoThrow = input.getMyInput().size();
 
@@ -24,23 +24,14 @@ public class NPlusBotEasy extends Bot{
         int to_Remove;
         for (int i=0;i<dicesToPutAside;i++){
             to_Remove = r.nextInt(dicesToThrow.size());
-            dicesToThrow.remove(to_Remove);
+            if ( (dicesToThrow.size()-1)*6 >= result.getNumToFinishGame()-dicesToThrow.get(to_Remove) &&
+                     (dicesToThrow.size()-1)*1 <= result.getNumToFinishGame()-dicesToThrow.get(to_Remove) ) {   //*1 to show it clearly
+                result.subtractNumToFinishGame(dicesToThrow.get(to_Remove));
+                dicesToThrow.remove(to_Remove);
+            }
         }
 
-//        int sum = 0;
-//        for (int i: dicesToThrow) {
-//            sum += i;
-//        }
-//        if (sum+dicesToThrow.size()<suma_do_wyrzucenia)
-//            dicesToThrow=input.getMyInput();
-
-
         result.setDicesToThrow(dicesToThrow);
-
-        //FIXME mocked result prepared
-//        List<Integer> tmp = Arrays.asList(4,5,6);
-//        result.setDicesToThrow(tmp);
-
 
 
         return result;
