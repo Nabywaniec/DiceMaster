@@ -23,6 +23,10 @@ public class SenderService {
         send(gameDTO, queueName);
     }
 
+    public void directSendGameState(GameDTO gameDTO, String queueName) {
+        directSend(gameDTO, queueName);
+    }
+
     public void sendGames(Collection<GameDTO> games, String queueName) {
         directSend(games, queueName);
     }

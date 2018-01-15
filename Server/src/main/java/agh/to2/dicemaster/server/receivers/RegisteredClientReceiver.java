@@ -1,9 +1,9 @@
 package agh.to2.dicemaster.server.receivers;
 
+import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.managers.GamesManager;
@@ -42,7 +42,7 @@ public class RegisteredClientReceiver {
         if(userOptional.isPresent() && !userOptional.get().isUserInGame()){
             Game game = gamesManager.createGame(gameConfigDTO);
             gamesManager.addUserToGame(userType, userOptional.get(), game.getId());
-            senderService.sendGameState(game.getGameDTO(), replyToQueueName);
+            senderService.directSendGameState(game.getGameDTO(), replyToQueueName);
         }
     }
 
@@ -52,7 +52,7 @@ public class RegisteredClientReceiver {
             gamesManager.addUserToGame(userType, userOptional.get(), gameDTO.getId());
             Optional<Game> game = gamesManager.getGameById(gameDTO.getId());
             if(game.isPresent()){
-                senderService.sendGameState(game.get().getGameDTO(), replyToQueueName);
+                senderService.directSendGameState(game.get().getGameDTO(), replyToQueueName);
             } else {
                 senderService.sendRequestErrorResponse("No such game", replyToQueueName);
             }
