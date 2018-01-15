@@ -6,6 +6,9 @@ public class UserInGame {
     private Integer score;
     private boolean isHisTurn;
 
+    public UserInGame() { // Jackson2 default constructor
+    }
+
     public UserInGame(String userName, Dices dices, Integer score, boolean isHisTurn) {
         this.userName = userName;
         this.dices = dices;

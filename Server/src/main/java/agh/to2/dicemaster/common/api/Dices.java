@@ -20,4 +20,8 @@ public class Dices {
     public DiceNumbers[] getDicesScore() {
         return dicesScore;
     }
+
+    public void setDicesScore(DiceNumbers[] dicesScore) { // Jackson2 setter
+        this.dicesScore = dicesScore;
+    }
 }
