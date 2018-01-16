@@ -24,4 +24,6 @@ public class Timer implements Runnable {
         }
         gameManager.onTurnEnd();
     }
+
 }
+
