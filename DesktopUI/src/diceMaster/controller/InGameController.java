@@ -50,26 +50,7 @@ public class InGameController implements GameEventHandler {
         this.dicesField.setDicesFiledScale(1);
 
         GameDTO gameDTO = new FakeServer().getGameDTO();
-        List<UserInGame> beforeMove = new LinkedList<>();
-        List<UserInGame> afterMove = new LinkedList<>();
-        boolean foundCurrentPlayer = false;
-
-        for(UserInGame player: gameDTO.getPlayers()){
-            if(player.isHisTurn()){
-                foundCurrentPlayer = true;
-                this.currentUser.init(player);
-                continue;
-            }
-
-            if(foundCurrentPlayer){
-                afterMove.add(player);
-            } else {
-                beforeMove.add(player);
-            }
-        }
-
-        this.playersMoved.init(afterMove);
-        this.playersWaitingForMove.init(beforeMove);
+        this.setPlayersListToView(gameDTO.getPlayers());
     }
 
     private void bindSizeProperties(){
@@ -94,7 +75,7 @@ public class InGameController implements GameEventHandler {
                 dicesField.getDiceViews().get(i).setSelected(false);
         reRollButton.setDisable(true);
 
-        dicesField.setDicesFiledScale(0.1);
+        dicesField.setDicesFiledScale(0.4);
         //serverGame.makeMove(null);
     }
 
@@ -109,11 +90,33 @@ public class InGameController implements GameEventHandler {
 
     @Override
     public void refreshGame(GameDTO game) {
-
+        this.setPlayersListToView(game.getPlayers());
     }
 
     public void setServerGame(ServerGame serverGame) {
         this.serverGame = serverGame;
     }
 
+    private void setPlayersListToView(List<UserInGame> players){
+        List<UserInGame> beforeMove = new LinkedList<>();
+        List<UserInGame> afterMove = new LinkedList<>();
+        boolean foundCurrentPlayer = false;
+
+        for(UserInGame player: players){
+            if(player.isHisTurn()){
+                foundCurrentPlayer = true;
+                this.currentUser.init(player);
+                continue;
+            }
+
+            if(foundCurrentPlayer){
+                afterMove.add(player);
+            } else {
+                beforeMove.add(player);
+            }
+        }
+
+        this.playersMoved.init(afterMove);
+        this.playersWaitingForMove.init(beforeMove);
+    }
 }
