@@ -5,11 +5,7 @@ import agh.to2.dicemaster.common.api.GameDTO;
 import java.util.List;
 
 public class LobbyView {
-    public void show() {
-
-    }
-
-    public void hide() {
+    void switchTo(){
 
     }
 
