@@ -5,14 +5,20 @@ import agh.to2.dicemaster.bot.DiceOutputDTO;
 import agh.to2.dicemaster.bot.IOConverter;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 public abstract class Bot extends GameParticipant{
 
     protected DiceOutputDTO result = new DiceOutputDTO();
+    private PlayerEventHandler playerEventHandler;
 
     abstract DiceOutputDTO getDicesToThrow(DiceInputDTO input);
+
+    @Override
+    public void registerPlayerEventHandler(PlayerEventHandler playerEventHandler) {
+        this.playerEventHandler = playerEventHandler;
+    }
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
