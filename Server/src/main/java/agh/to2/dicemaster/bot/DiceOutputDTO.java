@@ -5,24 +5,24 @@ import java.util.List;
 public class DiceOutputDTO {
     private List<Integer> dicesToThrow;
 
-    public void subtractNumToFinishGame(int numOnDiceToPutAside) {
-        this.numToFinishGame -= numOnDiceToPutAside;
+    public static void subtractNumToFinishGame(int numOnDiceToPutAside) {
+        numToFinishGame -= numOnDiceToPutAside;
     }
 
-    public void divideNumToFinishGame(int numOnDiceToPutAside) {
-        this.numToFinishGame /= numOnDiceToPutAside;
+    public static void divideNumToFinishGame(int numOnDiceToPutAside) {
+        numToFinishGame /= numOnDiceToPutAside;
     }
 
-    public int getNumToFinishGame() {
+    public static int getNumToFinishGame() {
         return numToFinishGame;
     }
 
-    public void setNumToFinishGame(int numToFinishGame) {
+    public static void setNumToFinishGame(int num) {
 
-        this.numToFinishGame = numToFinishGame;
+        numToFinishGame = num;
     }
 
-    private int numToFinishGame;
+    private static int numToFinishGame;
 
     public List<Integer> getDicesToThrow() {
         return dicesToThrow;
