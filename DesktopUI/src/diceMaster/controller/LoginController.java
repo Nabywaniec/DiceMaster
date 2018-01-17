@@ -42,11 +42,11 @@ public class LoginController {
         }
 
         // if server will add some exceptions put here try catch
-        if (!diceMasterOverviewController.getServer().registerClient(loginText.getText())) {
+        if (!diceMasterOverviewController.getServer().registerClient(userNameTextField.getText())) {
             showAlert("Couldn't login!");
             return;
         }
-        this.diceMasterOverviewController.setUserNickName(loginText.getText());
+        this.diceMasterOverviewController.setUserNickName(userNameTextField.getText());
         this.diceMasterOverviewController.showGamesTable();
     }
 

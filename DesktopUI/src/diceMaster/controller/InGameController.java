@@ -47,6 +47,7 @@ public class InGameController implements GameEventHandler {
     public void setAppController(DiceMasterOverviewController appController) {
         this.appController = appController;
         this.bindSizeProperties();
+        this.reRollButton.setDisable(true);
         this.dicesField.setDicesFiledScale(1);
     }
 
@@ -56,7 +57,6 @@ public class InGameController implements GameEventHandler {
 
 
     public void handleReRoll(ActionEvent event) {
-
         boolean [] dicesToReroll = new boolean[5];
         for(int i=0; i<5; i++)
             if(dicesField.getDiceViews().get(i).isSelected())
@@ -78,7 +78,8 @@ public class InGameController implements GameEventHandler {
         for(int i=0; i<5; i++)
             if(dicesField.getDiceViews().get(i).isSelected())
                 flag=true;
-        reRollButton.setDisable(!flag);
+        if(flag)
+            this.checkIfItIsThisPlayerTurn();
     }
 
 
@@ -88,6 +89,16 @@ public class InGameController implements GameEventHandler {
         this.playersMoved.getChildren().clear();
         this.currentUser.getChildren().clear();
         this.setPlayersListToView(game.getPlayers());
+        this.checkIfItIsThisPlayerTurn();
+    }
+
+    public void checkIfItIsThisPlayerTurn(){
+        for(int i=0; i< this.serverGame.getGameDTO().getPlayers().size(); i++){
+            if(this.serverGame.getGameDTO().getPlayers().get(i).getUserName().equals(this.appController.getUserNickName()))
+                if(this.serverGame.getGameDTO().getPlayers().get(i).isHisTurn()) {
+                    this.reRollButton.setDisable(false);
+                }
+        }
     }
 
     public void setServerGame(ServerGame serverGame) {
@@ -104,9 +115,9 @@ public class InGameController implements GameEventHandler {
             if(player.isHisTurn()){
                 foundCurrentPlayer = true;
                 this.currentUser.init(player);
+                System.out.println(player);
                 continue;
             }
-
             if(foundCurrentPlayer){
                 afterMove.add(player);
             } else {
@@ -116,4 +127,5 @@ public class InGameController implements GameEventHandler {
         this.playersMoved.init(afterMove);
         this.playersWaitingForMove.init(beforeMove);
     }
+
 }

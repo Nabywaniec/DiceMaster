@@ -17,20 +17,19 @@ public class FakeServerGame extends ServerGame {
         this.userName = userName;
         this.gameEventHandler = gameEventHandler;
 
-        Dices dices = new Dices();
 
         List<UserInGame> players = new LinkedList<>();
         for(int i=0; i<14; i++){
             String nick = "Player" + i;
 
+            Dices dices = new Dices();
             Random rand = new Random();
             for(int j=0; j<5; j++)
                 dices.getDicesScore()[j] = fromIntToDicesNumber(rand.nextInt(6) + 1);
 
             UserInGame u = new UserInGame(nick,dices, i + 2, false);
 
-            if(i == 8) u.setHisTurn(true);
-            if(i == 9) players.add(new UserInGame(this.userName,dices, 0, false));
+            if(i == 9) players.add(new UserInGame(this.userName,dices, 0, true));
 
             players.add(u);
         }
@@ -42,9 +41,10 @@ public class FakeServerGame extends ServerGame {
         Dices thisUserDices = new Dices();
         int id = 0;
         for(int i=0; i < this.gameDTO.getPlayers().size(); i++) {
-            if(this.gameDTO.getPlayers().get(i).getUserName().equals(this.userName))
+            if(this.gameDTO.getPlayers().get(i).getUserName() == this.userName) {
                 thisUserDices = this.gameDTO.getPlayers().get(i).getDices();
                 id = i;
+            }
         }
 
         Random rand = new Random();
@@ -53,6 +53,9 @@ public class FakeServerGame extends ServerGame {
                 thisUserDices.getDicesScore()[i] = fromIntToDicesNumber(rand.nextInt(6) + 1);
             }
         this.gameDTO.getPlayers().get(id).setDices(thisUserDices);
+        System.out.println(this.gameDTO.getPlayers().get(id).getUserName());
+        this.gameDTO.getPlayers().get(id).setHisTurn(false);
+        this.gameDTO.getPlayers().get((id+1) % this.gameDTO.getPlayers().size()).setHisTurn(true);
         this.gameEventHandler.refreshGame(this.gameDTO);
     }
 

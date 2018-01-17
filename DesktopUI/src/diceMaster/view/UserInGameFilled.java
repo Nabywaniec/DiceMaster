@@ -24,6 +24,8 @@ public class UserInGameFilled extends Group {
         this.scoreText.setX(80.0);
         this.scoreText.setY(10.0);
         this.dices.setDicesFiledScale(0.15);
+        this.dices.setDicesDots(player.getDices().getDicesScore());
+        this.getChildren().clear();
         this.getChildren().add(nickText);
         this.getChildren().add(scoreText);
         this.getChildren().add(dices);

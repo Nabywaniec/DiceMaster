@@ -16,7 +16,6 @@ public class UserInGameListView extends Group {
             u.init(userInGame);
             u.setLayoutY(40 * i);
             this.getChildren().add(u);
-
             i++;
         }
     }

@@ -92,4 +92,8 @@ public class DiceMasterOverviewController {
     public InGameController getInGameController(){
         return this.inGameController;
     }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
 }
