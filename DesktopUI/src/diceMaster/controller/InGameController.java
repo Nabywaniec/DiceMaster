@@ -66,7 +66,7 @@ public class InGameController implements GameEventHandler {
                 randomDotsToSet.add(dicesField.getDiceViews().get(i).getNumberOfDots());
         for(int i=0; i<5; i++)
             System.out.println(randomDotsToSet.get(i));
-        dicesField.setDicesDots(randomDotsToSet);
+        //dicesField.setDicesDots(randomDotsToSet);
         for(int i=0; i<5; i++)
             if(dicesField.getDiceViews().get(i).isSelected())
                 dicesField.getDiceViews().get(i).setSelected(false);
