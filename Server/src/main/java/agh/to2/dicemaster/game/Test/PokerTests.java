@@ -26,7 +26,37 @@ public class PokerTests {
         set1[4] = new Dice();
         set1[4].setValue(Dice.Value.FIVE);
         assertEquals(PokerScore.getScore(set1), 130);
-        
+
+        set1[0].setValue(Dice.Value.ONE);
+        set1[1].setValue(Dice.Value.ONE);
+        set1[2].setValue(Dice.Value.THREE);
+        set1[3].setValue(Dice.Value.THREE);
+        set1[4].setValue(Dice.Value.ONE);
+        assertEquals(PokerScore.getScore(set1), 200 + 9);
+
+        set1[0].setValue(Dice.Value.ONE);
+        set1[1].setValue(Dice.Value.TWO);
+        set1[2].setValue(Dice.Value.TWO);
+        set1[3].setValue(Dice.Value.THREE);
+        set1[4].setValue(Dice.Value.ONE);
+        assertEquals(PokerScore.getScore(set1), 50 + 6);
+
+        set1[0].setValue(Dice.Value.ONE);
+        set1[1].setValue(Dice.Value.TWO);
+        set1[2].setValue(Dice.Value.THREE);
+        set1[3].setValue(Dice.Value.FIVE);
+        set1[4].setValue(Dice.Value.SIX);
+        assertEquals(PokerScore.getScore(set1), 17);
+
+        set1[0].setValue(Dice.Value.ONE);
+        set1[1].setValue(Dice.Value.TWO);
+        set1[2].setValue(Dice.Value.THREE);
+        set1[3].setValue(Dice.Value.THREE);
+        set1[4].setValue(Dice.Value.THREE);
+        assertEquals(PokerScore.getScore(set1), 100 + 9);
+
+
+
 
 
     }
