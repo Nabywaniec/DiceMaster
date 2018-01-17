@@ -3,6 +3,7 @@ package agh.to2.dicemaster.bot;
 import java.util.List;
 
 public class DiceOutputDTO {
+
     private List<Integer> dicesToThrow;
 
     public void subtractNumToFinishGame(int numOnDiceToPutAside) {
