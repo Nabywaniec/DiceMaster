@@ -20,6 +20,12 @@ public class DicesField extends Group {
         }
     }
 
+    public void setCanBeSelected(){
+        for(DiceView diceView : diceViews){
+            diceView.setCanBeSelected();
+        }
+    }
+
     private int convertEnumToInt(DiceNumbers number){
         switch(number){
             case ONE:
@@ -38,6 +44,7 @@ public class DicesField extends Group {
                 return -1;
         }
     }
+
 
     public void setDicesDots(DiceNumbers[] dotsToSet) {
         for (int i = 0; i < 5; i++) {

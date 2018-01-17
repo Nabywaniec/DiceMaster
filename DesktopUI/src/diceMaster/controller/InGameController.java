@@ -88,6 +88,13 @@ public class InGameController implements GameEventHandler {
         this.playersWaitingForMove.getChildren().clear();
         this.playersMoved.getChildren().clear();
         this.currentUser.getChildren().clear();
+
+        for(UserInGame u: game.getPlayers()){
+            if(u.isHisTurn())
+                this.dicesField.setDicesDots(u.getDices().getDicesScore());
+
+        }
+
         this.setPlayersListToView(game.getPlayers());
         this.checkIfItIsThisPlayerTurn();
     }
@@ -97,6 +104,7 @@ public class InGameController implements GameEventHandler {
             if(this.serverGame.getGameDTO().getPlayers().get(i).getUserName().equals(this.appController.getUserNickName()))
                 if(this.serverGame.getGameDTO().getPlayers().get(i).isHisTurn()) {
                     this.reRollButton.setDisable(false);
+                    this.dicesField.setCanBeSelected();
                 }
         }
     }
@@ -119,9 +127,9 @@ public class InGameController implements GameEventHandler {
                 continue;
             }
             if(foundCurrentPlayer){
-                afterMove.add(player);
-            } else {
                 beforeMove.add(player);
+            } else {
+                afterMove.add(player);
             }
         }
         this.playersMoved.init(afterMove);

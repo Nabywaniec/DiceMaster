@@ -11,6 +11,7 @@ public class DiceView extends Group {
     private Rectangle diceBackground = new Rectangle();
     private List<Circle> dotList = new LinkedList<>();
     private boolean isSelected = false;
+    private boolean canBeSelected = false;
     private Integer numberOfDots = 1;
     private double diceScale = 1;
 
@@ -31,6 +32,7 @@ public class DiceView extends Group {
             dotList.add(c);
             this.getChildren().add(c);
         }
+
         this.setOnMouseClicked(event -> setSelected(!this.isSelected));
     }
 
@@ -51,15 +53,20 @@ public class DiceView extends Group {
         return isSelected;
     }
 
+    public void setCanBeSelected(){
+        this.canBeSelected = true;
+    }
+
     public void setSelected(boolean selected) {
-        isSelected = selected;
-        if(this.isSelected){
-            this.diceBackground.setStyle(
-                    "-fx-effect: innershadow( three-pass-box, #ff2220, 50, 0, 0, 0);" +
-                            "-fx-background-insets: 100;");
+        if (canBeSelected) {
+            isSelected = selected;
+            if (this.isSelected) {
+                this.diceBackground.setStyle(
+                        "-fx-effect: innershadow( three-pass-box, #ff2220, 50, 0, 0, 0);" +
+                                "-fx-background-insets: 100;");
+            } else
+                this.diceBackground.setStyle("");
         }
-        else
-            this.diceBackground.setStyle("");
     }
 
     private void resizeDice(){
