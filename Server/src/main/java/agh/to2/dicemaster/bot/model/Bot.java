@@ -6,16 +6,13 @@ import agh.to2.dicemaster.bot.IOConverter;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.server.api.GameParticipant;
 
-public abstract class Bot extends User{
+public abstract class Bot extends GameParticipant{
 
-    protected DiceOutputDTO result;
+    protected DiceOutputDTO result = new DiceOutputDTO();
 
     abstract DiceOutputDTO getDicesToThrow(DiceInputDTO input);
-
-    Bot(){
-        result = new DiceOutputDTO();
-    }
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
