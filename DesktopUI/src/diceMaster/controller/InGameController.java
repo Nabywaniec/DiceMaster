@@ -1,8 +1,8 @@
 package diceMaster.controller;
 
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.common.api.UserInGame;
-import diceMaster.mockaps.FakeServer;
 import diceMaster.model.gui.GameEventHandler;
 import diceMaster.model.server.ServerGame;
 import diceMaster.view.DicesField;
@@ -17,7 +17,7 @@ import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+
 
 public class InGameController implements GameEventHandler {
     private DiceMasterOverviewController appController;
@@ -56,24 +56,21 @@ public class InGameController implements GameEventHandler {
 
 
     public void handleReRoll(ActionEvent event) {
-        List<Integer> randomDotsToSet = new LinkedList<>();
-        Random rand = new Random();
+
+        boolean [] dicesToReroll = new boolean[5];
         for(int i=0; i<5; i++)
-            if(dicesField.getDiceViews().get(i).isSelected()) {
-                randomDotsToSet.add(rand.nextInt(6) + 1);
-            }
+            if(dicesField.getDiceViews().get(i).isSelected())
+                dicesToReroll[i] = true;
             else
-                randomDotsToSet.add(dicesField.getDiceViews().get(i).getNumberOfDots());
-        for(int i=0; i<5; i++)
-            System.out.println(randomDotsToSet.get(i));
-        //dicesField.setDicesDots(randomDotsToSet);
+                dicesToReroll[i] = false;
+        MoveDTO moveDTO = new MoveDTO(dicesToReroll);
+
         for(int i=0; i<5; i++)
             if(dicesField.getDiceViews().get(i).isSelected())
                 dicesField.getDiceViews().get(i).setSelected(false);
         reRollButton.setDisable(true);
 
-        dicesField.setDicesFiledScale(0.4);
-        //serverGame.makeMove(null);
+        serverGame.makeMove(moveDTO);
     }
 
     public void handleDicesFieldMouseClicked(MouseEvent mouseEvent) {

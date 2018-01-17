@@ -12,14 +12,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FakeServer implements Server {
+
+    private String userName;
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new FakeServerGame();
+        return new FakeServerGame(this.userName, gameEventHandler);
     }
 
     @Override
     public ServerGame requestJoinGame(GameDTO gameDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new FakeServerGame();
+        return new FakeServerGame(this.userName, gameEventHandler);
     }
 
     @Override
@@ -42,6 +44,7 @@ public class FakeServer implements Server {
 
     @Override
     public boolean registerClient(String username) {
+        this.userName = username;
         return true;
     }
 }
