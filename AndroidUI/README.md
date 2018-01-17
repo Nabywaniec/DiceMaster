@@ -1,4 +1,4 @@
 # Dicemaster - AndroidUI
-android app created to access and play games from Dicemaster server
+android app created to provide Mobile User Interface for DiceMaster games
 
 
