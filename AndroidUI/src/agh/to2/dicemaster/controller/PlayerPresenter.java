@@ -1,10 +1,11 @@
 package agh.to2.dicemaster.controller;
 
 import agh.to2.dicemaster.common.api.*;
+import agh.to2.dicemaster.model.gui.GameEventHandler;
 import agh.to2.dicemaster.model.server.*;
 import agh.to2.dicemaster.view.*;
 
-public class PlayerPresenter {
+public class PlayerPresenter implements GameEventHandler{
     private LoginView loginView = new LoginView();
     private LobbyView lobbyView = new LobbyView();
     private TableCreatorView tableCreatorView = new TableCreatorView();
@@ -14,9 +15,11 @@ public class PlayerPresenter {
     private ServerGame serverGame;
     private UserInGame userInGame;
     private String userName;
+    private UserType userType;
 
     public PlayerPresenter() {
-        loginView.show();
+        loginView.switchTo();
+        //will be changed to be the default view after launching the app
     }
 
     public void onLoginButtonPress(String userName) {
@@ -24,8 +27,7 @@ public class PlayerPresenter {
         else {
             this.userName = userName;
             lobbyView.refresh(userName, server.getAvailableGames());
-            loginView.hide();
-            lobbyView.show();
+            lobbyView.switchTo();
         }
     }
 
@@ -37,15 +39,13 @@ public class PlayerPresenter {
         if (server.requestJoinGame(gameDTO, null, userType) == null);    //TODO: GameEventHandler, komunikat o błędzie
         else {
             tableView.refresh(gameDTO, userType);
-            lobbyView.hide();
-            tableView.show();
+            tableView.switchTo();
         }
 
     }
 
     public void onLobbyCreateTableButtonClick() {
-        lobbyView.hide();
-        tableCreatorView.show();
+        tableCreatorView.switchTo();
     }
 
     public void onCreateTableButtonClick(GameConfigDTO gameConfigDTO, UserType userType) {
@@ -54,8 +54,8 @@ public class PlayerPresenter {
         if (serverGame == null);      //TODO: GameEventHandler, komunikat o błędzie
         else {
             tableView.refresh(serverGame.getGameDTO(), userType);
-            tableCreatorView.hide();
-            tableView.show();
+            tableView.switchTo();
+            this.userType = userType;
         }
     }
 
@@ -69,11 +69,15 @@ public class PlayerPresenter {
 
     public void onLeaveTableButtonClick() {
         serverGame.leaveGame();
-        tableView.hide();
-        lobbyView.show();
+        lobbyView.switchTo();
     }
 
     public void onGameStatusRefresh(GameDTO gameDTO) {
         tableView.refresh(gameDTO, null);   //TODO: userType
+    }
+
+    @Override
+    public void onGameChange(GameDTO gameDTO) {
+        tableView.refresh(gameDTO,this.userType);
     }
 }
