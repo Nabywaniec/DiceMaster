@@ -48,9 +48,6 @@ public class InGameController implements GameEventHandler {
         this.appController = appController;
         this.bindSizeProperties();
         this.dicesField.setDicesFiledScale(1);
-
-        GameDTO gameDTO = new FakeServer().getGameDTO();
-        this.setPlayersListToView(gameDTO.getPlayers());
     }
 
     private void bindSizeProperties(){
@@ -95,6 +92,7 @@ public class InGameController implements GameEventHandler {
 
     public void setServerGame(ServerGame serverGame) {
         this.serverGame = serverGame;
+        this.refreshGame(serverGame.getGameDTO());
     }
 
     private void setPlayersListToView(List<UserInGame> players){
@@ -115,7 +113,6 @@ public class InGameController implements GameEventHandler {
                 beforeMove.add(player);
             }
         }
-
         this.playersMoved.init(afterMove);
         this.playersWaitingForMove.init(beforeMove);
     }

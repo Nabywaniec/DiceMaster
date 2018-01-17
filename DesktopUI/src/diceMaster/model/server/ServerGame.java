@@ -5,7 +5,13 @@ import agh.to2.dicemaster.common.api.MoveDTO;
 
 public class ServerGame {
     public ServerGame(){
+
     }
+
+    public GameDTO getGameDTO() {
+        return gameDTO;
+    }
+
     private GameDTO gameDTO;
     public void makeMove(MoveDTO moveDTO){};
     public void leaveGame(){};

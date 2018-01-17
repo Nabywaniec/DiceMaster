@@ -10,21 +10,17 @@ import javafx.scene.text.Text;
 
 public class LoginController {
     private DiceMasterOverviewController diceMasterOverviewController;
-
     @FXML
-    BorderPane borderPane;
-
+    private BorderPane borderPane;
     @FXML
-    TextField userNameTextField;
-
+    private TextField userNameTextField;
     @FXML
-    Text loginText;
-
+    private Text loginText;
     @FXML
-    Button loginButton;
+    private Button loginButton;
 
-    public void setAppController(DiceMasterOverviewController appController) {
-        this.diceMasterOverviewController = appController;
+    public void setDiceMasterOverviewController(DiceMasterOverviewController diceMasterOverviewController) {
+        this.diceMasterOverviewController = diceMasterOverviewController;
         this.bindSizeProperties();
     }
 
@@ -50,6 +46,7 @@ public class LoginController {
             showAlert("Couldn't login!");
             return;
         }
+        this.diceMasterOverviewController.setUserNickName(loginText.getText());
         this.diceMasterOverviewController.showGamesTable();
     }
 

@@ -2,7 +2,9 @@ package diceMaster.controller;
 
 
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.UserType;
 import diceMaster.Main;
+import diceMaster.model.server.ServerGame;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -56,10 +58,6 @@ public class GamesTableController {
         this.diceMasterOverviewController = appController;
         this.listOfGames = FXCollections.observableArrayList();
         this.bindSizeProperties();
-        this.init();
-    }
-
-    public void init() {
         this.gamesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.tableNameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getGameConfig().getTableName()));
         this.playersOnTableColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Integer>(dataValue.getValue().getPlayers().size()));
@@ -70,7 +68,6 @@ public class GamesTableController {
     }
 
     private void bindSizeProperties() {
-
     }
 
     public boolean showCreateGameDialog() {
@@ -100,16 +97,9 @@ public class GamesTableController {
         showCreateGameDialog();
     }
 
-    public void joinAsPlayerGameActionHandler(MouseEvent mouseEvent) {
-
-        //server.joinGame(null,null, null);
-        System.out.println(gamesTable.getSelectionModel().getSelectedItem());
-        diceMasterOverviewController.showGame();
-    }
-
     public void refreshGamesTable() {
         int selectedGame = -1;
-        if(!gamesTable.getSelectionModel().isEmpty()){
+        if (!gamesTable.getSelectionModel().isEmpty()) {
             selectedGame = gamesTable.getSelectionModel().getSelectedItem().getId();
         }
         this.listOfGames.clear();
@@ -123,8 +113,24 @@ public class GamesTableController {
         }
     }
 
+    public void joinAsPlayerGameActionHandler(MouseEvent mouseEvent) {
+        System.out.println(gamesTable.getSelectionModel().getSelectedItem());
+        GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
+        ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
+                selectedGame,
+                this.diceMasterOverviewController.showGame(),
+                UserType.PLAYER);
+        this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
+    }
+
     public void joinAsObserverGameActionHandler(MouseEvent mouseEvent) {
-        diceMasterOverviewController.getServer().requestJoinGame(null, null, null);
+        System.out.println(gamesTable.getSelectionModel().getSelectedItem());
+        GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
+        ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
+                selectedGame,
+                this.diceMasterOverviewController.showGame(),
+                UserType.PLAYER);
+        this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
     }
 
 }

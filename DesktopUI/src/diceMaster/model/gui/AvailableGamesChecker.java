@@ -1,4 +1,6 @@
-package diceMaster.controller;
+package diceMaster.model.gui;
+
+import diceMaster.controller.GamesTableController;
 
 import java.util.TimerTask;
 

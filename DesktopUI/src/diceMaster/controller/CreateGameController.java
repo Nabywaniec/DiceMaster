@@ -119,7 +119,7 @@ public class CreateGameController extends Pane {
                 gameConfigDTO,
                 this.diceMasterOverviewController.showGame(),
                 userType);
-        this.diceMasterOverviewController.initInGameController().setServerGame(serverGame);
+        this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
         dialogStage.close();
     }
 

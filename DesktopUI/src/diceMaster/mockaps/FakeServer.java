@@ -14,12 +14,12 @@ import java.util.List;
 public class FakeServer implements Server {
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new ServerGame();
+        return new FakeServerGame();
     }
 
     @Override
     public ServerGame requestJoinGame(GameDTO gameDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return null;
+        return new FakeServerGame();
     }
 
     @Override
@@ -43,20 +43,5 @@ public class FakeServer implements Server {
     @Override
     public boolean registerClient(String username) {
         return true;
-    }
-
-    public GameDTO getGameDTO(){
-        List<UserInGame> players = new LinkedList<>();
-
-        for(int i=0; i<7; i++){
-            String nick = "Player" + i;
-            UserInGame u = new UserInGame(nick,null, i + 15, false);
-
-            if(i == 5) u.setHisTurn(true);
-
-            players.add(u);
-        }
-
-        return new GameDTO(3, null, players, null);
     }
 }
