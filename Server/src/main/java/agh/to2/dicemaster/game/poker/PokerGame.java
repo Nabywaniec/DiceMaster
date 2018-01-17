@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PokerGame extends Game {
+
+    private PokerGameManager pokerGameManager;
     private List<Player> players = new LinkedList<>();
     private List<GameParticipant> observers = new LinkedList<>();
 
@@ -25,13 +27,20 @@ public class PokerGame extends Game {
 
     @Override
     public void addObserver(GameParticipant gameParticipant) {
+        PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager);
         observers.add(gameParticipant);
+        gameParticipant.registerPlayerEventHandler(pokerPlayerEventHandler);
     }
 
     @Override
     public void addPlayer(GameParticipant gameParticipant) {
+        PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager);
         Player player = new Player(gameParticipant);
         players.add(player);
+        player.registerPlayerEventHandler(pokerPlayerEventHandler);
+        if (getGameConfigDTO().getMaxPlayers() == players.size()) {
+            pokerGameManager.onGameStart();
+        }
     }
 
     @Override

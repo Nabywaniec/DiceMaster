@@ -17,11 +17,13 @@ public class Timer implements Runnable {
 
     @Override
     public void run() {
-        try {
-            TimeUnit.SECONDS.sleep(secondsToCount);
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
+        while (!gameManager.hasEnded()) {
+            try {
+                TimeUnit.SECONDS.sleep(secondsToCount);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            gameManager.onTurnEnd();
         }
-        gameManager.onTurnEnd();
     }
 }
