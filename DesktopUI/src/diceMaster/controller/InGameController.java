@@ -84,6 +84,9 @@ public class InGameController implements GameEventHandler {
 
     @Override
     public void refreshGame(GameDTO game) {
+        this.playersWaitingForMove.getChildren().clear();
+        this.playersMoved.getChildren().clear();
+        this.currentUser.getChildren().clear();
         this.setPlayersListToView(game.getPlayers());
     }
 

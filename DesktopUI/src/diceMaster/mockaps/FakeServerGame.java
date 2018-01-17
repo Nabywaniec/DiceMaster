@@ -40,9 +40,11 @@ public class FakeServerGame extends ServerGame {
 
     public void makeMove(MoveDTO moveDTO){
         Dices thisUserDices = new Dices();
+        int id = 0;
         for(int i=0; i < this.gameDTO.getPlayers().size(); i++) {
-            if(this.gameDTO.getPlayers().get(i).getUserName() == this.userName)
+            if(this.gameDTO.getPlayers().get(i).getUserName().equals(this.userName))
                 thisUserDices = this.gameDTO.getPlayers().get(i).getDices();
+                id = i;
         }
 
         Random rand = new Random();
@@ -50,6 +52,7 @@ public class FakeServerGame extends ServerGame {
             if(moveDTO.getDicesToReRoll()[i]) {
                 thisUserDices.getDicesScore()[i] = fromIntToDicesNumber(rand.nextInt(6) + 1);
             }
+        this.gameDTO.getPlayers().get(id).setDices(thisUserDices);
         this.gameEventHandler.refreshGame(this.gameDTO);
     }
 
