@@ -15,7 +15,7 @@ public interface Server {
     List<GameDTO> getAvailableGames();
     boolean registerClient(String username);
 
-    static Server createDiceMasterServer(String serverAddress){
-        return new DiceMasterServer(serverAddress);
+    static Server createDiceMasterServer(String serverAddress, String serverUsername, String password){
+        return new DiceMasterServer(serverAddress, serverUsername, password);
     }
 }

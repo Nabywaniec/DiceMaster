@@ -17,7 +17,9 @@ public class QueueBindings {
 
         String registrationQueueName = "registrationQueue";
 
-        Queue queue = new Queue("registrationQueue", false, true, false);
+        admin.deleteQueue(registrationQueueName);
+
+        Queue queue = new Queue(registrationQueueName);
         admin.declareQueue(queue);
 
         TopicExchange exchange = new TopicExchange("diceMasterExchange");
