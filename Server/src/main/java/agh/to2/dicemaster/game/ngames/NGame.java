@@ -1,60 +1,70 @@
+package agh.to2.dicemaster.game.ngames;
+
+
+import agh.to2.dicemaster.common.api.GameConfigDTO;
+import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.GameType;
+import agh.to2.dicemaster.game.nmodel.*;
+import agh.to2.dicemaster.server.api.Game;
+import agh.to2.dicemaster.server.api.GameParticipant;
+
 import java.util.*;
 
-public class NGame {
-    GameDTO gameDTO;
+public class NGame extends Game {
+    GameConfigDTO gameConfigDTO;
     Rules rules;
-    List<Player> players = new ArrayList<Player>();
+    GameDTO gameDTO;
+    List<Player> players = new ArrayList<>();
+    List<GameParticipant> observers=new LinkedList<GameParticipant>();
 
-    public NGame(int id,GameDTO gameDTO){
-        this.gameDTO = gameDTO;
-        if(gameDTO.getGameConfig().getGameType() == GameType.NPLUS){
-            rules = new NPlus();
+    public NGame(int id, GameConfigDTO gameConfigDTO) {
+        super(id,gameConfigDTO);
+        this.gameConfigDTO=gameConfigDTO;
+         /* for (int i=0; i< gameConfigDTO.getEasyBotsCount();i++) {
+
         }
-        if(gameDTO.getGameConfig().getGameType() == GameType.NTIMES){
-            rules = new NTimes();
+        for (int i=0; i< gameConfigDTO.getHardBotsCount();i++) {
+
+        }*/
+        if (gameConfigDTO.getGameType() == GameType.NPLUS) {
+            this.rules = new NPlus();
         }
-        for(User u : gameDTO.getPlayers()){
-            players.add(new Player(u));
+        if (gameConfigDTO.getGameType() == GameType.NTIMES) {
+            this.rules = new NTimes();
         }
+        GameRunner gameRunner=new GameRunner(rules,players,this);
+
+
     }
 
-    GameDTO notifyGameChange(){
+    @Override
+    public void addObserver(GameParticipant gameParticipant) {
+        observers.add(gameParticipant);
+    }
+
+    @Override
+    public void addPlayer(GameParticipant gameParticipant) {
+        Player player = new Player(gameParticipant);
+        players.add(player);
+    }
+
+
+    @Override
+    public List<GameParticipant> getPlayers() {
+        return Collections.unmodifiableList(players);
+    }
+
+    @Override
+    public List<GameParticipant> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public GameDTO getGameDTO() {
         return gameDTO;
     }
-    /*
-    public void initializeRound(){
-        for(User p : gameDTO.getPlayers()){
-
-        }
-
-        Random generator = new Random();
-        int pierwszy = generator.nextInt(this.gameDTO.getPlayers().size());
-        for(int i = 0; i<5;i++){
-            this.kosci[i] = generator.nextInt(6)+1;
-        }
-        int cel = 0;
-        if(typ) {
-            for (int i = 0; i < 5; i++) {
-                cel += kosci[i];
-            }
-        }
-
-            else{
-                cel = 1;
-                for(int i = 0; i<5;i++){
-                    cel *= kosci[i];
-                }
-            }
-
-    }
-
-    public void requestMove(Player gracz){
-        if(gracz.makeMove(this.typ, int...args) == this.cel) gracz.Zwyciestwo(); ZacznijRunde();
-
-    }
-    */
-
-
 
 
 }
+
+

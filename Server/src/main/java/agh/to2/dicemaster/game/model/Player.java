@@ -11,7 +11,7 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 public class Player extends GameParticipant {
     private static final int NUMBER_OF_DICES = 5;
     private final GameParticipant gameParticipant;
-    private final Dice[] dices = DiceManager.getDices(NUMBER_OF_DICES);
+    private final Dice[] dices = Dice.getDices(NUMBER_OF_DICES);
     private int gameScore = 0;
 
     public Player(GameParticipant gameParticipant) {

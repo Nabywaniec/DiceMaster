@@ -1,16 +1,52 @@
+package agh.to2.dicemaster.game.ngames;
+
+import agh.to2.dicemaster.common.api.MoveDTO;
+import agh.to2.dicemaster.game.nmodel.Dice;
+import agh.to2.dicemaster.game.nmodel.Player;
+import agh.to2.dicemaster.server.api.GameParticipant;
+
 import java.util.List;
 import java.util.Random;
 
 public class NTimes implements Rules {
     public Integer aim;
 
+    public NTimes() {
+    }
+
     @Override
     public Integer getresult(Player player) {
         Integer result = 1;
-        for(Dice d : player.getDices()){
-            result*=d.getValue();
+        for (Dice d : player.getDices()) {
+            result *= d.getValue();
         }
         return result;
+    }
+
+    @Override
+    public boolean countPoints(Player player) {
+        return false;
+    }
+
+    @Override
+    public void initializeDices(Player player) {
+        for (int i = 0; i < 5; i++) {
+            player.setDice(i, Dice.randomDice());
+        }
+    }
+
+
+    @Override
+    public void drawDices(Player player, MoveDTO move){
+        boolean [] dicesToReroll = move.getDicesToReRoll();
+        for(int i = 0; i < 5; i++){
+            if(dicesToReroll[i]) player.setDice(i, Dice.randomDice());
+        }
+    }
+
+    @Override
+    public Integer getAim() {
+        return aim;
     }
 
     @Override
@@ -23,26 +59,7 @@ public class NTimes implements Rules {
             aim *= dices[i];
         }
         return generator.nextInt(players.size());
-
-    }
-
-    @Override
-    public void initializeDices(Player player){
-        for(int i = 0; i < 5; i++){
-            player.setDice(i, Dice.randomDice());
-        }
     }
 
 
-    @Override
-    public void drawDices(Player player, MoveDTO move){
-        for(int i = 0; i < 5; i++){
-            if(move.dicesToReroll[i]) player.setDice(i, Dice.randomDice());
-        }
-    }
-
-    @Override
-    public Integer getAim() {
-        return aim;
-    }
 }
