@@ -1,18 +1,16 @@
 package diceMaster.controller;
 
+import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.UserInGame;
 import diceMaster.mockaps.FakeServer;
-import diceMaster.model.common.GameDTO;
-import diceMaster.model.common.UserInGame;
 import diceMaster.model.gui.GameEventHandler;
 import diceMaster.model.server.ServerGame;
 import diceMaster.view.DicesField;
 import diceMaster.view.UserInGameFilled;
 import diceMaster.view.UserInGameListView;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
@@ -24,7 +22,6 @@ import java.util.Random;
 public class InGameController implements GameEventHandler {
     private DiceMasterOverviewController appController;
     private ServerGame serverGame;
-    private int numberOfPlayers = 0;
 
     @FXML
     BorderPane borderPane;
@@ -47,9 +44,8 @@ public class InGameController implements GameEventHandler {
     @FXML
     UserInGameFilled currentUser;
 
-    public void setAppController(DiceMasterOverviewController appController, int numberOfPlayers) {
+    public void setAppController(DiceMasterOverviewController appController) {
         this.appController = appController;
-        this.numberOfPlayers = numberOfPlayers;
         this.bindSizeProperties();
         this.dicesField.setDicesFiledScale(1);
 
@@ -115,4 +111,9 @@ public class InGameController implements GameEventHandler {
     public void refreshGame(GameDTO game) {
 
     }
+
+    public void setServerGame(ServerGame serverGame) {
+        this.serverGame = serverGame;
+    }
+
 }

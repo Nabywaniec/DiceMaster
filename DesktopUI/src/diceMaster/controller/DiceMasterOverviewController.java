@@ -17,7 +17,9 @@ public class DiceMasterOverviewController {
 
     private Server server;
 
-    private AvailableGamesChecker avalibleGamesChecker;
+    private AvailableGamesChecker availableGamesChecker;
+
+    private InGameController inGameController;
 
     private Timer timer;
 
@@ -54,9 +56,9 @@ public class DiceMasterOverviewController {
             GamesTableController gamesTableController = loader.getController();
             gamesTableController.setDiceMasterOverviewController(this);
 
-            this.avalibleGamesChecker = new AvailableGamesChecker(gamesTableController);
+            this.availableGamesChecker = new AvailableGamesChecker(gamesTableController);
             this.timer = new Timer(true);
-            this.timer.schedule(avalibleGamesChecker,0,1000);
+            this.timer.schedule(availableGamesChecker,0,1000);
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -67,21 +69,25 @@ public class DiceMasterOverviewController {
         }
     }
 
-    public void showGame() {
+    public InGameController initInGameController(){
+        return this.inGameController;
+    }
+
+    public InGameController showGame() {
         try {
             this.timer.cancel();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/InGamePane.fxml"));
             BorderPane rootLayout = loader.load();
-            InGameController inGameController = loader.getController();
-            inGameController.setAppController(this, 4);
+            this.inGameController = loader.getController();
+            inGameController.setAppController(this);
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this.inGameController;
     }
 
     public Server getServer() {

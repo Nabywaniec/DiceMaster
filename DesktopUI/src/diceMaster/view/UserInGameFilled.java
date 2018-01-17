@@ -1,6 +1,6 @@
 package diceMaster.view;
 
-import diceMaster.model.common.UserInGame;
+import agh.to2.dicemaster.common.api.UserInGame;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 
@@ -18,7 +18,7 @@ public class UserInGameFilled extends Group {
 
 
     public void init(UserInGame player){
-        this.nickText.setText(player.getUser().getNick());
+        this.nickText.setText(player.getUserName());
         this.nickText.setY(-10.0);
         this.scoreText.setText(player.getScore().toString());
         this.scoreText.setX(80.0);

@@ -1,8 +1,8 @@
 package diceMaster.controller;
 
 
+import agh.to2.dicemaster.common.api.GameDTO;
 import diceMaster.Main;
-import diceMaster.model.common.GameDTO;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -86,6 +86,7 @@ public class GamesTableController {
             dialogStage.setScene(scene);
             CreateGameController presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
+            presenter.setDiceMasterOverviewController(this.diceMasterOverviewController);
             presenter.init();
             dialogStage.showAndWait();
             return presenter.isApproved();

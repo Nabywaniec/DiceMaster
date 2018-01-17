@@ -1,9 +1,8 @@
 package diceMaster.view;
 
-import diceMaster.model.common.UserInGame;
+import agh.to2.dicemaster.common.api.UserInGame;
 import javafx.scene.Group;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class UserInGameListView extends Group {

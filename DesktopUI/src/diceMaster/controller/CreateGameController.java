@@ -1,6 +1,9 @@
 package diceMaster.controller;
 
-import diceMaster.model.common.GameConfigDTO;
+import agh.to2.dicemaster.common.api.GameConfigDTO;
+import agh.to2.dicemaster.common.api.GameType;
+import agh.to2.dicemaster.common.api.UserType;
+import diceMaster.model.server.ServerGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +20,7 @@ public class CreateGameController extends Pane {
     private boolean approved = false;
     private GameConfigDTO gameConfigDTO;
     private Stage dialogStage;
+    private DiceMasterOverviewController diceMasterOverviewController;
 
     @FXML
     private TextField tableNameTextFiled;
@@ -38,6 +42,9 @@ public class CreateGameController extends Pane {
 
     @FXML
     private Spinner<Integer> hardBotsSpinner;
+
+    @FXML
+    private Spinner<Integer> roundsToWinSpinner;
 
 
     public CreateGameController() {
@@ -73,18 +80,46 @@ public class CreateGameController extends Pane {
 
     public void handleCreateClicked(MouseEvent mouseEvent) {
         String tableName = tableNameTextFiled.getText();
+        int roundsToWin = roundsToWinSpinner.getValue();
+        int maxPlayers = maxPlayersSpinner.getValue();
+        GameType gameType =  fromStringToGameType(gameTypeComboBox.getValue());
+        int hardBotsCount = hardBotsSpinner.getValue();
+        int easyBotsCount = easyBotsSpinner.getValue();
+
+        UserType userType = UserType.OBSERVER;
+        if(joinAsPlayerCheckBox.isSelected())
+            userType = UserType.PLAYER;
+
         if(tableName.isEmpty()) {
-            showAlert("Table's name field cannot be empty");
+            showAlert("Table's name field cannot be empty!");
+            return;
+        }
+        if(roundsToWin < 1) {
+            showAlert("Rounds to win must be bigger than 0!");
             return;
         }
         if(tableName.startsWith(" ")) {
-            showAlert("Table's name cannot start with white char.");
+            showAlert("Table's name cannot start with white char!");
             return;
         }
-        if(maxPlayersSpinner.getValue() + easyBotsSpinner.getValue() + hardBotsSpinner.getValue() <= 1) {
-            showAlert("There has to be at least 2 game participants (bots/players)");
+        if(maxPlayers + easyBotsCount + hardBotsCount <= 1) {
+            showAlert("There has to be at least 2 game participants (bots/players) !");
             return;
         }
+
+        this.gameConfigDTO = new GameConfigDTO(
+                tableName,
+                maxPlayers,
+                gameType,
+                hardBotsCount,
+                easyBotsCount,
+                roundsToWin);
+
+        ServerGame serverGame = this.diceMasterOverviewController.getServer().createGame(
+                gameConfigDTO,
+                this.diceMasterOverviewController.showGame(),
+                userType);
+        this.diceMasterOverviewController.initInGameController().setServerGame(serverGame);
         dialogStage.close();
     }
 
@@ -99,6 +134,17 @@ public class CreateGameController extends Pane {
                 valueFactory.setValue(value);
             }
         }
+    }
+
+    private GameType fromStringToGameType(String gameTypeString){
+        if(gameTypeString == "Poker")
+            return GameType.POKER;
+        if(gameTypeString == "N+")
+            return GameType.NPLUS;
+        if(gameTypeString == "N*")
+            return GameType.NTIMES;
+        // to prevent nulls
+        return GameType.POKER;
     }
 
     private void makeSpinnerEditableOnlyForNumbers(Spinner spinner){
@@ -130,5 +176,9 @@ public class CreateGameController extends Pane {
         alert.setHeaderText("DiceMaster - Create game");
         alert.setContentText(alertMessage);
         alert.show();
+    }
+
+    public void setDiceMasterOverviewController(DiceMasterOverviewController diceMasterOverviewController) {
+        this.diceMasterOverviewController = diceMasterOverviewController;
     }
 }
