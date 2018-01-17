@@ -70,8 +70,8 @@ public class Player extends GameParticipant {
         this.gameScore = gameScore;
     }
 
-    public void incereaseGameScore(int score) {
-        this.gameScore += score;
+    public void incereaseGameScore() {
+        this.gameScore += 1;
     }
 
     public int getRoundScore() {
