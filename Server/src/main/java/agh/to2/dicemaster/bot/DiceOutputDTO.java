@@ -1,35 +1,48 @@
 package agh.to2.dicemaster.bot;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class DiceOutputDTO {
 
-    private List<Integer> dicesToThrow;
+    // number to value
+    private HashMap<Integer, Integer> dicesToThrow;
+    private List<Integer> myInput;
+    private int scoreLeft;
 
-    public static void subtractNumToFinishGame(int numOnDiceToPutAside) {
-        numToFinishGame -= numOnDiceToPutAside;
+    public DiceOutputDTO(int score){
+        this.scoreLeft = score;
     }
 
-    public static void divideNumToFinishGame(int numOnDiceToPutAside) {
-        numToFinishGame /= numOnDiceToPutAside;
+    public int getScoreLeft() {
+        return scoreLeft;
     }
 
-    public static int getNumToFinishGame() {
-        return numToFinishGame;
+    public void setScoreLeft(int scoreLeft) {
+        this.scoreLeft = scoreLeft;
     }
 
-    public static void setNumToFinishGame(int num) {
-
-        numToFinishGame = num;
+    public List<Integer> getMyInput() {
+        return myInput;
     }
 
-    private static int numToFinishGame;
+    public void setMyInput(List<Integer> myInput) {
+        this.myInput = myInput;
+    }
 
-    public List<Integer> getDicesToThrow() {
+    public void subtractNumToFinishGame(int numOnDiceToPutAside) {
+        scoreLeft -= numOnDiceToPutAside;
+    }
+
+    public void divideNumToFinishGame(int numOnDiceToPutAside) {
+        scoreLeft /= numOnDiceToPutAside;
+    }
+
+    public HashMap<Integer, Integer> getDicesToThrow() {
         return dicesToThrow;
     }
 
-    public void setDicesToThrow(List<Integer> dicesToThrow) {
+    public void setDicesToThrow(HashMap<Integer, Integer> dicesToThrow) {
         this.dicesToThrow = dicesToThrow;
     }
 }

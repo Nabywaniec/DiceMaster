@@ -1,6 +1,7 @@
 package agh.to2.dicemaster.common.api;
 
 public class MoveDTO {
+
     private boolean[] dicesToReRoll;
 
     public MoveDTO(boolean[] dicesToReRoll) {
@@ -14,4 +15,5 @@ public class MoveDTO {
     public void setDicesToReRoll(boolean[] dicesToReRoll) {
         this.dicesToReRoll = dicesToReRoll;
     }
+
 }

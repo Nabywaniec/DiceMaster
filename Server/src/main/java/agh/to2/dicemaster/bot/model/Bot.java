@@ -10,7 +10,7 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 public abstract class Bot extends GameParticipant{
 
-    protected DiceOutputDTO result = new DiceOutputDTO();
+    protected DiceOutputDTO result = null;
     private PlayerEventHandler playerEventHandler;
 
     abstract DiceOutputDTO getDicesToThrow(DiceInputDTO input);
@@ -23,14 +23,18 @@ public abstract class Bot extends GameParticipant{
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
 
+        if(result == null){
+            result = new DiceOutputDTO(gameDTO.getScoreToWin());
+        }
+
         IOConverter converter = new IOConverter();
 
-        DiceInputDTO diceInput = converter.getDiceInputDTO(gameDTO);
+        // id is to find user in GameDTO
+        DiceInputDTO diceInput = converter.getDiceInputDTO(gameDTO, this.getId());
+        diceInput.setDicesRerolled(this.result.getDicesToThrow());
+        this.getDicesToThrow(diceInput);
 
-        DiceOutputDTO diceOutput = this.getDicesToThrow(diceInput);
-
-        // FIXME fix the problem with abstraction of MoveDTO or make in a different way
-        MoveDTO moveDTO = converter.makeNewMoveDTO(diceOutput);
+        MoveDTO moveDTO = converter.makeNewMoveDTO(result);
 
         //this field is assigned to every User
         this.playerEventHandler.onMoveRequest(moveDTO);

@@ -12,7 +12,7 @@ public class NPlusBotEasy extends Bot{
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input){
 
-        result.setNumToFinishGame(input.getNumToFinishGame());
+        result.setScoreToWin(input.getScoreToWin());
 
         int dicesAvailabletoThrow = input.getMyInput().size();
 
@@ -24,8 +24,8 @@ public class NPlusBotEasy extends Bot{
         int to_Remove;
         for (int i=0;i<dicesToPutAside;i++){
             to_Remove = r.nextInt(dicesToThrow.size());
-            if ( (dicesToThrow.size()-1)*6 >= result.getNumToFinishGame()-dicesToThrow.get(to_Remove) &&
-                     (dicesToThrow.size()-1)*1 <= result.getNumToFinishGame()-dicesToThrow.get(to_Remove) ) {   //*1 to show it clearly
+            if ( (dicesToThrow.size()-1)*6 >= result.getScoreToWin()-dicesToThrow.get(to_Remove) &&
+                     (dicesToThrow.size()-1)*1 <= result.getScoreToWin()-dicesToThrow.get(to_Remove) ) {   //*1 to show it clearly
                 result.subtractNumToFinishGame(dicesToThrow.get(to_Remove));
                 dicesToThrow.remove(to_Remove);
             }

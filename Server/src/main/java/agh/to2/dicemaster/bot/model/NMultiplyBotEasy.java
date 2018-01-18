@@ -21,8 +21,6 @@ public class NMultiplyBotEasy extends Bot{
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO input) {
 
-        result.setNumToFinishGame(input.getNumToFinishGame());
-
         int dicesAvailabletoThrow = input.getMyInput().size();
 
         Random r = new Random();
@@ -33,12 +31,12 @@ public class NMultiplyBotEasy extends Bot{
         int to_Remove;
         for (int i = 0; i < dicesToPutAside; i++) {
             to_Remove = r.nextInt(dicesToThrow.size());
-            if (result.getNumToFinishGame()%dicesToThrow.get(to_Remove)==0 &&
+            if (result.getScoreToWin()%dicesToThrow.get(to_Remove)==0 &&
 
-                    ((!isPrime(result.getNumToFinishGame()/dicesToThrow.get(to_Remove)) && result.getNumToFinishGame()/dicesToThrow.get(to_Remove)>7)
-                            || result.getNumToFinishGame()/dicesToThrow.get(to_Remove)<7) &&
+                    ((!isPrime(result.getScoreToWin()/dicesToThrow.get(to_Remove)) && result.getScoreToWin()/dicesToThrow.get(to_Remove)>7)
+                            || result.getScoreToWin()/dicesToThrow.get(to_Remove)<7) &&
 
-                    (Math.pow(6,dicesToThrow.size() - 1) >= result.getNumToFinishGame() / dicesToThrow.get(to_Remove))){
+                    (Math.pow(6,dicesToThrow.size() - 1) >= result.getScoreToWin() / dicesToThrow.get(to_Remove))){
                         result.divideNumToFinishGame(dicesToThrow.get(to_Remove));
                         dicesToThrow.remove(to_Remove);
                     }
