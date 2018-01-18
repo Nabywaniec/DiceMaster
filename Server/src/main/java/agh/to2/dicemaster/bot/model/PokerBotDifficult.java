@@ -69,6 +69,7 @@ public class PokerBotDifficult extends Bot {
             resultOfResults = new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);add(0);}};
         }
 
+        //todo convert to hashmap
         diceOutputResult.setDicesToThrow(resultOfResults);
 
         //FIXME mocked result prepared

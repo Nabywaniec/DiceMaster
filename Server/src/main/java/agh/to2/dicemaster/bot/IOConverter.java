@@ -8,6 +8,7 @@ import agh.to2.dicemaster.common.api.UserInGame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class IOConverter {
 
@@ -53,10 +54,14 @@ public class IOConverter {
 
     public MoveDTO makeNewMoveDTO(DiceOutputDTO output) {
 
+        boolean[] mask = {false, false, false, false, false};
 
-        // output is converted into MoveDTO....
-//        return new MoveDTO();
-        return null;
-        // TODO implement this method
+        for (Object o : output.getDicesToThrow().entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            mask[(Integer) pair.getKey()] = true;
+        }
+
+        return  new MoveDTO(mask);
+
     }
 }
