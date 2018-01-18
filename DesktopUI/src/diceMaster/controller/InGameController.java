@@ -69,16 +69,6 @@ public class InGameController implements GameEventHandler {
         this.splitGameWindowLine.endXProperty().bind(borderPane.widthProperty());
     }
 
-    public void handleDicesFieldMouseClicked(MouseEvent mouseEvent) {
-        boolean flag = false;
-        for (int i = 0; i < 5; i++)
-            if (dicesField.getDiceViews().get(i).isSelected())
-                flag = true;
-        if (flag)
-            this.checkIfItIsThisPlayerTurn();
-    }
-
-
     @Override
     public void refreshGame(GameDTO game) {
         this.playersWaitingForMove.getChildren().clear();

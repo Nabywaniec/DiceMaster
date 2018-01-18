@@ -40,8 +40,7 @@
                     </font>
                 </Text>
                 <UserInGameListView fx:id="playersMoved" layoutX="865.0" layoutY="40.0"/>
-                <DicesField fx:id="dicesField" layoutX="255" layoutY="470"
-                            onMouseClicked="#handleDicesFieldMouseClicked"/>
+                <DicesField fx:id="dicesField" layoutX="255" layoutY="470"/>
                 <Button fx:id="reRollButton" disable="true" layoutX="750" layoutY="500.0" onAction="#handleReRoll"
                         prefHeight="31.0" prefWidth="114.0" text="Re-Roll"/>
                 <Button fx:id="exitButton" layoutX="750" layoutY="540.0" onAction="#handleExit"
