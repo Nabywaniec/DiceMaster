@@ -4,13 +4,15 @@ import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.game.model.Timer;
-import sun.security.util.PendingException;
+import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PokerGameManager {
 
-    private final static int ROUND_DURATION = 20;
+    private final static int TURN_DURATION = 20;
     private final static int ROUND_COUNT = 5;
     private final static int TURNS_PER_ROUND = 3;
 
@@ -22,6 +24,8 @@ public class PokerGameManager {
     private GameState gameState = GameState.PENDING;
 
     private enum GameState {PENDING, STARTED, ENDED}
+
+    private List<GameParticipant> participantsToRemove = new LinkedList<>();
 
 
     public PokerGameManager(PokerGame game) {
@@ -42,6 +46,10 @@ public class PokerGameManager {
         if (roundNumber > ROUND_COUNT) {
             onGameEnd();
         }
+
+        game.removeParticipants(participantsToRemove);
+        participantsToRemove.clear();
+
         notifyAllGameParticipants();
     }
 
@@ -52,7 +60,7 @@ public class PokerGameManager {
 
     public synchronized void onGameStart() {
         gameState = GameState.STARTED;
-        timerThread = new Thread(new Timer(this, ROUND_DURATION));
+        timerThread = new Thread(new Timer(this, TURN_DURATION));
         timerThread.start();
     }
 
@@ -66,10 +74,10 @@ public class PokerGameManager {
         game.getObservers().forEach(observer -> observer.notifyGameStateChange(gameDTO));
     }
 
-    public synchronized void performMove(MoveDTO moveDTO) {
+    public synchronized void onPlayerMove(MoveDTO moveDTO, GameParticipant gameParticipant) {
         Player player = game.getPlayerList()
                 .stream()
-                .filter(p -> p.getId().equals(moveDTO.getPlayerId()))
+                .filter(p -> p.getId().equals(gameParticipant.getId()))
                 .findAny()
                 .orElseThrow(IllegalStateException::new);
 
@@ -78,12 +86,16 @@ public class PokerGameManager {
         timerThread.interrupt();
     }
 
+    public synchronized void onPlayerLeft(GameParticipant gameParticipant) {
+        participantsToRemove.add(gameParticipant);
+    }
+
     private Player findRoundWinner() {
         Player winner = game.getPlayerList()
                 .stream()
                 .max(Comparator.comparingInt(Player::getRoundScore))
                 .orElseThrow(IllegalStateException::new);
-        winner.incereaseGameScore(1);
+        winner.incereaseGameScore();
         return winner;
     }
 
