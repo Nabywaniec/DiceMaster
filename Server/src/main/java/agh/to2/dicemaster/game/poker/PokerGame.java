@@ -87,11 +87,16 @@ public class PokerGame extends Game {
             Dices dices = new Dices();
             int i =0 ;
             for(Dice dice : player.getDices()){
-                dices.getDicesScore()[i] = new DiceNumbers(dice.getValue().ordinal());
+                for(DiceNumbers diceNumbers :DiceNumbers.values()){
+                    if(diceNumbers.ordinal() == dice.getValue().ordinal()){
+                        dices.getDicesScore()[i] = diceNumbers;
+                    }
+                }
+                i+=1;
             }
 
 
-            UserInGame user = new UserInGame(player.getId(), dices,0,false)
+            UserInGame user = new UserInGame(player.getId(), dices,0,false);
         }
 
         return gameDTO;
