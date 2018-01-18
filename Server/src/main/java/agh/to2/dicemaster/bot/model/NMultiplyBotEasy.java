@@ -3,9 +3,7 @@ package agh.to2.dicemaster.bot.model;
 import agh.to2.dicemaster.bot.DiceInputDTO;
 import agh.to2.dicemaster.bot.DiceOutputDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class NMultiplyBotEasy extends Bot{
@@ -25,21 +23,31 @@ public class NMultiplyBotEasy extends Bot{
         Random r = new Random();
         int dicesToPutAside = r.nextInt(dicesAvailabletoThrow);
 
-        List<Integer> dicesToThrow = new ArrayList<>(input.getMyInput());
+        HashMap<Integer, Integer> dicesToThrow = input.getDicesRerolled();
 
         int to_Remove;
         for (int i = 0; i < dicesToPutAside; i++) {
             to_Remove = r.nextInt(dicesToThrow.size());
-            if (result.getScoreToWin()%dicesToThrow.get(to_Remove)==0 &&
+            Iterator it = dicesToThrow.entrySet().iterator();
+            Map.Entry pair=(Map.Entry) it.next();
+            for (int j = 0; j <  to_Remove; j++) {
+                pair = (Map.Entry) it.next();
+            }
+                int numToTarget = result.getScoreLeft();
+                int eyes = (Integer) pair.getValue();
+                if (numToTarget % eyes == 0 &&
 
-                    ((!isPrime(result.getScoreToWin()/dicesToThrow.get(to_Remove)) && result.getScoreToWin()/dicesToThrow.get(to_Remove)>7)
-                            || result.getScoreToWin()/dicesToThrow.get(to_Remove)<7) &&
+                        ((!isPrime(numToTarget / eyes) && numToTarget / eyes > 7)
+                                || numToTarget / eyes < 7) &&
 
-                    (Math.pow(6,dicesToThrow.size() - 1) >= result.getScoreToWin() / dicesToThrow.get(to_Remove))){
-                        result.divideNumToFinishGame(dicesToThrow.get(to_Remove));
-                        dicesToThrow.remove(to_Remove);
-                    }
-        }
+                        (Math.pow(6, dicesToThrow.size() - 1) >= numToTarget / eyes)) {
+
+                    result.divideNumToFinishGame(eyes);
+                    it.remove();
+
+                }
+                it.remove();
+            }
 
         result.setDicesToThrow(dicesToThrow);
 
@@ -48,3 +56,33 @@ public class NMultiplyBotEasy extends Bot{
     }
 
 }
+
+//        last version
+//        result.setDicesToThrow(dicesToThrow);
+//
+//
+//        int dicesAvailabletoThrow = input.getMyInput().size();
+//
+//        Random r = new Random();
+//        int dicesToPutAside = r.nextInt(dicesAvailabletoThrow);
+//
+//        List<Integer> dicesToThrow = new ArrayList<>(input.getMyInput());
+//
+//        int to_Remove;
+//        for (int i = 0; i < dicesToPutAside; i++) {
+//        to_Remove = r.nextInt(dicesToThrow.size());
+//        if (result.getScoreLeft()%dicesToThrow.get(to_Remove)==0 &&
+//
+//        ((!isPrime(result.getScoreLeft()/dicesToThrow.get(to_Remove)) && result.getScoreLeft()/dicesToThrow.get(to_Remove)>7)
+//        || result.getScoreLeft()/dicesToThrow.get(to_Remove)<7) &&
+//
+//        (Math.pow(6,dicesToThrow.size() - 1) >= result.getScoreLeft() / dicesToThrow.get(to_Remove))){
+//        result.divideNumToFinishGame(dicesToThrow.get(to_Remove));
+//        dicesToThrow.remove(to_Remove);
+//        }
+//        }
+//
+//        result.setDicesToThrow(dicesToThrow);
+//
+//
+//        return result;
