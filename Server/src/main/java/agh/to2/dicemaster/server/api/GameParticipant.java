@@ -2,7 +2,7 @@ package agh.to2.dicemaster.server.api;
 
 import agh.to2.dicemaster.common.api.GameDTO;
 
-public abstract class GameParticipant {
+public class GameParticipant {
     private String id;
 
     public GameParticipant() {}
@@ -19,8 +19,8 @@ public abstract class GameParticipant {
         this.id = id;
     }
 
-    public abstract void notifyGameStateChange(GameDTO gameDTO);
+    public  void notifyGameStateChange(GameDTO gameDTO){}
 
-    public abstract void registerPlayerEventHandler(PlayerEventHandler playerEventHandler);
+    public  void registerPlayerEventHandler(PlayerEventHandler playerEventHandler){}
 
 }

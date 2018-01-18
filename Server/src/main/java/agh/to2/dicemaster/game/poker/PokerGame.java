@@ -1,7 +1,7 @@
 package agh.to2.dicemaster.game.poker;
 
-import agh.to2.dicemaster.common.api.GameConfigDTO;
-import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.*;
+import agh.to2.dicemaster.game.model.Dice;
 import agh.to2.dicemaster.game.model.Observer;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.server.api.Game;
@@ -54,6 +54,7 @@ public class PokerGame extends Game {
         PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager, gameParticipant);
         Player player = new Player(gameParticipant);
         players.add(player);
+        observers.add(gameParticipant);
         player.registerPlayerEventHandler(pokerPlayerEventHandler);
         if (getGameConfigDTO().getMaxPlayers() == players.size()) {
             pokerGameManager.onGameStart();
@@ -79,6 +80,19 @@ public class PokerGame extends Game {
                 .stream()
                 .map(GameParticipant::getId)
                 .collect(Collectors.toList());
+
+        List<UserInGame> playerList = new LinkedList<>();
+        for(Player player : this.players){
+
+            Dices dices = new Dices();
+            int i =0 ;
+            for(Dice dice : player.getDices()){
+                dices.getDicesScore()[i] = new DiceNumbers(dice.getValue().ordinal());
+            }
+
+
+            UserInGame user = new UserInGame(player.getId(), dices,0,false)
+        }
 
         return gameDTO;
     }
