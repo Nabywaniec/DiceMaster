@@ -1,4 +1,5 @@
 package diceMaster.view;
+
 import javafx.scene.Group;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -15,20 +16,20 @@ public class DiceView extends Group {
     private Integer numberOfDots = 1;
     private double diceScale = 1;
 
-    public DiceView(){
-        this.diceBackground.setArcHeight(25*diceScale);
-        this.diceBackground.setArcWidth(25*diceScale);
+    public DiceView() {
+        this.diceBackground.setArcHeight(25 * diceScale);
+        this.diceBackground.setArcWidth(25 * diceScale);
         this.diceBackground.setFill(Paint.valueOf("WHITE"));
-        this.diceBackground.setHeight(80*diceScale);
-        this.diceBackground.setWidth(80*diceScale);
+        this.diceBackground.setHeight(80 * diceScale);
+        this.diceBackground.setWidth(80 * diceScale);
         this.diceBackground.setStroke(Paint.valueOf("BLACK"));
         this.getChildren().add(diceBackground);
-        for(int i =0; i<6; i++) {
+        for (int i = 0; i < 6; i++) {
             Circle c = new Circle();
-            c.setRadius(9*diceScale);
+            c.setRadius(9 * diceScale);
             c.setFill(Paint.valueOf("BLACK"));
-            c.setCenterX(40*diceScale);
-            c.setCenterY(40*diceScale);
+            c.setCenterX(40 * diceScale);
+            c.setCenterY(40 * diceScale);
             dotList.add(c);
             this.getChildren().add(c);
         }
@@ -53,7 +54,7 @@ public class DiceView extends Group {
         return isSelected;
     }
 
-    public void setCanBeSelected(){
+    public void setCanBeSelected() {
         this.canBeSelected = true;
     }
 
@@ -69,25 +70,24 @@ public class DiceView extends Group {
         }
     }
 
-    private void resizeDice(){
-        this.diceBackground.setArcHeight(25*diceScale);
-        this.diceBackground.setArcWidth(25*diceScale);
+    private void resizeDice() {
+        this.diceBackground.setArcHeight(25 * diceScale);
+        this.diceBackground.setArcWidth(25 * diceScale);
         this.diceBackground.setFill(Paint.valueOf("WHITE"));
-        this.diceBackground.setHeight(80*diceScale);
-        this.diceBackground.setWidth(80*diceScale);
+        this.diceBackground.setHeight(80 * diceScale);
+        this.diceBackground.setWidth(80 * diceScale);
         this.diceBackground.setStroke(Paint.valueOf("BLACK"));
-        for(Circle c: dotList) {
-            c.setRadius(9*diceScale);
+        for (Circle c : dotList) {
+            c.setRadius(9 * diceScale);
             c.setFill(Paint.valueOf("BLACK"));
         }
         this.setNumberOfDots(this.numberOfDots);
     }
 
 
-
-    public void setNumberOfDots(int number){
+    public void setNumberOfDots(int number) {
         numberOfDots = number;
-        switch (number){
+        switch (number) {
             case 1:
                 makeOneDot();
                 break;
@@ -112,77 +112,79 @@ public class DiceView extends Group {
 
     }
 
-    private void makeOneDot(){
-        for(Circle c : dotList) {
-            c.setCenterX(40*diceScale);
-            c.setCenterY(40*diceScale);
+    private void makeOneDot() {
+        for (Circle c : dotList) {
+            c.setCenterX(40 * diceScale);
+            c.setCenterY(40 * diceScale);
         }
     }
-    private void makeTwoDots(){
-        for(Circle c : dotList) {
-            c.setCenterX(20*diceScale);
-            c.setCenterY(20*diceScale);
+
+    private void makeTwoDots() {
+        for (Circle c : dotList) {
+            c.setCenterX(20 * diceScale);
+            c.setCenterY(20 * diceScale);
         }
-        dotList.get(5).setCenterY(60*diceScale);
-        dotList.get(5).setCenterX(60*diceScale);
-    }
-    private void makeThreeDots(){
-        dotList.get(0).setCenterY(20*diceScale);
-        dotList.get(0).setCenterX(20*diceScale);
-        dotList.get(1).setCenterY(20*diceScale);
-        dotList.get(1).setCenterX(20*diceScale);
-        dotList.get(2).setCenterY(20*diceScale);
-        dotList.get(2).setCenterX(20*diceScale);
-        dotList.get(3).setCenterY(20*diceScale);
-        dotList.get(3).setCenterX(20*diceScale);
-        dotList.get(4).setCenterY(40*diceScale);
-        dotList.get(4).setCenterX(40*diceScale);
-        dotList.get(5).setCenterY(60*diceScale);
-        dotList.get(5).setCenterX(60*diceScale);
+        dotList.get(5).setCenterY(60 * diceScale);
+        dotList.get(5).setCenterX(60 * diceScale);
     }
 
-    private void makeFourDots(){
-        dotList.get(0).setCenterY(20*diceScale);
-        dotList.get(0).setCenterX(20*diceScale);
-        dotList.get(1).setCenterY(20*diceScale);
-        dotList.get(1).setCenterX(20*diceScale);
-        dotList.get(2).setCenterY(20*diceScale);
-        dotList.get(2).setCenterX(60*diceScale);
-        dotList.get(3).setCenterY(60*diceScale);
-        dotList.get(3).setCenterX(20*diceScale);
-        dotList.get(4).setCenterY(60*diceScale);
-        dotList.get(4).setCenterX(60*diceScale);
-        dotList.get(5).setCenterY(60*diceScale);
-        dotList.get(5).setCenterX(60*diceScale);
+    private void makeThreeDots() {
+        dotList.get(0).setCenterY(20 * diceScale);
+        dotList.get(0).setCenterX(20 * diceScale);
+        dotList.get(1).setCenterY(20 * diceScale);
+        dotList.get(1).setCenterX(20 * diceScale);
+        dotList.get(2).setCenterY(20 * diceScale);
+        dotList.get(2).setCenterX(20 * diceScale);
+        dotList.get(3).setCenterY(20 * diceScale);
+        dotList.get(3).setCenterX(20 * diceScale);
+        dotList.get(4).setCenterY(40 * diceScale);
+        dotList.get(4).setCenterX(40 * diceScale);
+        dotList.get(5).setCenterY(60 * diceScale);
+        dotList.get(5).setCenterX(60 * diceScale);
     }
 
-    private void makeFiveDots(){
-        dotList.get(0).setCenterY(20*diceScale);
-        dotList.get(0).setCenterX(20*diceScale);
-        dotList.get(1).setCenterY(40*diceScale);
-        dotList.get(1).setCenterX(40*diceScale);
-        dotList.get(2).setCenterY(20*diceScale);
-        dotList.get(2).setCenterX(60*diceScale);
-        dotList.get(3).setCenterY(60*diceScale);
-        dotList.get(3).setCenterX(20*diceScale);
-        dotList.get(4).setCenterY(60*diceScale);
-        dotList.get(4).setCenterX(60*diceScale);
-        dotList.get(5).setCenterY(60*diceScale);
-        dotList.get(5).setCenterX(60*diceScale);
+    private void makeFourDots() {
+        dotList.get(0).setCenterY(20 * diceScale);
+        dotList.get(0).setCenterX(20 * diceScale);
+        dotList.get(1).setCenterY(20 * diceScale);
+        dotList.get(1).setCenterX(20 * diceScale);
+        dotList.get(2).setCenterY(20 * diceScale);
+        dotList.get(2).setCenterX(60 * diceScale);
+        dotList.get(3).setCenterY(60 * diceScale);
+        dotList.get(3).setCenterX(20 * diceScale);
+        dotList.get(4).setCenterY(60 * diceScale);
+        dotList.get(4).setCenterX(60 * diceScale);
+        dotList.get(5).setCenterY(60 * diceScale);
+        dotList.get(5).setCenterX(60 * diceScale);
     }
 
-    private void makeSixDots(){
-        dotList.get(0).setCenterY(20*diceScale);
-        dotList.get(0).setCenterX(20*diceScale);
-        dotList.get(1).setCenterY(40*diceScale);
-        dotList.get(1).setCenterX(20*diceScale);
-        dotList.get(2).setCenterY(20*diceScale);
-        dotList.get(2).setCenterX(60*diceScale);
-        dotList.get(3).setCenterY(60*diceScale);
-        dotList.get(3).setCenterX(20*diceScale);
-        dotList.get(4).setCenterY(40*diceScale);
-        dotList.get(4).setCenterX(60*diceScale);
-        dotList.get(5).setCenterY(60*diceScale);
-        dotList.get(5).setCenterX(60*diceScale);
+    private void makeFiveDots() {
+        dotList.get(0).setCenterY(20 * diceScale);
+        dotList.get(0).setCenterX(20 * diceScale);
+        dotList.get(1).setCenterY(40 * diceScale);
+        dotList.get(1).setCenterX(40 * diceScale);
+        dotList.get(2).setCenterY(20 * diceScale);
+        dotList.get(2).setCenterX(60 * diceScale);
+        dotList.get(3).setCenterY(60 * diceScale);
+        dotList.get(3).setCenterX(20 * diceScale);
+        dotList.get(4).setCenterY(60 * diceScale);
+        dotList.get(4).setCenterX(60 * diceScale);
+        dotList.get(5).setCenterY(60 * diceScale);
+        dotList.get(5).setCenterX(60 * diceScale);
+    }
+
+    private void makeSixDots() {
+        dotList.get(0).setCenterY(20 * diceScale);
+        dotList.get(0).setCenterX(20 * diceScale);
+        dotList.get(1).setCenterY(40 * diceScale);
+        dotList.get(1).setCenterX(20 * diceScale);
+        dotList.get(2).setCenterY(20 * diceScale);
+        dotList.get(2).setCenterX(60 * diceScale);
+        dotList.get(3).setCenterY(60 * diceScale);
+        dotList.get(3).setCenterX(20 * diceScale);
+        dotList.get(4).setCenterY(40 * diceScale);
+        dotList.get(4).setCenterX(60 * diceScale);
+        dotList.get(5).setCenterY(60 * diceScale);
+        dotList.get(5).setCenterX(60 * diceScale);
     }
 }

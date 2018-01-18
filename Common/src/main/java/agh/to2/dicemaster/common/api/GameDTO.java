@@ -10,6 +10,9 @@ public class GameDTO {
     private List<String> observers;
     private Integer scoreToWinInRound;
 
+    public GameDTO() { // Jackson2 default constructor
+    }
+
     public GameDTO(int id, GameConfigDTO gameConfig, List<UserInGame> players, List<String> observers) {
         this.id = id;
         this.gameConfig = gameConfig;

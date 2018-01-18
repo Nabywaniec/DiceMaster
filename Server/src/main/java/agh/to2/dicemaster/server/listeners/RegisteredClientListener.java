@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.server.listeners;
 
+import agh.to2.dicemaster.common.CommunicationConstants;
 import agh.to2.dicemaster.common.RequestType;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.common.DTO.CreateGameRequestDTO;
@@ -26,7 +27,7 @@ public class RegisteredClientListener implements MessageListener {
     @Override
     public void onMessage(Message message) {
         String inQueueName = message.getMessageProperties().getConsumerQueue();
-        RequestType requestType = RequestType.valueOf((String) message.getMessageProperties().getHeaders().get("requestType"));
+        RequestType requestType = RequestType.valueOf((String) message.getMessageProperties().getHeaders().get(CommunicationConstants.HEADER_REQUEST_TYPE));
 
 //        TODO: check when this is called without the Request/Reply pattern
         String replyToQueueName = message.getMessageProperties().getReplyToAddress().getRoutingKey();

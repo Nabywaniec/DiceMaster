@@ -21,8 +21,12 @@ public class FakeServer implements Server {
 
     @Override
     public ServerGame requestJoinGame(GameDTO gameDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new FakeServerGame(this.userName, gameEventHandler);
+        if(userType == UserType.PLAYER)
+            return new FakeServerGame(this.userName, gameEventHandler);
+
+        return new FakeServerGame("HS", gameEventHandler);
     }
+
 
     @Override
     public List<GameDTO> getAvailableGames() {
