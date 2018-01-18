@@ -21,20 +21,16 @@ group = 'agh.to2.dicemaster'
 version = '1.0.0'
 sourceCompatibility = 1.8
 
-shadowJar {
-    baseName = 'Server'
-    appendix = 'client'
-    classifier = null
-    exclude 'application.properties'
-    exclude 'agh/to2/dicemaster/server'
-}
-
 repositories {
 	mavenCentral()
+	flatDir {
+		dirs 'libs'
+	}
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-amqp')
+	compile name: 'DiceMaster-common-server-1.0.0'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 }
