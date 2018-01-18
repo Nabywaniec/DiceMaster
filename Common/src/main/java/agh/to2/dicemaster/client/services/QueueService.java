@@ -26,7 +26,8 @@ public class QueueService {
         container = new SimpleMessageListenerContainer();
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         TopicExchange exchange = new TopicExchange("diceMasterExchange");
-        Queue queue = new Queue(UUID.randomUUID().toString(), false, true, false);
+        Queue queue = new Queue("diceMaster" + UUID.randomUUID().toString(),
+                false, true, false);
 
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
@@ -35,6 +36,7 @@ public class QueueService {
         container.setRabbitAdmin(rabbitAdmin);
         container.setConnectionFactory(connectionFactory);
         container.setMessageConverter(messageConverter);
+        container.setDefaultRequeueRejected(false);
 
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(queue.getName()));
 

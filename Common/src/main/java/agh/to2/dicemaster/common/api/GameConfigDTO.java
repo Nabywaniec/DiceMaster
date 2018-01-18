@@ -8,6 +8,9 @@ public class GameConfigDTO {
     private int hardBotsCount;
     private int easyBotsCount;
 
+    public GameConfigDTO() { // Jackson2 default constructor
+    }
+
     public GameConfigDTO(String tableName, int maxPlayers, GameType gameType, int hardBotsCount, int easyBotsCount, int roundsToWin) {
         this.tableName = tableName;
         this.maxPlayers = maxPlayers;
