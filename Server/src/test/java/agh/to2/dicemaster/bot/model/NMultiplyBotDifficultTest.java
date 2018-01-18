@@ -4,12 +4,10 @@ import agh.to2.dicemaster.bot.BotType;
 import agh.to2.dicemaster.bot.DiceInputDTO;
 import agh.to2.dicemaster.bot.DiceOutputDTO;
 import agh.to2.dicemaster.bot.factory.NMultiplyBotFactory;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
-
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Created by kamkalet on 18.01.2018.
@@ -17,7 +15,7 @@ import org.junit.Test;
 
 class NMultiplyBotDifficultTest {
 
-    NMultiplyBotFactory factory = new NMultiplyBotFactory();
+    private NMultiplyBotFactory factory = new NMultiplyBotFactory();
 
     @Test
     void getDicesToThrowTest() throws Exception {
@@ -25,7 +23,7 @@ class NMultiplyBotDifficultTest {
         NMultiplyBotDifficult bot = (NMultiplyBotDifficult)
                 factory.createBot(BotType.DIFFICULT);
 
-        bot.
+//        bot.
 
 
         DiceOutputDTO output = new DiceOutputDTO(30);

@@ -1,13 +1,11 @@
-package agh.to2.dicemaster.game.Test;
+package agh.to2.dicemaster.game.poker;
 
 import agh.to2.dicemaster.game.model.Dice;
-import agh.to2.dicemaster.game.poker.PokerScore;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.*;
 
-
-public class PokerTests {
+public class PokerScoreTest {
 
     private static final int N = 5;
 
@@ -54,10 +52,5 @@ public class PokerTests {
         set1[3].setValue(Dice.Value.THREE);
         set1[4].setValue(Dice.Value.THREE);
         assertEquals(PokerScore.getScore(set1), 100 + 9);
-
-
-
-
-
     }
 }

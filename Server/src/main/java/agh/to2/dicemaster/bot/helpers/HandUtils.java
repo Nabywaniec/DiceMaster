@@ -1,6 +1,5 @@
 package agh.to2.dicemaster.bot.helpers;
 
-import agh.to2.dicemaster.bot.IllegalBotTypeException;
 import agh.to2.dicemaster.bot.IllegalHandException;
 import org.json.simple.JSONArray;
 

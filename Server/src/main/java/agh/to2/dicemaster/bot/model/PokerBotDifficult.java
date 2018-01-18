@@ -18,7 +18,7 @@ public class PokerBotDifficult extends Bot {
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO inputDice) {
 
-        DiceOutputDTO diceOutputResult = new DiceOutputDTO();
+        DiceOutputDTO diceOutputResult = new DiceOutputDTO(0);
 
         JSONParser parser = new JSONParser();
         Object object = null;
@@ -39,7 +39,7 @@ public class PokerBotDifficult extends Bot {
         Long myHand = HandUtils.getHandNumber(HandUtils.whatTheHandIsThis(myDices)).longValue();
         Long tmpHand;
         Integer whichMask = 0;
-        Double result = 0.0;
+        Double result = 0d;
         ArrayList<Double> results = new ArrayList<>();
         JSONArray tmpRow;
         for (int i = 0; i < array.size()/8; i++) {
@@ -59,7 +59,7 @@ public class PokerBotDifficult extends Bot {
         JSONArray maskRow= (JSONArray) array.get(8 * index);
         JSONArray resultMask = (JSONArray) maskRow.get(1);
 
-        List<Integer> resultOfResults = null;
+        List<Integer> resultOfResults;
         if (results.get(index) > HandUtils.getHandValue(myHand)) {
             resultOfResults = HandUtils.integerListFromLongList(resultMask);
         } else {
