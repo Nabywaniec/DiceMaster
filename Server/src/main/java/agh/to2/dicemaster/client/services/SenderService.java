@@ -1,13 +1,14 @@
 package agh.to2.dicemaster.client.services;
 
+import agh.to2.dicemaster.common.CommunicationConstants;
+import agh.to2.dicemaster.common.DTO.CreateGameRequestDTO;
+import agh.to2.dicemaster.common.DTO.JoinGameRequestDTO;
+import agh.to2.dicemaster.common.DTO.RegistrationRequestDTO;
 import agh.to2.dicemaster.common.RequestType;
 import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.common.DTO.CreateGameRequestDTO;
-import agh.to2.dicemaster.common.DTO.JoinGameRequestDTO;
-import agh.to2.dicemaster.common.DTO.RegistrationRequestDTO;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -28,9 +29,8 @@ public class SenderService {
     }
 
     public Optional<Object> requestRegistration(String username, String clientQueueName) {
-        return Optional.ofNullable(rabbitTemplate.convertSendAndReceive("registrationQueue",
-                new RegistrationRequestDTO(username, clientQueueName),
-                this::setJsonContentType));
+        return Optional.ofNullable(rabbitTemplate.convertSendAndReceive(CommunicationConstants.REGISTRATION_QUEUE_NAME,
+                new RegistrationRequestDTO(username, clientQueueName), this::setJsonContentType));
     }
 
     public Optional<Object> requestGames() {
@@ -82,7 +82,7 @@ public class SenderService {
     }
 
     private void setRequestType(Message message, RequestType requestType) {
-        message.getMessageProperties().setHeader("requestType", requestType);
+        message.getMessageProperties().setHeader(CommunicationConstants.HEADER_REQUEST_TYPE, requestType);
     }
 
     public void setServerQueueName(String serverQueueName) {

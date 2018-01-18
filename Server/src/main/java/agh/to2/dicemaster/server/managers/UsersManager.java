@@ -2,6 +2,7 @@ package agh.to2.dicemaster.server.managers;
 
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.services.SenderService;
+import com.sun.istack.internal.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class UsersManager {
     }
 
     public User createUser(String username, String clientQueueName) {
+        if(users.get(username) != null || userIdByQueueName.get(clientQueueName) != null){
+            throw new IllegalArgumentException("this username or queueName is taken");
+        }
         User user = new User(username, clientQueueName, senderService);
         userIdByQueueName.put(user.getServerQueueName(), user.getId());
         userIdByQueueName.put(user.getClientQueueName(), user.getId());

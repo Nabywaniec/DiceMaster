@@ -65,6 +65,6 @@ public class RegisteredClientReceiver {
     }
 
     public void onGetAvailableGamesRequest(String replyToQueueName) {
-        senderService.sendGames(gamesManager.getAll(), replyToQueueName);
+        senderService.sendGames(gamesManager.getAllAsGameDTO(), replyToQueueName);
     }
 }
