@@ -16,6 +16,6 @@ public interface Rules {
 
     Integer getAim();
 
-    int initializeRound(List<Player> players);
+    int initializeRound(List<GameParticipant> players);
 
 }

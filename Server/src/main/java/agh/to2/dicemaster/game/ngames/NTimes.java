@@ -9,23 +9,21 @@ import java.util.List;
 import java.util.Random;
 
 public class NTimes implements Rules {
-    public Integer aim;
+    private Integer aim;
 
     public NTimes() {
     }
 
     @Override
-    public Integer getresult(Player player) {
-        Integer result = 1;
+    public  boolean countPoints(Player player) {
+        Integer result = 0;
         for (Dice d : player.getDices()) {
             result *= d.getValue();
         }
-        return result;
-    }
-
-    @Override
-    public boolean countPoints(Player player) {
-        return false;
+        if(result.equals(aim)){
+            return true;
+        }
+        else return false;
     }
 
     @Override
@@ -50,9 +48,9 @@ public class NTimes implements Rules {
     }
 
     @Override
-    public int initializeRound(List<Player> players) {
+    public int initializeRound(List<GameParticipant> players) {
         int[] dices = new int[5];
-        Integer aim = 1;
+        this.aim=1;
         Random generator = new Random();
         for (int i = 0; i < 5; i++) {
             dices[i] = generator.nextInt(6) + 1;
@@ -60,6 +58,5 @@ public class NTimes implements Rules {
         }
         return generator.nextInt(players.size());
     }
-
 
 }

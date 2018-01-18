@@ -11,13 +11,12 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 public class Player extends GameParticipant{
 
     public Dice[] dices = new Dice[5];
-    Integer score;
-    GameParticipant gameParticipant;
+    private Integer score;
+    private GameParticipant gameParticipant;
     public Player(GameParticipant gameParticipant) {
         this.gameParticipant = gameParticipant;
         this.score=0;
     }
-
 
     public Dice[] getDices() {
         return dices;
@@ -34,7 +33,6 @@ public class Player extends GameParticipant{
     public void addRoundWon() {
         this.score = score+1;
     }
-
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {

@@ -7,8 +7,7 @@ import java.util.Objects;
 public abstract class GameParticipant {
     private String id;
 
-    public GameParticipant() {
-    }
+    public GameParticipant() {}
 
     public GameParticipant(String id) {
         this.id = id;

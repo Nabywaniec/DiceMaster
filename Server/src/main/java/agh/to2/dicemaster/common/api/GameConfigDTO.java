@@ -1,18 +1,23 @@
 package agh.to2.dicemaster.common.api;
 
-public abstract class GameConfigDTO implements DTO {
+public class GameConfigDTO {
     private String tableName;
+    private int roundsToWin;
     private int maxPlayers;
     private GameType gameType;
     private int hardBotsCount;
     private int easyBotsCount;
 
-    public GameConfigDTO(String tableName, int maxPlayers, GameType gameType, int hardBotsCount, int easyBotsCount) {
+    public GameConfigDTO() { // Jackson2 default constructor
+    }
+
+    public GameConfigDTO(String tableName, int maxPlayers, GameType gameType, int hardBotsCount, int easyBotsCount, int roundsToWin) {
         this.tableName = tableName;
         this.maxPlayers = maxPlayers;
         this.gameType = gameType;
         this.hardBotsCount = hardBotsCount;
         this.easyBotsCount = easyBotsCount;
+        this.roundsToWin = roundsToWin;
     }
 
     public String getTableName() {
@@ -55,14 +60,11 @@ public abstract class GameConfigDTO implements DTO {
         this.easyBotsCount = easyBotsCount;
     }
 
-    @Override
-    public void fromJSON() {
-
+    public int getRoundsToWin() {
+        return roundsToWin;
     }
 
-    @Override
-    public String toJSON() {
-        return null;
+    public void setRoundsToWin(int roundsToWin) {
+        this.roundsToWin = roundsToWin;
     }
-
 }

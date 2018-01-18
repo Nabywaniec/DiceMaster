@@ -9,19 +9,23 @@ import java.util.List;
 import java.util.Random;
 
 public class NPlus implements Rules {
-    public Integer aim;
+    private Integer aim;
 
     public NPlus() {
 
     }
 
-
     @Override
     public  boolean countPoints(Player player) {
-       if(player.getScore()==aim){
-           return true;
-       }
-       else return false;
+        Integer result = 1;
+        Dice[] dices = player.getDices();
+        for(int i = 0; i < 5; i++){
+            result*=dices[i].getValue();
+        }
+        if(result.equals(aim)){
+            return true;
+        }
+        else return false;
     }
 
     @Override
@@ -40,16 +44,16 @@ public class NPlus implements Rules {
         }
     }
 
-
     @Override
     public Integer getAim() {
         return aim;
     }
 
+
     @Override
-    public int initializeRound(List<Player> players) {
+    public int initializeRound(List<GameParticipant> players) {
         int[] dices = new int[5];
-        Integer aim = 1;
+        this.aim=1;
         Random generator = new Random();
         for (int i = 0; i < 5; i++) {
             dices[i] = generator.nextInt(6) + 1;
@@ -57,6 +61,5 @@ public class NPlus implements Rules {
         }
         return generator.nextInt(players.size());
     }
-
 
 }

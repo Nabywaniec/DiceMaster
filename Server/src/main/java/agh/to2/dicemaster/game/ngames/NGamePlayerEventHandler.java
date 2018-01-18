@@ -9,7 +9,6 @@ import agh.to2.dicemaster.server.api.PlayerEventHandler;
 public class NGamePlayerEventHandler implements PlayerEventHandler {
     GameRunner gameRunner;
 
-
     @Override
     public void onMoveRequest(MoveDTO moveDTO) {
         gameRunner.performMove(moveDTO);
