@@ -1,10 +1,10 @@
 package agh.to2.dicemaster.game.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import agh.to2.dicemaster.game.model.Dice;
 import agh.to2.dicemaster.game.poker.PokerScore;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
+
+import static org.testng.AssertJUnit.assertEquals;
 
 
 public class PokerTests {

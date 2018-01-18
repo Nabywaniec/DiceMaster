@@ -2,8 +2,6 @@ package agh.to2.dicemaster.server.api;
 
 import agh.to2.dicemaster.common.api.GameDTO;
 
-import java.util.Objects;
-
 public abstract class GameParticipant {
     private String id;
 

@@ -36,11 +36,12 @@ public class Player extends GameParticipant{
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
-
+        this.gameParticipant.notifyGameStateChange(gameDTO);
     }
 
     @Override
     public void registerPlayerEventHandler(PlayerEventHandler playerEventHandler) {
+        gameParticipant.registerPlayerEventHandler(playerEventHandler);
 
     }
 }
