@@ -2,7 +2,7 @@ package agh.to2.dicemaster.client.game;
 
 import agh.to2.dicemaster.client.api.Server;
 import agh.to2.dicemaster.client.api.ServerGame;
-import agh.to2.dicemaster.common.UserType;
+import agh.to2.dicemaster.common.api.UserType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,5 +31,4 @@ public class DiceMasterServerGameTest {
     public void leaveGame() throws Exception {
         serverGame.leaveGame();
     }
-
 }

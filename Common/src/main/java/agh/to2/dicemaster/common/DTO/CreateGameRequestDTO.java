@@ -1,7 +1,7 @@
 package agh.to2.dicemaster.common.DTO;
 
-import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
+import agh.to2.dicemaster.common.api.UserType;
 
 public class CreateGameRequestDTO {
     private GameConfigDTO gameConfigDTO;

@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.server.configuration;
 
+import agh.to2.dicemaster.common.CommunicationConstants;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -15,24 +16,21 @@ public class QueueBindings {
     Binding registration(ConnectionFactory connectionFactory) {
         RabbitAdmin admin = new RabbitAdmin(connectionFactory);
 
-        String registrationQueueName = "registrationQueue";
+        admin.deleteQueue(CommunicationConstants.REGISTRATION_QUEUE_NAME);
 
-        admin.deleteQueue(registrationQueueName);
-
-        Queue queue = new Queue(registrationQueueName);
+        Queue queue = new Queue(CommunicationConstants.REGISTRATION_QUEUE_NAME);
         admin.declareQueue(queue);
 
         TopicExchange exchange = new TopicExchange("diceMasterExchange");
         admin.declareExchange(exchange);
 
-        return BindingBuilder.bind(queue).to(exchange).with(registrationQueueName);
+        return BindingBuilder.bind(queue).to(exchange).with(CommunicationConstants.REGISTRATION_QUEUE_NAME);
     }
 
-    @Bean(name = "queueDeletionEvents")
+    @Bean(name = CommunicationConstants.DELETION_EVENTS_QUEUE_NAME)
     Binding queueDeletion(ConnectionFactory connectionFactory) {
         RabbitAdmin admin = new RabbitAdmin(connectionFactory);
-
-        Queue queue = new Queue("queueDeletionEvents");
+        Queue queue = new Queue(CommunicationConstants.DELETION_EVENTS_QUEUE_NAME);
         admin.declareQueue(queue);
 
         TopicExchange exchange = new TopicExchange("amq.rabbitmq.event");
