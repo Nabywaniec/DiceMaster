@@ -27,12 +27,10 @@ public class QueueBindings {
         return BindingBuilder.bind(queue).to(exchange).with(CommunicationConstants.REGISTRATION_QUEUE_NAME);
     }
 
-    @Bean(name = "queueDeletionEvents")
+    @Bean(name = CommunicationConstants.DELETION_EVENTS_QUEUE_NAME)
     Binding queueDeletion(ConnectionFactory connectionFactory) {
         RabbitAdmin admin = new RabbitAdmin(connectionFactory);
-        final String DELETION_EVENTS_QUEUE_NAME = "queueDeletionEvents";
-
-        Queue queue = new Queue(DELETION_EVENTS_QUEUE_NAME);
+        Queue queue = new Queue(CommunicationConstants.DELETION_EVENTS_QUEUE_NAME);
         admin.declareQueue(queue);
 
         TopicExchange exchange = new TopicExchange("amq.rabbitmq.event");

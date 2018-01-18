@@ -1,8 +1,8 @@
 package agh.to2.dicemaster.server.managers;
 
-import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.UserType;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.services.SenderService;

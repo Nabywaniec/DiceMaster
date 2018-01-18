@@ -6,9 +6,9 @@ import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.client.services.QueueService;
 import agh.to2.dicemaster.client.services.SenderService;
 import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
-import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.UserType;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 
 import java.util.ArrayList;
