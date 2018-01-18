@@ -7,19 +7,35 @@
 
 <?import diceMaster.view.DicesField?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
 <?import diceMaster.view.UserInGameFilled?>
 <?import diceMaster.view.UserInGameListView?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:id="borderPane" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="diceMaster.controller.InGameController">
     <center>
         <Group BorderPane.alignment="CENTER">
             <children>
-                <UserInGameFilled fx:id="currentUser" layoutX="450.0" layoutY="15.0"  />
-                <UserInGameListView fx:id="playersWaitingForMove" layoutX="35.0" layoutY="15.0" />
-                <UserInGameListView fx:id="playersMoved" layoutX="865.0" layoutY="15.0" />
                 <Ellipse fill="#058013" layoutX="500.0" layoutY="353.0" radiusX="450.0" radiusY="160.0" stroke="BLACK"
                          strokeType="INSIDE"/>
+                <Text text="Current user:" layoutX="450.0" layoutY="15.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Text>
+                <UserInGameFilled fx:id="currentUser" layoutX="450.0" layoutY="40.0"/>
+                <Text text="Players who wait:" layoutX="35.0" layoutY="15.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Text>
+                <UserInGameListView fx:id="playersWaitingForMove" layoutX="35.0" layoutY="40.0"/>
+                <Text text="Players who moved:" layoutX="865.0" layoutY="15.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Text>
+                <UserInGameListView fx:id="playersMoved" layoutX="865.0" layoutY="40.0"/>
                 <DicesField fx:id="dicesField" layoutX="255" layoutY="470"
                             onMouseClicked="#handleDicesFieldMouseClicked"/>
                 <Button fx:id="reRollButton" disable="true" layoutX="800" layoutY="500.0" onAction="#handleReRoll"

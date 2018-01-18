@@ -8,11 +8,33 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DiceView extends Group {
-    private Rectangle diceBackgroud = new Rectangle();
+    private Rectangle diceBackground = new Rectangle();
     private List<Circle> dotList = new LinkedList<>();
-
     private boolean isSelected = false;
+    private boolean canBeSelected = false;
     private Integer numberOfDots = 1;
+    private double diceScale = 1;
+
+    public DiceView(){
+        this.diceBackground.setArcHeight(25*diceScale);
+        this.diceBackground.setArcWidth(25*diceScale);
+        this.diceBackground.setFill(Paint.valueOf("WHITE"));
+        this.diceBackground.setHeight(80*diceScale);
+        this.diceBackground.setWidth(80*diceScale);
+        this.diceBackground.setStroke(Paint.valueOf("BLACK"));
+        this.getChildren().add(diceBackground);
+        for(int i =0; i<6; i++) {
+            Circle c = new Circle();
+            c.setRadius(9*diceScale);
+            c.setFill(Paint.valueOf("BLACK"));
+            c.setCenterX(40*diceScale);
+            c.setCenterY(40*diceScale);
+            dotList.add(c);
+            this.getChildren().add(c);
+        }
+
+        this.setOnMouseClicked(event -> setSelected(!this.isSelected));
+    }
 
     public double getDiceScale() {
         return diceScale;
@@ -23,8 +45,6 @@ public class DiceView extends Group {
         resizeDice();
     }
 
-    private double diceScale = 1;
-
     public Integer getNumberOfDots() {
         return numberOfDots;
     }
@@ -33,44 +53,29 @@ public class DiceView extends Group {
         return isSelected;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-        if(this.isSelected){
-            this.diceBackgroud.setStyle(
-                    "-fx-effect: innershadow( three-pass-box, #ff2220, 50, 0, 0, 0);" +
-                            "-fx-background-insets: 100;");
-        }
-        else
-            this.diceBackgroud.setStyle("");
+    public void setCanBeSelected(){
+        this.canBeSelected = true;
     }
 
-    public DiceView(){
-        this.diceBackgroud.setArcHeight(25*diceScale);
-        this.diceBackgroud.setArcWidth(25*diceScale);
-        this.diceBackgroud.setFill(Paint.valueOf("WHITE"));
-        this.diceBackgroud.setHeight(80*diceScale);
-        this.diceBackgroud.setWidth(80*diceScale);
-        this.diceBackgroud.setStroke(Paint.valueOf("BLACK"));
-        this.getChildren().add(diceBackgroud);
-        for(int i =0; i<6; i++) {
-            Circle c = new Circle();
-            c.setRadius(9*diceScale);
-            c.setFill(Paint.valueOf("BLACK"));
-            c.setCenterX(40*diceScale);
-            c.setCenterY(40*diceScale);
-            dotList.add(c);
-            this.getChildren().add(c);
+    public void setSelected(boolean selected) {
+        if (canBeSelected) {
+            isSelected = selected;
+            if (this.isSelected) {
+                this.diceBackground.setStyle(
+                        "-fx-effect: innershadow( three-pass-box, #ff2220, 50, 0, 0, 0);" +
+                                "-fx-background-insets: 100;");
+            } else
+                this.diceBackground.setStyle("");
         }
-        this.setOnMouseClicked(event -> setSelected(!this.isSelected));
     }
 
     private void resizeDice(){
-        this.diceBackgroud.setArcHeight(25*diceScale);
-        this.diceBackgroud.setArcWidth(25*diceScale);
-        this.diceBackgroud.setFill(Paint.valueOf("WHITE"));
-        this.diceBackgroud.setHeight(80*diceScale);
-        this.diceBackgroud.setWidth(80*diceScale);
-        this.diceBackgroud.setStroke(Paint.valueOf("BLACK"));
+        this.diceBackground.setArcHeight(25*diceScale);
+        this.diceBackground.setArcWidth(25*diceScale);
+        this.diceBackground.setFill(Paint.valueOf("WHITE"));
+        this.diceBackground.setHeight(80*diceScale);
+        this.diceBackground.setWidth(80*diceScale);
+        this.diceBackground.setStroke(Paint.valueOf("BLACK"));
         for(Circle c: dotList) {
             c.setRadius(9*diceScale);
             c.setFill(Paint.valueOf("BLACK"));
