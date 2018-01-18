@@ -30,7 +30,7 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-amqp')
-	compile name: 'DiceMaster-common-server-1.0.0'
+	compile name: 'DiceMaster-common-for-server-1.0.0'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 }
