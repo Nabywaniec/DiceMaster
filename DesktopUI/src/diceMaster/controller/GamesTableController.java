@@ -129,7 +129,7 @@ public class GamesTableController {
         ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
                 selectedGame,
                 this.diceMasterOverviewController.showGame(),
-                UserType.PLAYER);
+                UserType.OBSERVER);
         this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
     }
 

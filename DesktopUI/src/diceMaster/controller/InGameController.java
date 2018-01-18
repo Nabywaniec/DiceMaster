@@ -29,6 +29,12 @@ public class InGameController implements GameEventHandler {
     Button reRollButton;
 
     @FXML
+    Button exitButton;
+
+    @FXML
+    Button skipTurnButton;
+
+    @FXML
     DicesField dicesField;
 
     @FXML
@@ -59,34 +65,16 @@ public class InGameController implements GameEventHandler {
         this.dicesField.setDicesFiledScale(1);
     }
 
-    private void bindSizeProperties(){
+    private void bindSizeProperties() {
         this.splitGameWindowLine.endXProperty().bind(borderPane.widthProperty());
-    }
-
-
-    public void handleReRoll(ActionEvent event) {
-        boolean [] dicesToReroll = new boolean[5];
-        for(int i=0; i<5; i++)
-            if(dicesField.getDiceViews().get(i).isSelected())
-                dicesToReroll[i] = true;
-            else
-                dicesToReroll[i] = false;
-        MoveDTO moveDTO = new MoveDTO(dicesToReroll);
-
-        for(int i=0; i<5; i++)
-            if(dicesField.getDiceViews().get(i).isSelected())
-                dicesField.getDiceViews().get(i).setSelected(false);
-        reRollButton.setDisable(true);
-
-        serverGame.makeMove(moveDTO);
     }
 
     public void handleDicesFieldMouseClicked(MouseEvent mouseEvent) {
         boolean flag = false;
-        for(int i=0; i<5; i++)
-            if(dicesField.getDiceViews().get(i).isSelected())
-                flag=true;
-        if(flag)
+        for (int i = 0; i < 5; i++)
+            if (dicesField.getDiceViews().get(i).isSelected())
+                flag = true;
+        if (flag)
             this.checkIfItIsThisPlayerTurn();
     }
 
@@ -97,27 +85,21 @@ public class InGameController implements GameEventHandler {
         this.playersMoved.getChildren().clear();
         this.currentUser.getChildren().clear();
 
-        for(UserInGame u: game.getPlayers()){
-            if(u.isHisTurn())
+        for (UserInGame u : game.getPlayers()) {
+            if (u.getUserName().equals(this.appController.getUserNickName())) {
                 this.dicesField.setDicesDots(u.getDices().getDicesScore());
-
+                if (u.isHisTurn()) {
+                    this.reRollButton.setDisable(false);
+                    this.skipTurnButton.setDisable(false);
+                    this.dicesField.setCanBeSelected();
+                }
+            }
         }
 
         this.setPlayersListToView(game.getPlayers());
-        this.checkIfItIsThisPlayerTurn();
 
-        if(serverGame.getGameDTO().getGameConfig().getGameType() != GameType.POKER)
+        if (serverGame.getGameDTO().getGameConfig().getGameType() != GameType.POKER)
             scoreInRound.setText("Score to win round: " + String.valueOf(serverGame.getGameDTO().getScoreToWin()));
-    }
-
-    public void checkIfItIsThisPlayerTurn(){
-        for(int i=0; i< this.serverGame.getGameDTO().getPlayers().size(); i++){
-            if(this.serverGame.getGameDTO().getPlayers().get(i).getUserName().equals(this.appController.getUserNickName()))
-                if(this.serverGame.getGameDTO().getPlayers().get(i).isHisTurn()) {
-                    this.reRollButton.setDisable(false);
-                    this.dicesField.setCanBeSelected();
-                }
-        }
     }
 
     public void setServerGame(ServerGame serverGame) {
@@ -127,19 +109,19 @@ public class InGameController implements GameEventHandler {
         this.refreshGame(serverGame.getGameDTO());
     }
 
-    private void setPlayersListToView(List<UserInGame> players){
+    private void setPlayersListToView(List<UserInGame> players) {
         List<UserInGame> beforeMove = new LinkedList<>();
         List<UserInGame> afterMove = new LinkedList<>();
         boolean foundCurrentPlayer = false;
 
-        for(UserInGame player: players){
-            if(player.isHisTurn()){
+        for (UserInGame player : players) {
+            if (player.isHisTurn()) {
                 foundCurrentPlayer = true;
                 this.currentUser.init(player);
                 System.out.println(player);
                 continue;
             }
-            if(foundCurrentPlayer){
+            if (foundCurrentPlayer) {
                 beforeMove.add(player);
             } else {
                 afterMove.add(player);
@@ -149,4 +131,43 @@ public class InGameController implements GameEventHandler {
         this.playersWaitingForMove.init(beforeMove);
     }
 
+    public void handleExit(ActionEvent actionEvent) {
+        this.serverGame.leaveGame();
+        this.appController.showGamesTable();
+    }
+
+    public void handleReRoll(ActionEvent event) {
+        boolean[] dicesToReroll = new boolean[5];
+        for (int i = 0; i < 5; i++)
+            if (this.dicesField.getDiceViews().get(i).isSelected())
+                dicesToReroll[i] = true;
+            else
+                dicesToReroll[i] = false;
+        MoveDTO moveDTO = new MoveDTO(dicesToReroll);
+
+        for (int i = 0; i < 5; i++)
+            if (dicesField.getDiceViews().get(i).isSelected())
+                dicesField.getDiceViews().get(i).setSelected(false);
+        this.reRollButton.setDisable(true);
+        this.skipTurnButton.setDisable(true);
+
+        this.serverGame.makeMove(moveDTO);
+    }
+
+    public void handleSkipTurn(ActionEvent actionEvent) {
+        boolean[] dicesToReroll = new boolean[5];
+        for (int i = 0; i < 5; i++)
+            dicesToReroll[i] = false;
+
+        MoveDTO moveDTO = new MoveDTO(dicesToReroll);
+
+        for (int i = 0; i < 5; i++)
+            if (dicesField.getDiceViews().get(i).isSelected())
+                dicesField.getDiceViews().get(i).setSelected(false);
+
+        this.reRollButton.setDisable(true);
+        this.skipTurnButton.setDisable(true);
+
+        this.serverGame.makeMove(moveDTO);
+    }
 }

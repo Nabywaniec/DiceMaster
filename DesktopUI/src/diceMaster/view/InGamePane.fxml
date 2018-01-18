@@ -42,10 +42,14 @@
                 <UserInGameListView fx:id="playersMoved" layoutX="865.0" layoutY="40.0"/>
                 <DicesField fx:id="dicesField" layoutX="255" layoutY="470"
                             onMouseClicked="#handleDicesFieldMouseClicked"/>
-                <Button fx:id="reRollButton" disable="true" layoutX="800" layoutY="500.0" onAction="#handleReRoll"
+                <Button fx:id="reRollButton" disable="true" layoutX="750" layoutY="500.0" onAction="#handleReRoll"
                         prefHeight="31.0" prefWidth="114.0" text="Re-Roll"/>
+                <Button fx:id="exitButton" layoutX="750" layoutY="540.0" onAction="#handleExit"
+                        prefHeight="31.0" prefWidth="114.0" text="Leave"/>
+                <Button fx:id="skipTurnButton" disable="true" layoutX="870" layoutY="500.0" onAction="#handleSkipTurn"
+                        prefHeight="31.0" prefWidth="114.0" text="Skip turn"/>
             </children>
-            <Line fx:id="splitGameWindowLine" startX="0" layoutY="600" strokeMiterLimit="100" strokeWidth="10.0"/>
+            <Line fx:id="splitGameWindowLine" layoutY="600" strokeMiterLimit="100" strokeWidth="10.0"/>
         </Group>
     </center>
 </BorderPane>

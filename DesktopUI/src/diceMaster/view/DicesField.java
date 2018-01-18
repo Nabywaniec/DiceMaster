@@ -2,6 +2,7 @@ package diceMaster.view;
 
 import javafx.scene.Group;
 import agh.to2.dicemaster.common.api.DiceNumbers;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,14 +21,14 @@ public class DicesField extends Group {
         }
     }
 
-    public void setCanBeSelected(){
-        for(DiceView diceView : diceViews){
+    public void setCanBeSelected() {
+        for (DiceView diceView : diceViews) {
             diceView.setCanBeSelected();
         }
     }
 
-    private int convertEnumToInt(DiceNumbers number){
-        switch(number){
+    private int convertEnumToInt(DiceNumbers number) {
+        switch (number) {
             case ONE:
                 return 1;
             case TWO:
@@ -67,9 +68,10 @@ public class DicesField extends Group {
         }
         reLocate();
     }
-    private void reLocate(){
-        int i =0;
-        for (DiceView d: diceViews) {
+
+    private void reLocate() {
+        int i = 0;
+        for (DiceView d : diceViews) {
             d.setLayoutX(0 + 100 * i * dicesFiledScale);
             d.setLayoutY(0);
             i++;
