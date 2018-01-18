@@ -1,8 +1,6 @@
 package diceMaster.controller;
 
-import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.common.api.UserInGame;
+import agh.to2.dicemaster.common.api.*;
 import diceMaster.model.gui.GameEventHandler;
 import diceMaster.model.server.ServerGame;
 import diceMaster.view.DicesField;
@@ -14,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +42,15 @@ public class InGameController implements GameEventHandler {
 
     @FXML
     UserInGameFilled currentUser;
+
+    @FXML
+    Text tablesTypeText;
+
+    @FXML
+    Text roundsToWin;
+
+    @FXML
+    Text scoreInRound;
 
     public void setAppController(DiceMasterOverviewController appController) {
         this.appController = appController;
@@ -97,6 +105,9 @@ public class InGameController implements GameEventHandler {
 
         this.setPlayersListToView(game.getPlayers());
         this.checkIfItIsThisPlayerTurn();
+
+        if(serverGame.getGameDTO().getGameConfig().getGameType() != GameType.POKER)
+            scoreInRound.setText("Score to win round: " + String.valueOf(serverGame.getGameDTO().getScoreToWin()));
     }
 
     public void checkIfItIsThisPlayerTurn(){
@@ -111,6 +122,8 @@ public class InGameController implements GameEventHandler {
 
     public void setServerGame(ServerGame serverGame) {
         this.serverGame = serverGame;
+        this.tablesTypeText.setText("Table's type: " + serverGame.getGameDTO().getGameConfig().getGameType().toString());
+        this.roundsToWin.setText("Rounds to win: " + String.valueOf(serverGame.getGameDTO().getGameConfig().getRoundsToWin()));
         this.refreshGame(serverGame.getGameDTO());
     }
 

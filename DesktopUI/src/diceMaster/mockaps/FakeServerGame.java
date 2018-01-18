@@ -35,6 +35,7 @@ public class FakeServerGame extends ServerGame {
         }
         GameConfigDTO gc = new GameConfigDTO("takasytulacja", 14, GameType.NPLUS, 0, 0, 25);
         this.gameDTO = new GameDTO(3, gc, players, null);
+        this.gameDTO.setScoreToWin(18);
     }
 
     public void makeMove(MoveDTO moveDTO){

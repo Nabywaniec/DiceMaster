@@ -18,6 +18,10 @@
             <children>
                 <Ellipse fill="#058013" layoutX="500.0" layoutY="353.0" radiusX="450.0" radiusY="160.0" stroke="BLACK"
                          strokeType="INSIDE"/>
+                <Text fx:id="tablesTypeText" layoutX="450.0" layoutY="350.0"/>
+                <Text fx:id="roundsToWin" layoutX="450.0" layoutY="370.0"/>
+                <Text fx:id="scoreInRound" layoutX="450.0" layoutY="390.0"/>
+
                 <Text text="Current user:" layoutX="450.0" layoutY="15.0">
                     <font>
                         <Font size="16.0"/>
