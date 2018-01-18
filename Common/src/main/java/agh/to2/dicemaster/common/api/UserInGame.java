@@ -1,6 +1,8 @@
 package agh.to2.dicemaster.common.api;
 
-public class UserInGame {
+public class UserInGame
+
+
     private String userName;
     private Dices dices;
     private Integer score;

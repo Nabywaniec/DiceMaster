@@ -4,6 +4,7 @@ import agh.to2.dicemaster.game.model.Dice;
 import agh.to2.dicemaster.game.poker.PokerScore;
 import org.testng.annotations.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertEquals;
 
 
