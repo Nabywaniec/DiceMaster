@@ -4,6 +4,7 @@
 out/
 .gradle
 /build/
+build/
 
 ### Java template
 # Compiled class file

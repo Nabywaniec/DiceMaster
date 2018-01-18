@@ -4,7 +4,8 @@ import diceMaster.controller.GamesTableController;
 
 import java.util.TimerTask;
 
-public class AvailableGamesChecker extends TimerTask {
+public class
+AvailableGamesChecker extends TimerTask {
     private GamesTableController gamesTableController;
 
     public AvailableGamesChecker(GamesTableController gamesTableController) {
