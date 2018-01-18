@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.server.configuration;
 
+import agh.to2.dicemaster.common.CommunicationConstants;
 import agh.to2.dicemaster.server.listeners.RegisteredClientListener;
 import agh.to2.dicemaster.server.listeners.RegistrationListener;
 import agh.to2.dicemaster.server.listeners.UnregistrationListener;
@@ -15,8 +16,9 @@ public class ListenerContainers {
                                                          RegistrationListener listener) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames("registrationQueue");
+        container.setQueueNames(CommunicationConstants.REGISTRATION_QUEUE_NAME);
         container.setMessageListener(listener);
+        container.setDefaultRequeueRejected(false);
         return container;
     }
 
@@ -26,6 +28,7 @@ public class ListenerContainers {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listener);
+        container.setDefaultRequeueRejected(false);
         return container;
     }
 
@@ -35,7 +38,8 @@ public class ListenerContainers {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listener);
-        container.setQueueNames("queueDeletionEvents");
+        container.setQueueNames(CommunicationConstants.DELETION_EVENTS_QUEUE_NAME);
+        container.setDefaultRequeueRejected(false);
         return container;
     }
 }

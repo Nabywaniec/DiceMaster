@@ -1,6 +1,6 @@
 package diceMaster.model.gui;
 
-import diceMaster.model.common.GameDTO;
+import agh.to2.dicemaster.common.api.GameDTO;
 
 public interface GameEventHandler {
     void refreshGame(GameDTO game);
