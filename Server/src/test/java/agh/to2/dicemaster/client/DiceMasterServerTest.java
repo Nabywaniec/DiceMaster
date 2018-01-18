@@ -19,7 +19,8 @@ public class DiceMasterServerTest {
 
     @Before
     public void setUp() throws Exception {
-        server = new DiceMasterServer("localhost");
+        server = Server.createDiceMasterServer("localhost",
+                "guest", "guest");
         username = String.valueOf(UUID.randomUUID());
     }
 

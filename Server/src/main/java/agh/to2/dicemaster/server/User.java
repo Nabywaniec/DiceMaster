@@ -24,7 +24,7 @@ public class User extends GameParticipant {
 
     private String generateQueueName() {
 //        return UUID.randomUUID().toString()
-        return DatatypeConverter.printHexBinary((new SecureRandom().generateSeed(32)));
+        return "diceMaster" + DatatypeConverter.printHexBinary((new SecureRandom().generateSeed(32)));
     }
 
     @Override
