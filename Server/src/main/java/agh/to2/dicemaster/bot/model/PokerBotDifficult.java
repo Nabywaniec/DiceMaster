@@ -9,10 +9,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Dawid Tomasiewicz on 06.01.2018.
@@ -69,8 +66,29 @@ public class PokerBotDifficult extends Bot {
             resultOfResults = new ArrayList<Integer>(){{add(0);add(0);add(0);add(0);add(0);}};
         }
 
+        List<Integer> myNewInput = inputDice.getMyInput();
+        List<Integer> mySortedInput = inputDice.getMyInput();
+        List<Integer> myUnsortedInput = inputDice.getMyInput();
+        Collections.sort(mySortedInput);
+        List<Integer> dicesToThrow = new ArrayList<>();
+
+        HashMap<Integer, Integer> mapResult = new HashMap<>();
+
+        for (int i = 0; i < 5; i++) {
+            if (resultOfResults.get(i).equals(1)) {
+                dicesToThrow.add(mySortedInput.get(i));
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (dicesToThrow.contains(myUnsortedInput.get(i))) {
+                mapResult.put(i, myUnsortedInput.get(i));
+            }
+        }
+
+
         //todo convert to hashmap
-        diceOutputResult.setDicesToThrow(resultOfResults);
+        diceOutputResult.setDicesToThrow(mapResult);
 
         //FIXME mocked result prepared
 //        List<Integer> tmp = Arrays.asList(4,5,6);

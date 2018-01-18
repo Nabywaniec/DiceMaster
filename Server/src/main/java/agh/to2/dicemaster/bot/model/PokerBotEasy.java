@@ -7,6 +7,7 @@ import agh.to2.dicemaster.bot.helpers.Hand;
 import agh.to2.dicemaster.bot.helpers.HandUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class PokerBotEasy extends Bot {
 
         List<Integer> dicesToThrow = new ArrayList<>();
 
+        List<Integer> myInput = input.getMyInput();
         if (!myHandIsTheHighestOnTable(input) && myHandUsesAllDices(input.getMyInput())) {
             // throw all dices
             dicesToThrow.addAll(input.getMyInput());
@@ -30,7 +32,16 @@ public class PokerBotEasy extends Bot {
             }
         }
 
-        result.setDicesToThrow(dicesToThrow);
+
+        HashMap <Integer, Integer> mapResult = new HashMap<>();
+
+        for (int i = 0; i < 5; i++) {
+            if (dicesToThrow.contains(myInput.get(i))) {
+                mapResult.put(i, myInput.get(i));
+            }
+        }
+
+        result.setDicesToThrow(mapResult);
 
 
         return result;
