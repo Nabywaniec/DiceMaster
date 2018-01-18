@@ -9,12 +9,22 @@ public abstract class Game {
     private int id;
     private GameConfigDTO gameConfigDTO;
 
+    private List<GameParticipant> players;
+
+    public Game(int id, GameConfigDTO gameConfigDTO) {
+        this.id = id;
+        this.gameConfigDTO = gameConfigDTO;
+    }
+
     public abstract void addObserver(GameParticipant gameParticipant);
+
     public abstract void addPlayer(GameParticipant gameParticipant);
-    public abstract GameDTO getGameDTO();
 
     public abstract List<GameParticipant> getPlayers();
+
     public abstract List<GameParticipant> getObservers();
+
+    public abstract GameDTO getGameDTO();
 
     public int getId() {
         return id;
@@ -24,4 +34,7 @@ public abstract class Game {
         this.id = id;
     }
 
+    public GameConfigDTO getGameConfigDTO() {
+        return gameConfigDTO;
+    }
 }
