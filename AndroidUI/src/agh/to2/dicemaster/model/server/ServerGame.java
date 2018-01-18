@@ -1,7 +1,6 @@
-package agh.to2.dicemaster.client.api;
+package agh.to2.dicemaster.model.server;
 
-import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.common.api.MoveDTO;
+import agh.to2.dicemaster.common.api.*;
 
 public abstract class ServerGame {
 
@@ -13,4 +12,8 @@ public abstract class ServerGame {
 
     public abstract void makeMove(MoveDTO moveDTO);
     public abstract void leaveGame();
+
+    public GameDTO getGameDTO() {
+        return gameDTO;
+    }
 }
