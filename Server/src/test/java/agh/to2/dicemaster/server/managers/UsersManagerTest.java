@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.server.managers;
 
+import agh.to2.dicemaster.server.Exceptions.UsernameTakenException;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.services.SenderService;
 import org.junit.After;
@@ -35,15 +36,19 @@ public class UsersManagerTest {
         assert usersManager.getAll().isEmpty();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void createUser() throws Exception {
+    @Test(expected = UsernameTakenException.class)
+    public void createUserWithUsernameTaken() throws Exception {
 //        given
 //        when
         usersManager.createUser("user1", "otherClientQueue");
-        usersManager.createUser("Newuser", "newUserQueueName");
+    }
+
+    @Test
+    public void createUser() throws Exception {
+        User newUser = usersManager.createUser("Newuser", "newUserQueueName");
 //        then
-        assert usersManager.getUserById("NewUser").isPresent();
-        assert usersManager.getUserByQueueName("newUserQueueName").isPresent();
+        assert usersManager.getUserById(newUser.getId()).isPresent();
+        assert usersManager.getUserByQueueName(newUser.getClientQueueName()).isPresent();
     }
 
     @Test
