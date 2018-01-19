@@ -1,9 +1,9 @@
 package diceMaster.controller;
 
+import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameType;
 import agh.to2.dicemaster.common.api.UserType;
-import diceMaster.model.server.ServerGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +17,6 @@ import java.text.ParsePosition;
 import java.util.function.UnaryOperator;
 
 public class CreateGameController extends Pane {
-    private boolean approved = false;
     private GameConfigDTO gameConfigDTO;
     private Stage dialogStage;
     private DiceMasterOverviewController diceMasterOverviewController;
@@ -60,9 +59,6 @@ public class CreateGameController extends Pane {
         this.dialogStage =  dialogStage;
     }
 
-    public boolean isApproved() {
-        return approved;
-    }
 
     public void handleJoinAsPlayerCheckBox(MouseEvent mouseEvent) {
         joinAsPlayerCheckBox.setSelected(true);

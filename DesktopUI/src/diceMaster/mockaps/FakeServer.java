@@ -1,30 +1,29 @@
 package diceMaster.mockaps;
 
-
-
+import agh.to2.dicemaster.client.api.GameEventHandler;
+import agh.to2.dicemaster.client.api.Server;
+import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.common.api.*;
 
-import diceMaster.model.gui.GameEventHandler;
-import diceMaster.model.server.Server;
-import diceMaster.model.server.ServerGame;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class FakeServer implements Server {
 
     private String userName;
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new FakeServerGame(this.userName, gameEventHandler);
+        return new FakeServerGame(new GameDTO(new Random().nextInt(1000), gameConfigDTO, null, null),this.userName, gameEventHandler);
     }
 
     @Override
     public ServerGame requestJoinGame(GameDTO gameDTO, GameEventHandler gameEventHandler, UserType userType) {
         if(userType == UserType.PLAYER)
-            return new FakeServerGame(this.userName, gameEventHandler);
+            return new FakeServerGame(gameDTO, this.userName, gameEventHandler);
 
-        return new FakeServerGame("HS", gameEventHandler);
+        return new FakeServerGame(gameDTO,"HS", gameEventHandler);
     }
 
 

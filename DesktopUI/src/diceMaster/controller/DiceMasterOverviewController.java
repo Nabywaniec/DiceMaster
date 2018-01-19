@@ -1,8 +1,8 @@
 package diceMaster.controller;
 
+import agh.to2.dicemaster.client.api.Server;
 import diceMaster.Main;
 import diceMaster.model.gui.AvailableGamesChecker;
-import diceMaster.model.server.Server;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

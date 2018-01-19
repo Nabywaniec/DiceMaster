@@ -1,15 +1,14 @@
 package diceMaster.controller;
 
+import agh.to2.dicemaster.client.api.GameEventHandler;
+import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.common.api.*;
-import diceMaster.model.gui.GameEventHandler;
-import diceMaster.model.server.ServerGame;
 import diceMaster.view.DicesField;
 import diceMaster.view.UserInGameFilled;
 import diceMaster.view.UserInGameListView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -69,8 +68,7 @@ public class InGameController implements GameEventHandler {
         this.splitGameWindowLine.endXProperty().bind(borderPane.widthProperty());
     }
 
-    @Override
-    public void refreshGame(GameDTO game) {
+    public void onGameChange(GameDTO game) {
         this.playersWaitingForMove.getChildren().clear();
         this.playersMoved.getChildren().clear();
         this.currentUser.getChildren().clear();
@@ -96,7 +94,7 @@ public class InGameController implements GameEventHandler {
         this.serverGame = serverGame;
         this.tablesTypeText.setText("Table's type: " + serverGame.getGameDTO().getGameConfig().getGameType().toString());
         this.roundsToWin.setText("Rounds to win: " + String.valueOf(serverGame.getGameDTO().getGameConfig().getRoundsToWin()));
-        this.refreshGame(serverGame.getGameDTO());
+        this.onGameChange(serverGame.getGameDTO());
     }
 
     private void setPlayersListToView(List<UserInGame> players) {

@@ -1,8 +1,8 @@
 package diceMaster.mockaps;
 
+import agh.to2.dicemaster.client.api.GameEventHandler;
+import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.common.api.*;
-import diceMaster.model.gui.GameEventHandler;
-import diceMaster.model.server.ServerGame;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +13,8 @@ public class FakeServerGame extends ServerGame {
     private GameEventHandler gameEventHandler;
     private GameDTO gameDTO;
 
-    public FakeServerGame(String userName, GameEventHandler gameEventHandler) {
+    public FakeServerGame(GameDTO gameDTO, String userName, GameEventHandler gameEventHandler) {
+        super(gameDTO);
         this.userName = userName;
         this.gameEventHandler = gameEventHandler;
 
@@ -58,7 +59,12 @@ public class FakeServerGame extends ServerGame {
         System.out.println(this.gameDTO.getPlayers().get(id).getUserName());
         this.gameDTO.getPlayers().get(id).setHisTurn(false);
         this.gameDTO.getPlayers().get((id + 1) % this.gameDTO.getPlayers().size()).setHisTurn(true);
-        this.gameEventHandler.refreshGame(this.gameDTO);
+        this.gameEventHandler.onGameChange(this.gameDTO);
+    }
+
+    @Override
+    public void leaveGame() {
+
     }
 
     public GameDTO getGameDTO() {

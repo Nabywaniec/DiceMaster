@@ -1,10 +1,10 @@
 package diceMaster.controller;
 
 
+import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.UserType;
 import diceMaster.Main;
-import diceMaster.model.server.ServerGame;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -70,7 +70,7 @@ public class GamesTableController {
     private void bindSizeProperties() {
     }
 
-    public boolean showCreateGameDialog() {
+    public void showCreateGameDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CreateGameDialog.fxml"));
@@ -86,11 +86,9 @@ public class GamesTableController {
             presenter.setDiceMasterOverviewController(this.diceMasterOverviewController);
             presenter.init();
             dialogStage.showAndWait();
-            return presenter.isApproved();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public void createGameActionHandler(MouseEvent mouseEvent) {
@@ -114,23 +112,33 @@ public class GamesTableController {
     }
 
     public void joinAsPlayerGameActionHandler(MouseEvent mouseEvent) {
-        System.out.println(gamesTable.getSelectionModel().getSelectedItem());
-        GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
-        ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
-                selectedGame,
-                this.diceMasterOverviewController.showGame(),
-                UserType.PLAYER);
-        this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
+        this.joinToGame(UserType.PLAYER);
     }
 
     public void joinAsObserverGameActionHandler(MouseEvent mouseEvent) {
-        System.out.println(gamesTable.getSelectionModel().getSelectedItem());
+        this.joinToGame(UserType.OBSERVER);
+    }
+
+    public void joinToGame(UserType userType){
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
         ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
                 selectedGame,
                 this.diceMasterOverviewController.showGame(),
-                UserType.OBSERVER);
-        this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
+                userType);
+        if(serverGame == null){
+            this.showAlert("Couldn't connect to game!!");
+            this.diceMasterOverviewController.showGamesTable();
+        }else {
+            this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
+        }
+    }
+
+    public void showAlert(String alertMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("DiceMaster - Games Tables");
+        alert.setHeaderText("DiceMaster - Games Tables");
+        alert.setContentText(alertMessage);
+        alert.show();
     }
 
 }
