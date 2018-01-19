@@ -40,7 +40,7 @@ public class PokerGameManager {
         if (currentPlayer >= game.getPlayerList().size()) {
             currentPlayer = 0;
         }
-        if (turnNumber > TURNS_PER_ROUND) {
+        if (turnNumber > TURNS_PER_ROUND * game.getPlayerList().size()) {
             turnNumber = 1;
             onRoundEnd();
         }
@@ -113,6 +113,18 @@ public class PokerGameManager {
 
     public boolean hasEnded() {
         return gameState.equals(GameState.ENDED);
+    }
+
+    public int getRoundNumber(){
+        return this.roundNumber;
+    }
+
+    public int getCurrentPlayer(){
+        return this.currentPlayer;
+    }
+
+    public int getTurnNumber(){
+        return this.turnNumber;
     }
 
 }

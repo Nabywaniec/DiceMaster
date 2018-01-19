@@ -66,6 +66,7 @@ public class PokerTests extends Thread {
         // testy działanie Timera
 
         GameConfigDTO gameConfigDTO = new GameConfigDTO();
+        gameConfigDTO.setMaxPlayers(3);
         PokerGame pokerGame = new PokerGame(1, gameConfigDTO);
         PokerGameManager pokerGameManager = new PokerGameManager(pokerGame);
         Timer timer = new Timer(pokerGameManager, 30);
@@ -112,6 +113,16 @@ public class PokerTests extends Thread {
 
         // test spr wygranego w rundzie
 
+
+        PokerGameManager pokerGameManager1 = pokerGame.getPokerGameManager();
+        for(int i=0;i<27;i++) {
+            pokerGameManager1.onTurnEnd();
+        }
+
+        assertEquals(pokerGameManager1,false);
+        assertEquals(pokerGameManager1.getRoundNumber() , 4);
+        assertEquals(pokerGameManager1.getCurrentPlayer(),0);
+        assertEquals(pokerGameManager1.getTurnNumber(),0);
 
 
 
