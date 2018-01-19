@@ -28,7 +28,7 @@ public class Timer implements Runnable {
             try {
                 TimeUnit.SECONDS.sleep(secondsToCount);
             } catch (InterruptedException ie) {
-                ie.printStackTrace();
+                //ie.printStackTrace();
             }
             delay = true;
             gameManager.onTurnEnd();

@@ -127,4 +127,7 @@ public class PokerGameManager {
         return this.turnNumber;
     }
 
+    public List<GameParticipant> getParticipantsToRemove(){
+        return this.participantsToRemove;
+    }
 }
