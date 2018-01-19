@@ -7,6 +7,7 @@ import agh.to2.dicemaster.game.model.Timer;
 import agh.to2.dicemaster.game.poker.PokerGame;
 import agh.to2.dicemaster.game.poker.PokerGameManager;
 import agh.to2.dicemaster.game.poker.PokerScore;
+import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import org.junit.Test;
 //import org.testng.annotations.Test;
@@ -155,15 +156,16 @@ public class PokerTests extends Thread {
           pokerGame.addPlayer(player1);
           pokerGame.addPlayer(player2);
           pokerGame.addPlayer(player1);
+          pokerGame.addObserver(gameParticipant3);
           assertEquals(pokerGame.getPlayerList().size(), 2);
-          assertEquals(pokerGame.getObservers().size(), 2);
+          assertEquals(pokerGame.getObservers().size(), 1);
 
           PokerGameManager pokerGameManager1 = pokerGame.getPokerGameManager();
           pokerGameManager1.onPlayerLeft(player1);
           assertEquals(pokerGameManager1.getParticipantsToRemove().size(), 1);
           pokerGameManager1.onTurnEnd();
           assertEquals(pokerGame.getPlayerList().size(), 1);
-          assertEquals(pokerGame.getObservers().size(), 1);
+
 
 
 

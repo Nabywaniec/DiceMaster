@@ -54,7 +54,6 @@ public class PokerGame extends Game {
         PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager, gameParticipant);
         Player player = new Player(gameParticipant);
         players.add(player);
-        observers.add(gameParticipant);
         player.registerPlayerEventHandler(pokerPlayerEventHandler);
         if (getGameConfigDTO().getMaxPlayers() == players.size()) {
             pokerGameManager.onGameStart();
