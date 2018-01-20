@@ -40,8 +40,7 @@ public class RegisteredClientReceiver {
     public void onCreateGameRequest(GameConfigDTO gameConfigDTO, UserType userType, String inQueueName, String replyToQueueName) {
         Optional<User> userOptional = usersManager.getUserByQueueName(inQueueName);
         if(userOptional.isPresent() && !userOptional.get().isUserInGame()){
-            Game game = gamesManager.createGame(gameConfigDTO);
-            gamesManager.addUserToGame(userType, userOptional.get(), game.getId());
+            Game game = gamesManager.createGame(gameConfigDTO, userType, userOptional.get());
             senderService.directSendGameState(game.getGameDTO(), replyToQueueName);
         }
     }
