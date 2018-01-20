@@ -51,6 +51,9 @@ public class PokerGame extends Game {
 
     @Override
     public void addPlayer(GameParticipant gameParticipant) {
+
+        if(this.pokerGameManager.hasStarted()) return;
+
         PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager, gameParticipant);
         Player player = new Player(gameParticipant);
         players.add(player);

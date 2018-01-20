@@ -1,6 +1,7 @@
 package agh.to2.dicemaster.game.Test;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
+import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.model.Dice;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.game.model.Timer;
@@ -81,20 +82,14 @@ public class PokerTests extends Thread {
             GameParticipant gameParticipant2 = new GameParticipant("2");
             GameParticipant gameParticipant3 = new GameParticipant("3");
 
-            Player player1 = new Player(gameParticipant1);
-            Player player2 = new Player(gameParticipant2);
-            Player player3 = new Player(gameParticipant3);
 
-            pokerGame.addPlayer(player1);
-            pokerGame.addPlayer(player2);
-            pokerGame.addPlayer(player3);
-            assertEquals(pokerGame.getObservers().contains(player1), true);
+            pokerGame.addPlayer(gameParticipant1);
+            pokerGame.addPlayer(gameParticipant2);
+            pokerGame.addPlayer(gameParticipant3);
+            assertEquals(pokerGame.getObservers().contains(gameParticipant1), true);
 
-            GameParticipant[] gameParticipants = new GameParticipant[3];
-            gameParticipants[0] = player1;
-            gameParticipants[1] = player2;
+
             assertEquals(pokerGame.getPokerGameManager().hasStarted(), false);
-            gameParticipants[2] = player3;
 
             assertEquals(pokerGame.getPlayerList().size(), 3);
 
@@ -150,23 +145,40 @@ public class PokerTests extends Thread {
           GameParticipant gameParticipant2 = new GameParticipant("2");
           GameParticipant gameParticipant3 = new GameParticipant("3");
 
-          Player player1 = new Player(gameParticipant1);
-          Player player2 = new Player(gameParticipant2);
 
-          pokerGame.addPlayer(player1);
-          pokerGame.addPlayer(player2);
-          pokerGame.addPlayer(player1);
+
+          pokerGame.addPlayer(gameParticipant1);
+          pokerGame.addPlayer(gameParticipant2);
+          pokerGame.addPlayer(gameParticipant3);
           pokerGame.addObserver(gameParticipant3);
+          pokerGame.getPokerGameManager().onGameStart();
           assertEquals(pokerGame.getPlayerList().size(), 2);
           assertEquals(pokerGame.getObservers().size(), 1);
 
           PokerGameManager pokerGameManager1 = pokerGame.getPokerGameManager();
-          pokerGameManager1.onPlayerLeft(player1);
+          pokerGameManager1.onPlayerLeft(gameParticipant1);
           assertEquals(pokerGameManager1.getParticipantsToRemove().size(), 1);
           pokerGameManager1.onTurnEnd();
           assertEquals(pokerGame.getPlayerList().size(), 1);
 
+      }
 
+      @Test
+      public void testPlayerMove(){
+
+          GameConfigDTO gameConfigDTO = new GameConfigDTO();
+          gameConfigDTO.setMaxPlayers(3);
+          PokerGame pokerGame = new PokerGame(1, gameConfigDTO);
+          PokerGameManager pokerGameManager = new PokerGameManager(pokerGame);
+          Timer timer = new Timer(pokerGameManager, 30);
+
+          GameParticipant gameParticipant1 = new GameParticipant("1");
+          pokerGame.addPlayer(gameParticipant1);
+          MoveDTO moveDTO = new MoveDTO();
+          boolean[] dicesToChange = new boolean[]{false, false, true, true,true};
+          moveDTO.setDicesToReRoll(dicesToChange);
+          pokerGameManager.onPlayerMove(moveDTO, new agh.to2.dicemaster.server.api.GameParticipant("1"));
+          assertEquals(pokerGameManager.hasEnded(), false);
 
 
 
