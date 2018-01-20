@@ -181,6 +181,22 @@ public class PokerTests extends Thread {
           assertEquals(pokerGameManager.hasEnded(), false);
 
 
+      }
+
+      @Test(expected = IllegalStateException.class)
+      public void testPlayerMoveFail(){
+          GameConfigDTO gameConfigDTO = new GameConfigDTO();
+          gameConfigDTO.setMaxPlayers(3);
+          PokerGame pokerGame = new PokerGame(1, gameConfigDTO);
+          PokerGameManager pokerGameManager = new PokerGameManager(pokerGame);
+          Timer timer = new Timer(pokerGameManager, 30);
+
+          GameParticipant gameParticipant1 = new GameParticipant("1");
+          pokerGame.addPlayer(gameParticipant1);
+          MoveDTO moveDTO = new MoveDTO();
+          boolean[] dicesToChange = new boolean[]{false, false, true, true,true};
+          moveDTO.setDicesToReRoll(dicesToChange);
+          pokerGameManager.onPlayerMove(moveDTO, new agh.to2.dicemaster.server.api.GameParticipant("2") );
 
       }
 
