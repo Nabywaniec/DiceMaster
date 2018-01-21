@@ -17,14 +17,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.startRealServerConnection();
+        this.startFakeServerConnection(primaryStage);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    private void startRealServerConnection() {
+    private void startRealServerConnection(Stage primaryStage){
         Properties prop = new Properties();
         InputStream input = null;
 
@@ -52,7 +52,7 @@ public class Main extends Application {
         }
     }
 
-    private void startFakeServerConnection() {
+    private void startFakeServerConnection(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.diceMasterOverviewController = new DiceMasterOverviewController(primaryStage, new FakeServer());
     }
