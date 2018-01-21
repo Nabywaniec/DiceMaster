@@ -14,10 +14,11 @@ public class UserInGameFilled extends Group {
     }
 
 
-    public UserInGameFilled(){}
+    public UserInGameFilled() {
+    }
 
 
-    public void init(UserInGame player){
+    public void init(UserInGame player) {
         this.nickText.setText(player.getUserName());
         this.nickText.setY(-10.0);
         this.scoreText.setText(player.getScore().toString());

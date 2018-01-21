@@ -119,21 +119,21 @@ public class GamesTableController {
         this.joinToGame(UserType.OBSERVER);
     }
 
-    public void joinToGame(UserType userType){
+    public void joinToGame(UserType userType) {
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
         ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
                 selectedGame,
                 this.diceMasterOverviewController.showGame(),
                 userType);
-        if(serverGame == null){
+        if (serverGame == null) {
             this.showAlert("Couldn't connect to game!!");
             this.diceMasterOverviewController.showGamesTable();
-        }else {
+        } else {
             this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
         }
     }
 
-    public void showAlert(String alertMessage){
+    public void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Games Tables");
         alert.setHeaderText("DiceMaster - Games Tables");

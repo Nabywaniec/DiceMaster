@@ -28,15 +28,15 @@ public class LoginController {
     }
 
     public void handleLoginEvent(MouseEvent mouseEvent) {
-        if(userNameTextField.getText().isEmpty()){
+        if (userNameTextField.getText().isEmpty()) {
             showAlert("Type your nick first!");
             return;
         }
-        if(userNameTextField.getText().startsWith("bot#")){
+        if (userNameTextField.getText().startsWith("bot#")) {
             showAlert("Your nick can't start with \"bot#\"!");
             return;
         }
-        if(userNameTextField.getText().startsWith(" ")){
+        if (userNameTextField.getText().startsWith(" ")) {
             showAlert("Your nick can't start with white character!");
             return;
         }
@@ -50,7 +50,7 @@ public class LoginController {
         this.diceMasterOverviewController.showGamesTable();
     }
 
-    public void showAlert(String alertMessage){
+    private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Login");
         alert.setHeaderText("DiceMaster - Login");

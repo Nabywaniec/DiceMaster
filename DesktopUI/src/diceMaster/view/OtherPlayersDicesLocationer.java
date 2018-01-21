@@ -4,7 +4,7 @@ import javafx.scene.Group;
 
 import java.util.List;
 
-public class OtherPlayersDicesLocationer extends Group{
+public class OtherPlayersDicesLocationer extends Group {
     private int tableSize = 0;
     private List<DicesField> otherPlayersDices;
 
