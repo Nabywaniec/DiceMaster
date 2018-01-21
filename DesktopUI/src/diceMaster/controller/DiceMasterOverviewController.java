@@ -49,7 +49,7 @@ public class DiceMasterOverviewController {
 
             this.availableGamesChecker = new AvailableGamesChecker(gamesTableController);
             this.timer = new Timer(true);
-            this.timer.schedule(availableGamesChecker,0,1000);
+            this.timer.schedule(availableGamesChecker, 0, 1000);
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -85,11 +85,11 @@ public class DiceMasterOverviewController {
         return primaryStage;
     }
 
-    public void setUserNickName(String userNickName){
+    public void setUserNickName(String userNickName) {
         this.userNickName = userNickName;
     }
 
-    public InGameController getInGameController(){
+    public InGameController getInGameController() {
         return this.inGameController;
     }
 

@@ -8,6 +8,7 @@ import diceMaster.view.UserInGameFilled;
 import diceMaster.view.UserInGameListView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
@@ -69,6 +70,14 @@ public class InGameController implements GameEventHandler {
     }
 
     public void onGameChange(GameDTO game) {
+        if (!isStillInGame(game.getPlayers())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Kicked");
+            alert.setHeaderText("");
+            alert.setContentText("");
+            alert.show();
+            this.appController.showGamesTable();
+        }
         this.playersWaitingForMove.getChildren().clear();
         this.playersMoved.getChildren().clear();
         this.currentUser.getChildren().clear();
@@ -157,5 +166,13 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
+    }
+
+    private boolean isStillInGame(List<UserInGame> players) {
+        for (UserInGame userInGame : players) {
+            if (userInGame.getUserName().equals(this.appController.getUserNickName()))
+                return true;
+        }
+        return false;
     }
 }

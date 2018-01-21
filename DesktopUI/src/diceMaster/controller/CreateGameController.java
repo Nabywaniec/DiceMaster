@@ -49,14 +49,14 @@ public class CreateGameController extends Pane {
     public CreateGameController() {
     }
 
-    public void init(){
+    public void init() {
         makeSpinnerEditableOnlyForNumbers(maxPlayersSpinner);
         makeSpinnerEditableOnlyForNumbers(easyBotsSpinner);
         makeSpinnerEditableOnlyForNumbers(hardBotsSpinner);
     }
 
     public void setDialogStage(Stage dialogStage) {
-        this.dialogStage =  dialogStage;
+        this.dialogStage = dialogStage;
     }
 
 
@@ -78,27 +78,27 @@ public class CreateGameController extends Pane {
         String tableName = tableNameTextFiled.getText();
         int roundsToWin = roundsToWinSpinner.getValue();
         int maxPlayers = maxPlayersSpinner.getValue();
-        GameType gameType =  fromStringToGameType(gameTypeComboBox.getValue());
+        GameType gameType = fromStringToGameType(gameTypeComboBox.getValue());
         int hardBotsCount = hardBotsSpinner.getValue();
         int easyBotsCount = easyBotsSpinner.getValue();
 
         UserType userType = UserType.OBSERVER;
-        if(joinAsPlayerCheckBox.isSelected())
+        if (joinAsPlayerCheckBox.isSelected())
             userType = UserType.PLAYER;
 
-        if(tableName.isEmpty()) {
+        if (tableName.isEmpty()) {
             showAlert("Table's name field cannot be empty!");
             return;
         }
-        if(roundsToWin < 1) {
+        if (roundsToWin < 1) {
             showAlert("Rounds to win must be bigger than 0!");
             return;
         }
-        if(tableName.startsWith(" ")) {
+        if (tableName.startsWith(" ")) {
             showAlert("Table's name cannot start with white char!");
             return;
         }
-        if(maxPlayers + easyBotsCount + hardBotsCount <= 1) {
+        if (maxPlayers + easyBotsCount + hardBotsCount <= 1) {
             showAlert("There has to be at least 2 game participants (bots/players) !");
             return;
         }
@@ -132,18 +132,18 @@ public class CreateGameController extends Pane {
         }
     }
 
-    private GameType fromStringToGameType(String gameTypeString){
-        if(gameTypeString == "Poker")
+    private GameType fromStringToGameType(String gameTypeString) {
+        if (gameTypeString == "Poker")
             return GameType.POKER;
-        if(gameTypeString == "N+")
+        if (gameTypeString == "N+")
             return GameType.NPLUS;
-        if(gameTypeString == "N*")
+        if (gameTypeString == "N*")
             return GameType.NTIMES;
         // to prevent nulls
         return GameType.POKER;
     }
 
-    private void makeSpinnerEditableOnlyForNumbers(Spinner spinner){
+    private void makeSpinnerEditableOnlyForNumbers(Spinner spinner) {
         spinner.focusedProperty().addListener((s, ov, nv) -> {
             if (nv) return;
             commitEditorText(spinner);
@@ -162,11 +162,11 @@ public class CreateGameController extends Pane {
         };
         TextFormatter<Integer> priceFormatter = new TextFormatter<Integer>(
                 new IntegerStringConverter(), 0, filter);
-       spinner.getEditor().setTextFormatter(priceFormatter);
+        spinner.getEditor().setTextFormatter(priceFormatter);
     }
 
 
-    public void showAlert(String alertMessage){
+    public void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Create game");
         alert.setHeaderText("DiceMaster - Create game");
