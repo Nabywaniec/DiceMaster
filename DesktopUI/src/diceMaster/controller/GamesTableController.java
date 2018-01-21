@@ -45,7 +45,7 @@ public class GamesTableController {
     TableColumn<GameDTO, String> tableNameColumn;
 
     @FXML
-    TableColumn<GameDTO, Integer> playersOnTableColumn;
+    TableColumn<GameDTO, String> playersOnTableColumn;
 
     @FXML
     TableColumn<GameDTO, Integer> easyBotsNumberColumn;
@@ -60,7 +60,11 @@ public class GamesTableController {
         this.bindSizeProperties();
         this.gamesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.tableNameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getGameConfig().getTableName()));
-        this.playersOnTableColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Integer>(dataValue.getValue().getPlayers().size()));
+        this.playersOnTableColumn.setCellValueFactory(
+                dataValue -> new SimpleStringProperty(
+                        String.valueOf(
+                                dataValue.getValue().getPlayers().size())
+                                + "/" + String.valueOf(dataValue.getValue().getGameConfig().getMaxPlayers())));
         this.easyBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Integer>(dataValue.getValue().getGameConfig().getEasyBotsCount()));
         this.hardBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Integer>(dataValue.getValue().getGameConfig().getHardBotsCount()));
         this.listOfGames.addAll(this.diceMasterOverviewController.getServer().getAvailableGames());
@@ -112,17 +116,21 @@ public class GamesTableController {
     }
 
     public void joinAsPlayerGameActionHandler(MouseEvent mouseEvent) {
-        this.joinToGame(UserType.PLAYER);
+        GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
+        if(selectedGame.getPlayers().size()<selectedGame.getGameConfig().getMaxPlayers())
+            this.joinToGame(selectedGame,UserType.PLAYER);
+        else
+            this.showAlert("You cannot join the game as player when there is maximum number of player in game already!!!");
     }
 
     public void joinAsObserverGameActionHandler(MouseEvent mouseEvent) {
-        this.joinToGame(UserType.OBSERVER);
+        GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
+        this.joinToGame(selectedGame,UserType.OBSERVER);
     }
 
-    public void joinToGame(UserType userType){
-        GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
+    private void joinToGame(GameDTO gameDTO,UserType userType){
         ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
-                selectedGame,
+                gameDTO,
                 this.diceMasterOverviewController.showGame(),
                 userType);
         if(serverGame == null){
@@ -133,7 +141,7 @@ public class GamesTableController {
         }
     }
 
-    public void showAlert(String alertMessage){
+    private void showAlert(String alertMessage){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Games Tables");
         alert.setHeaderText("DiceMaster - Games Tables");
