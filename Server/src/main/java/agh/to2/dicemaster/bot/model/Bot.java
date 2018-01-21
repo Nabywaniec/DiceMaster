@@ -8,29 +8,36 @@ import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
+
 public abstract class Bot extends GameParticipant{
 
     protected DiceOutputDTO result = null;
     private PlayerEventHandler playerEventHandler;
+    private GameDTO gDto = null;
 
     abstract DiceOutputDTO getDicesToThrow(DiceInputDTO input);
 
     @Override
     public void registerPlayerEventHandler(PlayerEventHandler playerEventHandler) {
         this.playerEventHandler = playerEventHandler;
+
     }
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
+        this.gDto = gameDTO;
+        new Thread(this::makeMove).start();
+    }
 
+    private void makeMove() {
         if(result == null){
-            result = new DiceOutputDTO(gameDTO.getScoreToWin());
+            result = new DiceOutputDTO(this.gDto.getScoreToWin());
         }
 
         IOConverter converter = new IOConverter();
 
         // id is to find user in GameDTO
-        DiceInputDTO diceInput = converter.getDiceInputDTO(gameDTO, this.getId());
+        DiceInputDTO diceInput = converter.getDiceInputDTO(this.gDto, this.getId());
         diceInput.setDicesRerolled(this.result.getDicesToThrow());
         this.getDicesToThrow(diceInput);
 
@@ -38,7 +45,6 @@ public abstract class Bot extends GameParticipant{
 
         //this field is assigned to every User
         this.playerEventHandler.onMoveRequest(moveDTO);
-
     }
 
 }
