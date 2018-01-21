@@ -117,31 +117,33 @@ public class GamesTableController {
 
     public void joinAsPlayerGameActionHandler(MouseEvent mouseEvent) {
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
-        if(selectedGame.getPlayers().size()<selectedGame.getGameConfig().getMaxPlayers())
-            this.joinToGame(selectedGame,UserType.PLAYER);
-        else
-            this.showAlert("You cannot join the game as player when there is maximum number of player in game already!!!");
+        if (selectedGame != null)
+            if (selectedGame.getPlayers().size() < selectedGame.getGameConfig().getMaxPlayers())
+                this.joinToGame(selectedGame, UserType.PLAYER);
+            else
+                this.showAlert("You cannot join the game as player when there is maximum number of player in game already!!!");
     }
 
     public void joinAsObserverGameActionHandler(MouseEvent mouseEvent) {
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
-        this.joinToGame(selectedGame,UserType.OBSERVER);
+        if (selectedGame != null)
+            this.joinToGame(selectedGame, UserType.OBSERVER);
     }
 
-    private void joinToGame(GameDTO gameDTO,UserType userType){
+    private void joinToGame(GameDTO gameDTO, UserType userType) {
         ServerGame serverGame = this.diceMasterOverviewController.getServer().requestJoinGame(
                 gameDTO,
                 this.diceMasterOverviewController.showGame(),
                 userType);
-        if(serverGame == null){
+        if (serverGame == null) {
             this.showAlert("Couldn't connect to game!!");
             this.diceMasterOverviewController.showGamesTable();
-        }else {
+        } else {
             this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
         }
     }
 
-    private void showAlert(String alertMessage){
+    private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Games Tables");
         alert.setHeaderText("DiceMaster - Games Tables");

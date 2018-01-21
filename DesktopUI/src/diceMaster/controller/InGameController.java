@@ -24,6 +24,7 @@ public class InGameController implements GameEventHandler {
     private DiceMasterOverviewController appController;
     private ServerGame serverGame;
     private Text timerText;
+    private Thread timerThread;
 
     @FXML
     BorderPane borderPane;
@@ -91,7 +92,6 @@ public class InGameController implements GameEventHandler {
                     this.reRollButton.setDisable(false);
                     this.skipTurnButton.setDisable(false);
                     this.dicesField.setCanBeSelected();
-                    this.startTimer();
                 }
             }
         }
@@ -103,13 +103,19 @@ public class InGameController implements GameEventHandler {
     }
 
     private void startTimer() {
-        this.timerText = new Text();
+        if(this.timerText == null) {
+            this.timerText = new Text();
+            this.mainGroup.getChildren().add(timerText);
+        }
         timerText.setText("30");
         timerText.setFont(Font.font(30));
         timerText.setLayoutX(870);
         timerText.setLayoutY(490);
-        this.mainGroup.getChildren().add(timerText);
-        Thread timeThread = new Thread(() -> {
+        if(this.timerThread != null){
+            // maybe change it
+            this.timerThread.stop();
+        }
+        this.timerThread = new Thread(() -> {
             while (Integer.valueOf(timerText.getText()) > 0) {
                 try {
                     Thread.sleep(1000);
@@ -120,12 +126,12 @@ public class InGameController implements GameEventHandler {
                 }
             }
         });
-        timeThread.start();
+        this.timerThread.start();
     }
 
-    private void stopTimer() {
-        this.mainGroup.getChildren().remove(this.timerText);
-    }
+    //private void stopTimer() {
+        //this.mainGroup.getChildren().remove(this.timerText);
+   // }
 
     public void setServerGame(ServerGame serverGame) {
         this.serverGame = serverGame;
@@ -143,6 +149,7 @@ public class InGameController implements GameEventHandler {
             if (player.isHisTurn()) {
                 foundCurrentPlayer = true;
                 this.currentUser.init(player);
+                this.startTimer();
                 System.out.println(player);
                 continue;
             }
@@ -177,7 +184,7 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
-        this.stopTimer();
+        //this.stopTimer();
     }
 
     public void handleSkipTurn(ActionEvent actionEvent) {
@@ -195,7 +202,7 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
-        this.stopTimer();
+        //this.stopTimer();
     }
 
 

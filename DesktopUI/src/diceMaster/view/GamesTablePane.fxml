@@ -22,17 +22,10 @@
                         onMouseClicked="#joinAsObserverGameActionHandler"/>
                 <TableView fx:id="gamesTable" layoutX="55.0" layoutY="83.0" prefHeight="576.0" prefWidth="645.0">
                     <columns>
-<<<<<<< HEAD
                         <TableColumn fx:id="tableNameColumn" prefWidth="350.0" text="Table's name" />
                         <TableColumn fx:id="playersOnTableColumn" prefWidth="100.0" text="Players/Max" />
                         <TableColumn fx:id="easyBotsNumberColumn" prefWidth="100.0" text="Easy bots" />
                         <TableColumn fx:id="hardBotsNumberColumn" prefWidth="100.0" text="Hard bots" />
-=======
-                        <TableColumn fx:id="tableNameColumn" prefWidth="350.0" text="Table's name"/>
-                        <TableColumn fx:id="playersOnTableColumn" prefWidth="100.0" text="Players"/>
-                        <TableColumn fx:id="easyBotsNumberColumn" prefWidth="100.0" text="Easy bots"/>
-                        <TableColumn fx:id="hardBotsNumberColumn" prefWidth="100.0" text="Hard bots"/>
->>>>>>> ae0e72fa12cb1a78ce496a1e25b26f4eb6ef3b0c
                     </columns>
                 </TableView>
             </children>
