@@ -8,9 +8,12 @@ import diceMaster.view.UserInGameFilled;
 import diceMaster.view.UserInGameListView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.LinkedList;
@@ -20,6 +23,7 @@ import java.util.List;
 public class InGameController implements GameEventHandler {
     private DiceMasterOverviewController appController;
     private ServerGame serverGame;
+    private Text timerText;
 
     @FXML
     BorderPane borderPane;
@@ -57,6 +61,9 @@ public class InGameController implements GameEventHandler {
     @FXML
     Text scoreInRound;
 
+    @FXML
+    Group mainGroup;
+
     public void setAppController(DiceMasterOverviewController appController) {
         this.appController = appController;
         this.bindSizeProperties();
@@ -80,6 +87,7 @@ public class InGameController implements GameEventHandler {
                     this.reRollButton.setDisable(false);
                     this.skipTurnButton.setDisable(false);
                     this.dicesField.setCanBeSelected();
+                    this.startTimer();
                 }
             }
         }
@@ -88,6 +96,34 @@ public class InGameController implements GameEventHandler {
 
         if (serverGame.getGameDTO().getGameConfig().getGameType() != GameType.POKER)
             scoreInRound.setText("Score to win round: " + String.valueOf(serverGame.getGameDTO().getScoreToWin()));
+    }
+
+    private void startTimer(){
+        this.timerText = new Text();
+        timerText.setText("30");
+        timerText.setFont(Font.font(30));
+        timerText.setLayoutX(870);
+        timerText.setLayoutY(490);
+        this.mainGroup.getChildren().add(timerText);
+        Thread timeThread = new Thread() {
+            @Override
+            public void run() {
+                while(Integer.valueOf(timerText.getText()) > 0) {
+                    try {
+                        sleep(1000);
+                        timerText.setText(String.valueOf(Integer.valueOf(timerText.getText()) - 1));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        showAlert("Something went wrong with timer!!!");
+                    }
+                }
+            }
+        };
+        timeThread.start();
+    }
+
+    private void stopTimer(){
+        this.mainGroup.getChildren().remove(this.timerText);
     }
 
     public void setServerGame(ServerGame serverGame) {
@@ -140,6 +176,7 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
+        this.stopTimer();
     }
 
     public void handleSkipTurn(ActionEvent actionEvent) {
@@ -157,5 +194,15 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
+        this.stopTimer();
+    }
+
+
+    public void showAlert(String alertMessage){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("DiceMaster - Game in progress");
+        alert.setHeaderText("DiceMaster - Game in progress");
+        alert.setContentText(alertMessage);
+        alert.show();
     }
 }

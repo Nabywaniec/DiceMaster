@@ -14,7 +14,7 @@
 <BorderPane fx:id="borderPane" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="diceMaster.controller.InGameController">
     <center>
-        <Group BorderPane.alignment="CENTER">
+        <Group fx:id="mainGroup" BorderPane.alignment="CENTER">
             <children>
                 <Ellipse fill="#058013" layoutX="500.0" layoutY="353.0" radiusX="450.0" radiusY="160.0" stroke="BLACK"
                          strokeType="INSIDE"/>
