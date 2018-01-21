@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.model;
+package agh.to2.dicemaster.model;
 
 
 import agh.to2.dicemaster.common.api.GameDTO;

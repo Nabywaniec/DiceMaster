@@ -1,10 +1,10 @@
-package agh.to2.dicemaster.game.poker;
+package agh.to2.dicemaster.poker;
 
 
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.game.model.Player;
-import agh.to2.dicemaster.game.model.Timer;
+import agh.to2.dicemaster.model.Player;
+import agh.to2.dicemaster.model.Timer;
 import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.Comparator;

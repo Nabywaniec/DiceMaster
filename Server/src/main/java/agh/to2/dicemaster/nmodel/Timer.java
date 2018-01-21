@@ -1,7 +1,6 @@
-package agh.to2.dicemaster.game.nmodel;
+package agh.to2.dicemaster.nmodel;
 
-import agh.to2.dicemaster.game.ngames.GameRunner;
-import agh.to2.dicemaster.game.poker.PokerGameManager;
+import agh.to2.dicemaster.ngames.GameRunner;
 
 import java.util.concurrent.TimeUnit;
 

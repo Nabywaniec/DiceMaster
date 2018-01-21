@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.poker;
+package agh.to2.dicemaster.poker;
 
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.server.api.GameParticipant;

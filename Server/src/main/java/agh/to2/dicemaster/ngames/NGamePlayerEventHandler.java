@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.ngames;
+package agh.to2.dicemaster.ngames;
 
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;

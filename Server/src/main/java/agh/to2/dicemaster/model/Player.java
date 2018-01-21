@@ -1,10 +1,8 @@
-package agh.to2.dicemaster.game.model;
+package agh.to2.dicemaster.model;
 
 
 import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.game.poker.PokerPlayerEventHandler;
-import agh.to2.dicemaster.game.poker.PokerScore;
-import agh.to2.dicemaster.server.api.Game;
+import agh.to2.dicemaster.poker.PokerScore;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;
 

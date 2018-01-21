@@ -1,14 +1,11 @@
-package agh.to2.dicemaster.game.ngames;
+package agh.to2.dicemaster.ngames;
 
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.GameType;
 import agh.to2.dicemaster.common.api.UserInGame;
-import agh.to2.dicemaster.game.ngames.NPlus;
-import agh.to2.dicemaster.game.ngames.NTimes;
-import agh.to2.dicemaster.game.ngames.Rules;
-import agh.to2.dicemaster.game.nmodel.Player;
+import agh.to2.dicemaster.nmodel.Player;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.api.GameParticipant;
 

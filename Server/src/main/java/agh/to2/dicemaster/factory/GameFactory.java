@@ -1,9 +1,9 @@
-package agh.to2.dicemaster.game.factory;
+package agh.to2.dicemaster.factory;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameType;
-import agh.to2.dicemaster.game.ngames.NGame;
-import agh.to2.dicemaster.game.poker.PokerGame;
+import agh.to2.dicemaster.ngames.NGame;
+import agh.to2.dicemaster.poker.PokerGame;
 import agh.to2.dicemaster.server.api.Game;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

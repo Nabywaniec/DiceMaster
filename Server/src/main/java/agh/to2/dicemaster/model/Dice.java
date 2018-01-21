@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.model;
+package agh.to2.dicemaster.model;
 
 
 import java.util.Random;

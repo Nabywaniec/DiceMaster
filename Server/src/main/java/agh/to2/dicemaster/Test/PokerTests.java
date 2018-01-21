@@ -1,14 +1,13 @@
-package agh.to2.dicemaster.game.Test;
+package agh.to2.dicemaster.Test;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.game.model.Dice;
-import agh.to2.dicemaster.game.model.Player;
-import agh.to2.dicemaster.game.model.Timer;
-import agh.to2.dicemaster.game.poker.PokerGame;
-import agh.to2.dicemaster.game.poker.PokerGameManager;
-import agh.to2.dicemaster.game.poker.PokerScore;
-import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.model.Dice;
+import agh.to2.dicemaster.model.Player;
+import agh.to2.dicemaster.model.Timer;
+import agh.to2.dicemaster.poker.PokerGame;
+import agh.to2.dicemaster.poker.PokerGameManager;
+import agh.to2.dicemaster.poker.PokerScore;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import org.junit.Test;
 //import org.testng.annotations.Test;

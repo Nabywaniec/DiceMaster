@@ -1,26 +1,24 @@
-package agh.to2.dicemaster.game.ngames;
+package agh.to2.dicemaster.ngames;
 
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.game.nmodel.Dice;
-import agh.to2.dicemaster.game.nmodel.Player;
+import agh.to2.dicemaster.nmodel.Dice;
+import agh.to2.dicemaster.nmodel.Player;
 import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.List;
 import java.util.Random;
 
-public class NPlus implements Rules {
+public class NTimes implements Rules {
     private Integer aim;
 
-    public NPlus() {
-
+    public NTimes() {
     }
 
     @Override
     public  boolean countPoints(Player player) {
-        Integer result = 1;
-        Dice[] dices = player.getDices();
-        for(int i = 0; i < 5; i++){
-            result*=dices[i].getValue();
+        Integer result = 0;
+        for (Dice d : player.getDices()) {
+            result *= d.getValue();
         }
         if(result.equals(aim)){
             return true;
@@ -31,7 +29,7 @@ public class NPlus implements Rules {
     @Override
     public void initializeDices(Player player) {
         for (int i = 0; i < 5; i++) {
-           player.setDice(i, Dice.randomDice());
+            player.setDice(i, Dice.randomDice());
         }
     }
 
@@ -49,7 +47,6 @@ public class NPlus implements Rules {
         return aim;
     }
 
-
     @Override
     public int initializeRound(List<GameParticipant> players) {
         int[] dices = new int[5];
@@ -57,7 +54,7 @@ public class NPlus implements Rules {
         Random generator = new Random();
         for (int i = 0; i < 5; i++) {
             dices[i] = generator.nextInt(6) + 1;
-            aim += dices[i];
+            aim *= dices[i];
         }
         return generator.nextInt(players.size());
     }

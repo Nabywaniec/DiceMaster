@@ -1,11 +1,11 @@
-package agh.to2.dicemaster.game.poker;
+package agh.to2.dicemaster.poker;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import agh.to2.dicemaster.game.model.Dice;
+import agh.to2.dicemaster.model.Dice;
 
 
 public class PokerScore {

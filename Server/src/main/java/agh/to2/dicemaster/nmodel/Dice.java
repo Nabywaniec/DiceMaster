@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.nmodel;
+package agh.to2.dicemaster.nmodel;
 
 /**
  * Created by werka on 10.01.18.
