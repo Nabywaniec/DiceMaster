@@ -24,7 +24,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    private void startRealServerConnection(Stage primaryStage){
+    private void startRealServerConnection(Stage primaryStage) {
         Properties prop = new Properties();
         InputStream input = null;
 
@@ -52,7 +52,7 @@ public class Main extends Application {
         }
     }
 
-    private void startFakeServerConnection(Stage primaryStage){
+    private void startFakeServerConnection(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.diceMasterOverviewController = new DiceMasterOverviewController(primaryStage, new FakeServer());
     }

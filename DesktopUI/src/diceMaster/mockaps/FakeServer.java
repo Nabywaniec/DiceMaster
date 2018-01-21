@@ -13,17 +13,18 @@ import java.util.Random;
 public class FakeServer implements Server {
 
     private String userName;
+
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new FakeServerGame(new GameDTO(new Random().nextInt(1000), gameConfigDTO, null, null),this.userName, gameEventHandler);
+        return new FakeServerGame(new GameDTO(new Random().nextInt(1000), gameConfigDTO, null, null), this.userName, gameEventHandler);
     }
 
     @Override
     public ServerGame requestJoinGame(GameDTO gameDTO, GameEventHandler gameEventHandler, UserType userType) {
-        if(userType == UserType.PLAYER)
+        if (userType == UserType.PLAYER)
             return new FakeServerGame(gameDTO, this.userName, gameEventHandler);
 
-        return new FakeServerGame(gameDTO,"HS", gameEventHandler);
+        return new FakeServerGame(gameDTO, "HS", gameEventHandler);
     }
 
 
@@ -41,7 +42,7 @@ public class FakeServer implements Server {
         LinkedList<String> obs = new LinkedList<>();
         obs.add("bot1");
         LinkedList<GameDTO> toR = new LinkedList<GameDTO>();
-        toR.add(new GameDTO(1, gc, p,obs));
+        toR.add(new GameDTO(1, gc, p, obs));
         return toR;
     }
 

@@ -77,11 +77,7 @@ public class InGameController implements GameEventHandler {
 
     public void onGameChange(GameDTO game) {
         if (!isStillInGame(game.getPlayers())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Kicked");
-            alert.setHeaderText("");
-            alert.setContentText("");
-            alert.show();
+            this.showAlert("You were kicked from game!");
             this.appController.showGamesTable();
         }
         this.playersWaitingForMove.getChildren().clear();
@@ -106,31 +102,28 @@ public class InGameController implements GameEventHandler {
             scoreInRound.setText("Score to win round: " + String.valueOf(serverGame.getGameDTO().getScoreToWin()));
     }
 
-    private void startTimer(){
+    private void startTimer() {
         this.timerText = new Text();
         timerText.setText("30");
         timerText.setFont(Font.font(30));
         timerText.setLayoutX(870);
         timerText.setLayoutY(490);
         this.mainGroup.getChildren().add(timerText);
-        Thread timeThread = new Thread() {
-            @Override
-            public void run() {
-                while(Integer.valueOf(timerText.getText()) > 0) {
-                    try {
-                        sleep(1000);
-                        timerText.setText(String.valueOf(Integer.valueOf(timerText.getText()) - 1));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        showAlert("Something went wrong with timer!!!");
-                    }
+        Thread timeThread = new Thread(() -> {
+            while (Integer.valueOf(timerText.getText()) > 0) {
+                try {
+                    Thread.sleep(1000);
+                    timerText.setText(String.valueOf(Integer.valueOf(timerText.getText()) - 1));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    showAlert("Something went wrong with timer!!!");
                 }
             }
-        };
+        });
         timeThread.start();
     }
 
-    private void stopTimer(){
+    private void stopTimer() {
         this.mainGroup.getChildren().remove(this.timerText);
     }
 
@@ -206,7 +199,7 @@ public class InGameController implements GameEventHandler {
     }
 
 
-    public void showAlert(String alertMessage){
+    private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Game in progress");
         alert.setHeaderText("DiceMaster - Game in progress");
