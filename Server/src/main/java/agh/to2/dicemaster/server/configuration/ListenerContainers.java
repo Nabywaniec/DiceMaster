@@ -1,9 +1,9 @@
-package agh.to2.dicemaster.game.server.configuration;
+package agh.to2.dicemaster.server.configuration;
 
 import agh.to2.dicemaster.common.CommunicationConstants;
-import agh.to2.dicemaster.game.server.listeners.RegisteredClientListener;
-import agh.to2.dicemaster.game.server.listeners.RegistrationListener;
-import agh.to2.dicemaster.game.server.listeners.UnregistrationListener;
+import agh.to2.dicemaster.server.listeners.RegisteredClientListener;
+import agh.to2.dicemaster.server.listeners.RegistrationListener;
+import agh.to2.dicemaster.server.listeners.UnregistrationListener;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.context.annotation.Bean;

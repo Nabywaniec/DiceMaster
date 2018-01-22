@@ -1,14 +1,14 @@
-package agh.to2.dicemaster.game.server.receivers;
+package agh.to2.dicemaster.server.receivers;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.common.api.UserType;
-import agh.to2.dicemaster.game.server.User;
-import agh.to2.dicemaster.game.server.api.Game;
-import agh.to2.dicemaster.game.server.managers.GamesManager;
-import agh.to2.dicemaster.game.server.managers.UsersManager;
-import agh.to2.dicemaster.game.server.services.SenderService;
+import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.server.api.Game;
+import agh.to2.dicemaster.server.managers.GamesManager;
+import agh.to2.dicemaster.server.managers.UsersManager;
+import agh.to2.dicemaster.server.services.SenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -6,8 +6,8 @@ import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.GameType;
 import agh.to2.dicemaster.common.api.UserInGame;
 import agh.to2.dicemaster.game.nmodel.Player;
-import agh.to2.dicemaster.game.server.api.Game;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.Game;
+import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.*;
 

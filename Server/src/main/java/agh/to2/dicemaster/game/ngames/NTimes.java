@@ -3,7 +3,7 @@ package agh.to2.dicemaster.game.ngames;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.nmodel.Dice;
 import agh.to2.dicemaster.game.nmodel.Player;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.List;
 import java.util.Random;

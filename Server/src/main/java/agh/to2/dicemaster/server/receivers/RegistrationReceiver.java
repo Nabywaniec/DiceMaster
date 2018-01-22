@@ -1,12 +1,12 @@
-package agh.to2.dicemaster.game.server.receivers;
+package agh.to2.dicemaster.server.receivers;
 
 import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
 import agh.to2.dicemaster.common.DTO.RegistrationRequestDTO;
-import agh.to2.dicemaster.game.server.Exceptions.UsernameTakenException;
-import agh.to2.dicemaster.game.server.User;
-import agh.to2.dicemaster.game.server.managers.UsersManager;
-import agh.to2.dicemaster.game.server.services.QueueService;
-import agh.to2.dicemaster.game.server.services.SenderService;
+import agh.to2.dicemaster.server.Exceptions.UsernameTakenException;
+import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.server.managers.UsersManager;
+import agh.to2.dicemaster.server.services.QueueService;
+import agh.to2.dicemaster.server.services.SenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

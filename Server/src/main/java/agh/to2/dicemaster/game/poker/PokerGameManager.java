@@ -5,7 +5,7 @@ import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.game.model.Timer;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.GameParticipant;
 
 import java.util.Comparator;
 import java.util.LinkedList;

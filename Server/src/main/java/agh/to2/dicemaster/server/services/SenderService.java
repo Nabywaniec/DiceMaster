@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.server.services;
+package agh.to2.dicemaster.server.services;
 
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;

@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.server.configuration;
+package agh.to2.dicemaster.server.configuration;
 
 import agh.to2.dicemaster.common.CommunicationConstants;
 import org.springframework.amqp.core.Binding;

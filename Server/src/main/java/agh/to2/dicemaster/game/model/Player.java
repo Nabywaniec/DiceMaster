@@ -3,8 +3,8 @@ package agh.to2.dicemaster.game.model;
 
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.game.poker.PokerScore;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
-import agh.to2.dicemaster.game.server.api.PlayerEventHandler;
+import agh.to2.dicemaster.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 public class Player extends GameParticipant {
     private static final int NUMBER_OF_DICES = 5;

@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.server.services;
+package agh.to2.dicemaster.server.services;
 
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;

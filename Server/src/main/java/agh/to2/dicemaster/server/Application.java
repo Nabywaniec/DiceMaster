@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.server;
+package agh.to2.dicemaster.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

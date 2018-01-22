@@ -1,4 +1,4 @@
-package agh.to2.dicemaster.game.server.configuration;
+package agh.to2.dicemaster.server.configuration;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;

@@ -1,8 +1,8 @@
 package agh.to2.dicemaster.game.poker;
 
 import agh.to2.dicemaster.common.api.MoveDTO;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
-import agh.to2.dicemaster.game.server.api.PlayerEventHandler;
+import agh.to2.dicemaster.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 public class PokerPlayerEventHandler implements PlayerEventHandler {
     private PokerGameManager manager;

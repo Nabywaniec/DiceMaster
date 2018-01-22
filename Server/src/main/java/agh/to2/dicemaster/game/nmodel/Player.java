@@ -1,8 +1,8 @@
 package agh.to2.dicemaster.game.nmodel;
 
 import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
-import agh.to2.dicemaster.game.server.api.PlayerEventHandler;
+import agh.to2.dicemaster.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 /**
  * Created by werka on 10.01.18.

@@ -1,9 +1,9 @@
-package agh.to2.dicemaster.game.server;
+package agh.to2.dicemaster.server;
 
 import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.game.server.api.GameParticipant;
-import agh.to2.dicemaster.game.server.api.PlayerEventHandler;
-import agh.to2.dicemaster.game.server.services.SenderService;
+import agh.to2.dicemaster.server.api.GameParticipant;
+import agh.to2.dicemaster.server.api.PlayerEventHandler;
+import agh.to2.dicemaster.server.services.SenderService;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.SecureRandom;

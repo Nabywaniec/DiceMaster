@@ -1,8 +1,8 @@
-package agh.to2.dicemaster.game.server.listeners;
+package agh.to2.dicemaster.server.listeners;
 
-import agh.to2.dicemaster.game.server.User;
-import agh.to2.dicemaster.game.server.managers.UsersManager;
-import agh.to2.dicemaster.game.server.services.QueueService;
+import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.server.managers.UsersManager;
+import agh.to2.dicemaster.server.services.QueueService;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
-package agh.to2.dicemaster.game.server.managers;
+package agh.to2.dicemaster.server.managers;
 
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.UserType;
-import agh.to2.dicemaster.game.server.User;
-import agh.to2.dicemaster.game.server.api.Game;
+import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.server.api.Game;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 

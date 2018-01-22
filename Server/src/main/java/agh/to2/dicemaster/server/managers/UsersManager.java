@@ -1,8 +1,8 @@
-package agh.to2.dicemaster.game.server.managers;
+package agh.to2.dicemaster.server.managers;
 
-import agh.to2.dicemaster.game.server.Exceptions.UsernameTakenException;
-import agh.to2.dicemaster.game.server.User;
-import agh.to2.dicemaster.game.server.services.SenderService;
+import agh.to2.dicemaster.server.Exceptions.UsernameTakenException;
+import agh.to2.dicemaster.server.User;
+import agh.to2.dicemaster.server.services.SenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
