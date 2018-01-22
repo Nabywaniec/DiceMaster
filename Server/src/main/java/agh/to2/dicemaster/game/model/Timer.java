@@ -10,14 +10,12 @@ public class Timer implements Runnable {
     private int secondsToCount;
     private boolean delay = false;
 
-
-
     public Timer(PokerGameManager gameManager, int secondsToCount) {
         this.gameManager = gameManager;
         this.secondsToCount = secondsToCount;
     }
 
-    public boolean getDelay(){
+    public boolean getDelay() {
         return delay;
     }
 
@@ -28,10 +26,10 @@ public class Timer implements Runnable {
             try {
                 TimeUnit.SECONDS.sleep(secondsToCount);
             } catch (InterruptedException ie) {
-                //ie.printStackTrace();
+                continue;
             }
             delay = true;
-            gameManager.onTurnEnd();
+            gameManager.kickCurretPlayer();
         }
     }
 

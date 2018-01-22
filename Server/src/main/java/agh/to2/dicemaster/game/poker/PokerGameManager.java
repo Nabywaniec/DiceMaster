@@ -24,7 +24,8 @@ public class PokerGameManager {
     private Thread timerThread;
     private GameState gameState = GameState.PENDING;
 
-    private enum GameState {PENDING, STARTED, ENDED}
+
+    private enum GameState {PENDING, STARTED, ENDED;}
 
     private List<GameParticipant> participantsToRemove = new LinkedList<>();
 
@@ -33,6 +34,10 @@ public class PokerGameManager {
         this.game = game;
     }
 
+
+    public void kickCurretPlayer() {
+        participantsToRemove.add(game.getPlayerList().get(currentPlayer));
+    }
 
     public synchronized void onTurnEnd() {
         currentPlayer++;
@@ -85,6 +90,7 @@ public class PokerGameManager {
         if (!game.getPlayerList().get(currentPlayer).equals(player)) return;
         player.rollDices(moveDTO.getDicesToReRoll());
         timerThread.interrupt();
+        onTurnEnd();
     }
 
     public synchronized void onPlayerLeft(GameParticipant gameParticipant) {
@@ -115,19 +121,19 @@ public class PokerGameManager {
         return gameState.equals(GameState.ENDED);
     }
 
-    public int getRoundNumber(){
+    public int getRoundNumber() {
         return this.roundNumber;
     }
 
-    public int getCurrentPlayer(){
+    public int getCurrentPlayer() {
         return this.currentPlayer;
     }
 
-    public int getTurnNumber(){
+    public int getTurnNumber() {
         return this.turnNumber;
     }
 
-    public List<GameParticipant> getParticipantsToRemove(){
+    public List<GameParticipant> getParticipantsToRemove() {
         return this.participantsToRemove;
     }
 }

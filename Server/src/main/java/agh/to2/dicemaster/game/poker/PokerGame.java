@@ -21,6 +21,7 @@ public class PokerGame extends Game {
 
     public PokerGame(int id, GameConfigDTO gameConfigDTO) {
         super(id, gameConfigDTO);
+        pokerGameManager = new PokerGameManager(this);
     }
 
     public List<Player> getPlayerList() {
