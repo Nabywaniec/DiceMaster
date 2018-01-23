@@ -25,9 +25,6 @@ class NMultiplyBotDifficultTest {
         NMultiplyBotDifficult bot = (NMultiplyBotDifficult)
                 factory.createBot(BotType.DIFFICULT);
 
-        bot.
-
-
         DiceOutputDTO output = new DiceOutputDTO(30);
         HashMap<Integer, Integer> dicesReRolled = new HashMap<>();
 
