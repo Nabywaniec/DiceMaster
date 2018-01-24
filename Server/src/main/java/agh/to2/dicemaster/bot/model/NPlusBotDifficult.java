@@ -1,48 +1,45 @@
 package agh.to2.dicemaster.bot.model;
 
-
 import agh.to2.dicemaster.bot.DiceInputDTO;
 import agh.to2.dicemaster.bot.DiceOutputDTO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class NPlusBotDifficult extends Bot {
 
     private double probability = 0.0;
 
-    private int getCounterOfSatisfactorySets(List<Integer> dices ,int toBeThrown, int sumFin, int counter) {
+    private int getCounterOfSatisfactorySets(int[] dices, int toBeThrown, int sumFin, int counter, int size) {
 
-        if(dices.size()==toBeThrown){
+        if (size == toBeThrown) {
             for (Integer dice : dices) {
+
                 sumFin -= dice;
             }
-            if(sumFin==0) return ++counter;
+            if (sumFin == 0) return ++counter;
+            else return counter;
         }
 
-        List<Integer> dicesNext = new ArrayList<>();
-        for (int i = 1; i <=6 ; i++) {
-            dicesNext.add(i);
-            counter += getCounterOfSatisfactorySets(dicesNext ,toBeThrown, counter, sumFin);
+        for (int i = 1; i <= 6; i++) {
+            dices[size] = i;
+            counter = getCounterOfSatisfactorySets(dices, toBeThrown, sumFin, counter, size + 1);
         }
 
         return counter;
 
     }
 
-    private double calculateProbability(List<Integer> dices, int toBeThrown, int sumFin, int counter) {
+    private double calculateProbability(int toBeThrown, int sumFin) {
 
-        return getCounterOfSatisfactorySets(dices, toBeThrown, sumFin, 0) / Math.pow(6,toBeThrown);
+        return getCounterOfSatisfactorySets(new int[toBeThrown], toBeThrown, sumFin, 0, 0) / Math.pow(6, toBeThrown);
 
     }
 
-    private boolean[] getBestThrowMask(List<Integer> dices, int sumFin) {
+    private Map<Integer, Integer> getBestThrowMask(List<Integer> dices, int sumFin) {
 
-        int bestMask = 0;
+        HashMap<Integer, Integer> dicesToBeThrown = new HashMap<>();
         double highestProbability = 0.0;
-
+        int bestMask = 0;
 
         for (int i = 0; i <= 32; i++) {
             double currentProbability = 0.0;
@@ -58,12 +55,21 @@ public class NPlusBotDifficult extends Bot {
             }
 
             if (currentSum > 0)
-                currentProbability = calculateProbability(toBeThrown, 0, currentSum);
-            if(currentProbability > highestProbability){
+                currentProbability = calculateProbability(toBeThrown, currentSum);
+            if (currentProbability > highestProbability) {
                 highestProbability = currentProbability;
+                bestMask = i;
             }
 
         }
+
+        for (int j = 0; j < 5; j++) {
+            if (bestMask % 2 == 1) {
+                dicesToBeThrown.put(4-j, dices.get(4-j));
+            }
+            bestMask = bestMask / 2;
+        }
+        return dicesToBeThrown;
 
     }
 
@@ -72,12 +78,12 @@ public class NPlusBotDifficult extends Bot {
 
         List<Integer> allDices = input.getMyInput();
         result.setMyInput(allDices);
-        HashMap<Integer, Integer> dicesToThrow = input.getDicesRerolled();
-
-
+        HashMap<Integer, Integer> dicesToThrow
+                = (HashMap<Integer, Integer>)
+                this.getBestThrowMask(allDices, input.getScoreToWin());
         result.setDicesToThrow(dicesToThrow);
-
         return result;
+
     }
 
 
