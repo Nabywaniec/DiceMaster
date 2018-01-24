@@ -11,8 +11,8 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="loginButton" layoutX="442.0" layoutY="399.0" mnemonicParsing="false"
-                        onMouseClicked="#handleLoginEvent" prefHeight="31.0" prefWidth="117.0" text="Login"/>
+                <Button fx:id="loginButton"  mnemonicParsing="false" onMouseClicked="#handleLoginEvent"
+                        prefHeight="31.0" prefWidth="117.0" text="Login"/>
                 <Text fx:id="loginText" text="Give you nickname :" wrappingWidth="140"/>
                 <TextField fx:id="userNameTextField"/>
             </children>
