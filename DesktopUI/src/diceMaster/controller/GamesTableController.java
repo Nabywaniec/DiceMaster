@@ -87,9 +87,7 @@ public class GamesTableController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
             CreateGameController presenter = loader.getController();
-            presenter.setDialogStage(dialogStage);
-            presenter.setDiceMasterOverviewController(this.diceMasterOverviewController);
-            presenter.init();
+            presenter.init(dialogStage, this.diceMasterOverviewController);
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

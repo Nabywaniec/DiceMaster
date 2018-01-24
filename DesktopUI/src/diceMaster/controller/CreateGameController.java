@@ -4,9 +4,9 @@ import agh.to2.dicemaster.client.api.ServerGame;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameType;
 import agh.to2.dicemaster.common.api.UserType;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -14,10 +14,10 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 public class CreateGameController extends Pane {
-    private GameConfigDTO gameConfigDTO;
     private Stage dialogStage;
     private DiceMasterOverviewController diceMasterOverviewController;
 
@@ -49,32 +49,30 @@ public class CreateGameController extends Pane {
     public CreateGameController() {
     }
 
-    public void init() {
+    public void init(Stage stage, DiceMasterOverviewController diceMasterOverviewController) {
+        this.dialogStage = stage;
+        this.diceMasterOverviewController = diceMasterOverviewController;
         makeSpinnerEditableOnlyForNumbers(maxPlayersSpinner);
         makeSpinnerEditableOnlyForNumbers(easyBotsSpinner);
         makeSpinnerEditableOnlyForNumbers(hardBotsSpinner);
+        this.dialogStage.setResizable(false);
     }
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-
-    public void handleJoinAsPlayerCheckBox(MouseEvent mouseEvent) {
+    public void handleJoinAsPlayerCheckBox() {
         joinAsPlayerCheckBox.setSelected(true);
         joinAsObserverCheckBox.setSelected(false);
     }
 
-    public void handleJoinAsObserverCheckBox(MouseEvent mouseEvent) {
+    public void handleJoinAsObserverCheckBox() {
         joinAsPlayerCheckBox.setSelected(false);
         joinAsObserverCheckBox.setSelected(true);
     }
 
-    public void handleCancelClicked(MouseEvent mouseEvent) {
+    public void handleCancelClicked() {
         dialogStage.close();
     }
 
-    public void handleCreateClicked(MouseEvent mouseEvent) {
+    public void handleCreateClicked() {
         String tableName = tableNameTextFiled.getText();
         int roundsToWin = roundsToWinSpinner.getValue();
         int maxPlayers = maxPlayersSpinner.getValue();
@@ -103,7 +101,7 @@ public class CreateGameController extends Pane {
             return;
         }
 
-        this.gameConfigDTO = new GameConfigDTO(
+        GameConfigDTO gameConfigDTO = new GameConfigDTO(
                 tableName,
                 maxPlayers,
                 gameType,
@@ -115,8 +113,15 @@ public class CreateGameController extends Pane {
                 gameConfigDTO,
                 this.diceMasterOverviewController.showGame(),
                 userType);
-        this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
-        dialogStage.close();
+
+        if (serverGame == null) {
+            this.showAlert("Couldn't create and connect to game!!");
+            this.dialogStage.close();
+            this.diceMasterOverviewController.showGamesTable();
+        } else {
+            this.diceMasterOverviewController.getInGameController().setServerGame(serverGame);
+            this.dialogStage.close();
+        }
     }
 
     private <T> void commitEditorText(Spinner<T> spinner) {
@@ -133,18 +138,18 @@ public class CreateGameController extends Pane {
     }
 
     private GameType fromStringToGameType(String gameTypeString) {
-        if (gameTypeString == "Poker")
+        if (Objects.equals(gameTypeString, "Poker"))
             return GameType.POKER;
-        if (gameTypeString == "N+")
+        if (Objects.equals(gameTypeString, "N+"))
             return GameType.NPLUS;
-        if (gameTypeString == "N*")
+        if (Objects.equals(gameTypeString, "N*"))
             return GameType.NTIMES;
         // to prevent nulls
         return GameType.POKER;
     }
 
-    private void makeSpinnerEditableOnlyForNumbers(Spinner spinner) {
-        spinner.focusedProperty().addListener((s, ov, nv) -> {
+    private void makeSpinnerEditableOnlyForNumbers(Spinner<Integer> spinner) {
+        spinner.focusedProperty().addListener((ObservableValue<? extends Boolean> s, Boolean ov, Boolean nv) -> {
             if (nv) return;
             commitEditorText(spinner);
         });
@@ -166,15 +171,11 @@ public class CreateGameController extends Pane {
     }
 
 
-    public void showAlert(String alertMessage) {
+    private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Create game");
         alert.setHeaderText("DiceMaster - Create game");
         alert.setContentText(alertMessage);
         alert.show();
-    }
-
-    public void setDiceMasterOverviewController(DiceMasterOverviewController diceMasterOverviewController) {
-        this.diceMasterOverviewController = diceMasterOverviewController;
     }
 }
