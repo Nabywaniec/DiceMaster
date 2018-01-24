@@ -2,8 +2,8 @@ package agh.to2.dicemaster.client;
 
 import agh.to2.dicemaster.client.api.Server;
 import agh.to2.dicemaster.client.api.ServerGame;
-import agh.to2.dicemaster.common.UserType;
 import agh.to2.dicemaster.common.api.GameDTO;
+import agh.to2.dicemaster.common.api.UserType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +19,8 @@ public class DiceMasterServerTest {
 
     @Before
     public void setUp() throws Exception {
-        server = new DiceMasterServer("localhost");
+        server = Server.createDiceMasterServer("localhost",
+                "guest", "guest");
         username = String.valueOf(UUID.randomUUID());
     }
 

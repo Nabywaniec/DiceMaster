@@ -2,6 +2,7 @@ package agh.to2.dicemaster.server.receivers;
 
 import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
 import agh.to2.dicemaster.common.DTO.RegistrationRequestDTO;
+import agh.to2.dicemaster.server.Exceptions.UsernameTakenException;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.managers.UsersManager;
 import agh.to2.dicemaster.server.services.QueueService;
@@ -27,12 +28,15 @@ public class RegistrationReceiver {
     public void onRegistrationRequest(RegistrationRequestDTO requestDTO, String replyToQueueName) {
         if(requestDTO.getUsername().startsWith("bot#")){
             senderService.sendRequestErrorResponse("Username cannot start with \"bot#\"", replyToQueueName);
-        } else if(usersManager.getUserById(requestDTO.getUsername()).isPresent()){
-            senderService.sendRequestErrorResponse(String.format("Username \"%s\" is taken", requestDTO.getUsername()), replyToQueueName);
         } else {
-            User createdUser = usersManager.createUser(requestDTO.getUsername(), requestDTO.getClientQueueName());
-            senderService.sendRegistrationConfirmation(new RegistrationConfirmationDTO(createdUser.getServerQueueName()), replyToQueueName);
-            queueService.addRegisteredClientQueue(createdUser.getServerQueueName());
+            try {
+                User createdUser = usersManager.createUser(requestDTO.getUsername(), requestDTO.getClientQueueName());
+                senderService.sendRegistrationConfirmation(new RegistrationConfirmationDTO(createdUser.getServerQueueName()), replyToQueueName);
+                queueService.addRegisteredClientQueue(createdUser.getServerQueueName());
+            } catch (UsernameTakenException e) {
+                senderService.sendRequestErrorResponse(String.format("Username \"%s\" is taken", requestDTO.getUsername()), replyToQueueName);
+            }
+
         }
     }
 }

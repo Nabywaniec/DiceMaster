@@ -1,7 +1,7 @@
 package diceMaster.controller;
 
 import diceMaster.Main;
-import diceMaster.mockaps.FakeServer;
+import diceMaster.model.gui.AvailableGamesChecker;
 import diceMaster.model.server.Server;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,38 +12,31 @@ import java.io.IOException;
 import java.util.Timer;
 
 public class DiceMasterOverviewController {
-
     private Stage primaryStage;
-
     private Server server;
-
-    private AvailableGamesChecker avalibleGamesChecker;
-
+    private AvailableGamesChecker availableGamesChecker;
+    private InGameController inGameController;
     private Timer timer;
+    private String userNickName;
 
-    public DiceMasterOverviewController(Stage primaryStage) {
+    public DiceMasterOverviewController(Stage primaryStage, Server server) {
         this.primaryStage = primaryStage;
-    }
-
-    public void initGameLayout() {
+        this.server = server;
         try {
-            this.primaryStage.setTitle("DiceMasterPrototype");
-
+            this.primaryStage.setTitle("DiceMaster");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/LoginPane.fxml"));
             BorderPane rootLayout = loader.load();
             LoginController loginController = loader.getController();
-            this.server = new FakeServer();
-            loginController.setAppController(this);
+            loginController.setDiceMasterOverviewController(this);
             Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
+            this.primaryStage.setScene(scene);
+            this.primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
+
 
     public void showGamesTable() {
         try {
@@ -54,9 +47,9 @@ public class DiceMasterOverviewController {
             GamesTableController gamesTableController = loader.getController();
             gamesTableController.setDiceMasterOverviewController(this);
 
-            this.avalibleGamesChecker = new AvailableGamesChecker(gamesTableController);
+            this.availableGamesChecker = new AvailableGamesChecker(gamesTableController);
             this.timer = new Timer(true);
-            this.timer.schedule(avalibleGamesChecker,0,1000);
+            this.timer.schedule(availableGamesChecker,0,1000);
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -67,21 +60,21 @@ public class DiceMasterOverviewController {
         }
     }
 
-    public void showGame() {
+    public InGameController showGame() {
         try {
             this.timer.cancel();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/InGamePane.fxml"));
             BorderPane rootLayout = loader.load();
-            InGameController inGameController = loader.getController();
-            inGameController.setAppController(this, 4);
+            this.inGameController = loader.getController();
+            inGameController.setAppController(this);
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this.inGameController;
     }
 
     public Server getServer() {
@@ -90,5 +83,17 @@ public class DiceMasterOverviewController {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void setUserNickName(String userNickName){
+        this.userNickName = userNickName;
+    }
+
+    public InGameController getInGameController(){
+        return this.inGameController;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
     }
 }

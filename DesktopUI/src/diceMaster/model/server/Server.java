@@ -1,8 +1,6 @@
 package diceMaster.model.server;
 
-import diceMaster.model.common.GameConfigDTO;
-import diceMaster.model.common.GameDTO;
-import diceMaster.model.common.UserType;
+import agh.to2.dicemaster.common.api.*;
 import diceMaster.model.gui.GameEventHandler;
 
 
