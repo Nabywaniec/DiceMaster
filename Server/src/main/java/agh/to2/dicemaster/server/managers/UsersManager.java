@@ -3,7 +3,6 @@ package agh.to2.dicemaster.server.managers;
 import agh.to2.dicemaster.server.Exceptions.UsernameTakenException;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.services.SenderService;
-import com.sun.istack.internal.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

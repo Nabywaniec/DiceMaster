@@ -3,6 +3,7 @@ package agh.to2.dicemaster.server.managers;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.UserType;
+import agh.to2.dicemaster.game.factory.GameFactory;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.services.SenderService;
@@ -10,44 +11,47 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class GamesManagerTest {
 
-    private GamesManager gamesManager = new GamesManager();
-    private List<Game> games = new ArrayList<>();
+    private static List<Game> games = new ArrayList<>();
 
 
-    @Mock
-    SenderService senderService;
-    @Mock
-    private
-    User user;
-//    TODO: Pass game Factory to the manager
-//    @Mock
-//    GameFactory gameFactory;
+    @Mock SenderService senderService;
+    @Mock private User user;
+    private GameFactory gameFactory;
+    private GamesManager gamesManager;
 
 
     @BeforeClass
-    public void setUpGameFactory() throws NoSuchFieldException {
+    public static void setUpGameFactory() throws NoSuchFieldException {
         for(int i = 0 ; i < 5 ; i++){
             Game game = mock(Game.class);
+            GameDTO gameDTO = mock(GameDTO.class);
+            when(gameDTO.getId()).thenReturn(i);
             when(game.getId()).thenReturn(i);
+            when(game.getGameDTO()).thenReturn(gameDTO);
             games.add(game);
         }
     }
 
     @Before
     public void setUp() {
+        this.gameFactory = mock(GameFactory.class);
+        this.gamesManager = new GamesManager(gameFactory);
         for (Game game : games) {
-//            TODO: Uncomment this
-//                    when(gameFactory.createGame(gameConfigDTO)).thenReturn(game);
-            gamesManager.createGame(new GameConfigDTO());
+            GameConfigDTO gameConfigDTO = mock(GameConfigDTO.class);
+            when(gameFactory.createGame(eq(gameConfigDTO))).thenReturn(game);
+            gamesManager.createGame(gameConfigDTO, UserType.PLAYER, user);
         }
     }
 
@@ -59,12 +63,17 @@ public class GamesManagerTest {
     @Test
     public void createGame() throws Exception {
 //        given
+        int gameID = UUID.randomUUID().hashCode();
+        GameDTO gameDTO = mock(GameDTO.class);
+        when(gameDTO.getId()).thenReturn(gameID);
         Game game = mock(Game.class);
-        when(game.getId()).thenReturn(UUID.randomUUID().hashCode());
-//        TODO: Uncomment this
-//        when(gameFactory.createGame(gameConfigDTO)).thenReturn(game);
+        when(game.getId()).thenReturn(gameID);
+        when(game.getGameDTO()).thenReturn(gameDTO);
 
-        Game gameCreated = gamesManager.createGame(new GameConfigDTO());
+        GameConfigDTO gameConfigDTO = new GameConfigDTO();
+        when(gameFactory.createGame(gameConfigDTO)).thenReturn(game);
+
+        Game gameCreated = gamesManager.createGame(gameConfigDTO, UserType.PLAYER, user);
 //        when
         Optional<Game> gameRetrieved = gamesManager.getGameById(game.getId());
 //        then
@@ -113,7 +122,7 @@ public class GamesManagerTest {
         Optional<Game> game = gamesManager.getGameById(gameID);
         assert game.isPresent();
 //        then
-        verify(games.get(0), times(1)).addPlayer(user);
+        verify(games.get(0), times(2)).addPlayer(user);
     }
 
     @Test

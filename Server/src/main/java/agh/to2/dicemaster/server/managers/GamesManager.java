@@ -3,8 +3,11 @@ package agh.to2.dicemaster.server.managers;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.UserType;
+import agh.to2.dicemaster.game.factory.GameFactory;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.Game;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,21 +19,21 @@ import java.util.stream.Stream;
 @Service
 public class GamesManager {
 
+    private final GameFactory gameFactory;
     private Map<Integer, Game> games = new HashMap<>();
 
-//    TODO:
-//    @Autowired
-//    public GamesManager(GameFactory gameFactory) {
-//        this.gameFactory = gameFactory;
-//    }
+    @Autowired
+    public GamesManager(GameFactory gameFactory) {
+        this.gameFactory = gameFactory;
+    }
 
-    public synchronized Game createGame(GameConfigDTO gameConfigDTO) {
-//        TODO: GameFactory.createGame(gameConfigDTO)
-        Game game = null;//GameFactory.createGame(gameConfigDTO)
+    public synchronized Game createGame(GameConfigDTO gameConfigDTO, UserType userType, User user) {
+        Game game = this.gameFactory.createGame(gameConfigDTO);
         do{
             game.setId(UUID.randomUUID().hashCode());
         } while (games.containsKey(game.getId()));
         games.put(game.getId(), game);
+        this.addUserToGame(userType, user, game.getId());
         return game;
     }
 
