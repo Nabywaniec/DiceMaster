@@ -19,12 +19,20 @@ public class LoginController {
     @FXML
     private Button loginButton;
 
-    public void setDiceMasterOverviewController(DiceMasterOverviewController diceMasterOverviewController) {
+    public void init(DiceMasterOverviewController diceMasterOverviewController) {
         this.diceMasterOverviewController = diceMasterOverviewController;
         this.bindSizeProperties();
     }
 
     private void bindSizeProperties() {
+        this.userNameTextField.layoutXProperty().bind(this.borderPane.widthProperty().divide(2.3));
+        this.userNameTextField.layoutYProperty().bind(this.borderPane.heightProperty().divide(2.186));
+
+        this.loginText.layoutXProperty().bind(this.userNameTextField.layoutXProperty().subtract(140));
+        this.loginText.layoutYProperty().bind(this.borderPane.heightProperty().divide(2.06));
+
+        this.loginButton.layoutXProperty().bind(this.userNameTextField.layoutXProperty().subtract(20));
+        this.loginButton.layoutYProperty().bind(this.userNameTextField.layoutYProperty().add(45));
     }
 
     public void handleLoginEvent(MouseEvent mouseEvent) {

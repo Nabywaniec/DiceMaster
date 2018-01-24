@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class GamesTableController {
@@ -54,8 +55,8 @@ public class GamesTableController {
     TableColumn<GameDTO, Integer> hardBotsNumberColumn;
 
 
-    public void setDiceMasterOverviewController(DiceMasterOverviewController appController) {
-        this.diceMasterOverviewController = appController;
+    public void init(DiceMasterOverviewController diceMasterOverviewController) {
+        this.diceMasterOverviewController = diceMasterOverviewController;
         this.listOfGames = FXCollections.observableArrayList();
         this.bindSizeProperties();
         this.gamesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -104,8 +105,18 @@ public class GamesTableController {
         if (!gamesTable.getSelectionModel().isEmpty()) {
             selectedGame = gamesTable.getSelectionModel().getSelectedItem().getId();
         }
-        this.listOfGames.clear();
-        this.listOfGames.addAll(this.diceMasterOverviewController.getServer().getAvailableGames());
+
+        List<GameDTO> listFromServer = this.diceMasterOverviewController.getServer().getAvailableGames();
+        if(listFromServer.size() > 0) {
+            this.listOfGames.clear();
+            this.listOfGames.addAll(listFromServer);
+        }else {
+            // double check when list is empty for lower possibility of short error connection with server
+            listFromServer = this.diceMasterOverviewController.getServer().getAvailableGames();
+            this.listOfGames.clear();
+            this.listOfGames.addAll(listFromServer);
+        }
+
         if (selectedGame != -1) {
             for (GameDTO gameDTO : listOfGames) {
                 if (gameDTO.getId() == selectedGame) {

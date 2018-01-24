@@ -28,7 +28,7 @@ public class DiceMasterOverviewController {
             loader.setLocation(Main.class.getResource("view/LoginPane.fxml"));
             BorderPane rootLayout = loader.load();
             LoginController loginController = loader.getController();
-            loginController.setDiceMasterOverviewController(this);
+            loginController.init(this);
             Scene scene = new Scene(rootLayout);
             this.primaryStage.setScene(scene);
             this.primaryStage.show();
@@ -45,7 +45,7 @@ public class DiceMasterOverviewController {
             loader.setLocation(Main.class.getResource("view/GamesTablePane.fxml"));
             BorderPane rootLayout = loader.load();
             GamesTableController gamesTableController = loader.getController();
-            gamesTableController.setDiceMasterOverviewController(this);
+            gamesTableController.init(this);
 
             this.availableGamesChecker = new AvailableGamesChecker(gamesTableController);
             this.timer = new Timer(true);
