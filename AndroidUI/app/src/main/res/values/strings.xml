@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">DiceMaster</string>
+
+    <string name="main_activity_label">DiceMaster</string>
+    <string name="connecting_to_server_message">Connecting to DiceMaster server</string>
+
+
+    <string name="login_activity_label">Login</string>
+    <string name="nicnkname">nicnkname</string>
+    <string name="sign_in">sign in</string>
+
+    <string name="lobby_activity_label">Lobby</string>
+
+    <string name="create_table_activity_label">Create Table</string>
+
+    <string name="table_activity_label">Table</string>
+
+
+    <string name="name_digits">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
+    <string name="poker_name">Poker</string>
+    <string name="nplus_name">N+</string>
+    <string name="ntimes_name">N*</string>
+    <string name="join_table_message">Please choose if you want to join table as an observer or as a player.</string>
+    <string name="popup_title_lobby">Join Table</string>
+    <string name="dialog_player">Player</string>
+    <string name="dialog_observer">Observer</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="popup_title_table_creator">Create Table</string>
+
+    <string name="your_turn_now">YOUR TURN NOW!</string>
+    <string name="waiting_for_turn">waiting for your turn...</string>
+
+    <string-array name="game_types_array">
+        <item name="game_type_poker">@string/poker_name</item>
+        <item name="game_type_nplus">@string/nplus_name</item>
+        <item name="game_type_ntimes">@string/ntimes_name</item>
+    </string-array>
+</resources>

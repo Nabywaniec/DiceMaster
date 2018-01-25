@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="agh.to2.dicemaster.activity.TableActivity">
+
+
+    <ScrollView
+        android:id="@+id/scrollView_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/line_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layout_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_screen_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView_playing_or_observing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="you are currently playing/observing"
+                    app:layout_constraintEnd_toStartOf="@+id/button_exit_table"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_game_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Game Info:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_playing_or_observing" />
+
+                <View
+                    android:id="@+id/line_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_game_info_title" />
+
+                <Button
+                    android:id="@+id/button_exit_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="EXIT TABLE"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/scrollView_table_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+                <LinearLayout
+                    android:id="@+id/layout_table_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_table_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="table: dluganazwa" />
+
+                    <TextView
+                        android:id="@+id/textView_table_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="table type: poker" />
+
+                    <TextView
+                        android:id="@+id/textView_max_players"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="max players: 000" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:id="@+id/scrollView_game_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+                <LinearLayout
+                    android:id="@+id/layout_game_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_max_rounds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="points required to win:999" />
+
+                    <TextView
+                        android:id="@+id/textView_current_turn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="turn: 999" />
+
+                    <TextView
+                        android:id="@+id/textView_current_players"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="current players : 00" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+            <HorizontalScrollView
+                android:id="@+id/scrollView_player_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+                <LinearLayout
+                    android:id="@+id/layout_player_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_is_player_turn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="YOUR TURN NOW" />
+
+                    <ProgressBar
+                        android:id="@+id/timer"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_current_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="your points:999" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_dices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/textView_dices_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="Your dices:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/line_dices_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_dices_title" />
+
+                <ImageView
+                    android:id="@+id/imageView_dice1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:srcCompat="@drawable/unknown" />
+
+                <ImageView
+                    android:id="@+id/imageView_dice2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_2"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_1"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:srcCompat="@drawable/unknown" />
+
+                <ImageView
+                    android:id="@+id/imageView_dice3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_3"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_2"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:srcCompat="@drawable/unknown" />
+
+                <ImageView
+                    android:id="@+id/imageView_dice4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_4"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_3"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:srcCompat="@drawable/unknown" />
+
+                <ImageView
+                    android:id="@+id/imageView_dice5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_4"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:srcCompat="@drawable/unknown" />
+
+                <View
+                    android:id="@+id/line_dices_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_dice3" />
+
+                <View
+                    android:id="@+id/line_dices_sep_1"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toTopOf="@+id/line_dices_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up" />
+
+                <View
+                    android:id="@+id/line_dices_sep_2"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toTopOf="@+id/line_dices_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/line_dices_sep_3"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toTopOf="@+id/line_dices_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/line_dices_sep_4"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toTopOf="@+id/line_dices_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_up"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Switch
+                    android:id="@+id/switch_dice1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:splitTrack="false"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_down" />
+
+                <Switch
+                    android:id="@+id/switch_dice2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:splitTrack="false"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_2"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_1"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_down" />
+
+                <Switch
+                    android:id="@+id/switch_dice3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:splitTrack="false"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_3"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_2"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_down" />
+
+                <Switch
+                    android:id="@+id/switch_dice4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:splitTrack="false"
+                    app:layout_constraintEnd_toStartOf="@+id/line_dices_sep_4"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_3"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_down" />
+
+                <Switch
+                    android:id="@+id/switch_dice5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:splitTrack="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/line_dices_sep_4"
+                    app:layout_constraintTop_toBottomOf="@+id/line_dices_down" />
+
+                <Button
+                    android:id="@+id/button_reroll_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="REROLL SELECTED"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/switch_dice3" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <View
+        android:id="@+id/line_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:background="@color/colorLine1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_other_players_list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Other players:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_separator" />
+
+    <ListView
+        android:id="@+id/listView_other_players"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_other_players_list_title" />
+
+</android.support.constraint.ConstraintLayout>

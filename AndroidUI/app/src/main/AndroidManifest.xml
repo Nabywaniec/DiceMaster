@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="agh.to2.dicemaster.activity">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="agh.to2.dicemaster.activity.MainActivity"
+                    android:noHistory="true"
+                    android:label="@string/main_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="agh.to2.dicemaster.activity.LoginActivity"
+                    android:label="@string/login_activity_label"
+                    android:noHistory="true">
+        </activity>
+        <activity android:name="agh.to2.dicemaster.activity.LobbyActivity"
+                    android:label="@string/lobby_activity_label">
+        </activity>
+        <activity android:name="agh.to2.dicemaster.activity.TableActivity"
+                    android:label="@string/table_activity_label"
+                    android:noHistory="true">
+        </activity>
+        <activity android:name="agh.to2.dicemaster.activity.TableCreatorActivity"
+                    android:label="@string/create_table_activity_label"
+                    android:noHistory="true">
+        </activity>
+
+    </application>
+
+</manifest>
