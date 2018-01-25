@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -28,31 +27,34 @@ public class GamesTableController {
     private ObservableList<GameDTO> listOfGames;
 
     @FXML
-    BorderPane borderPane;
+    private BorderPane borderPane;
 
     @FXML
-    Button createGameButton;
+    private Button createGameButton;
 
     @FXML
-    Button joinGameAsPlayerButton;
+    private Button joinGameAsPlayerButton;
 
     @FXML
-    Button joinGameAsObserverButton;
+    private Button joinGameAsObserverButton;
 
     @FXML
-    TableView<GameDTO> gamesTable;
+    private TableView<GameDTO> gamesTable;
 
     @FXML
-    TableColumn<GameDTO, String> tableNameColumn;
+    private TableColumn<GameDTO, String> tableNameColumn;
 
     @FXML
-    TableColumn<GameDTO, String> playersOnTableColumn;
+    private TableColumn<GameDTO, String> tableTypeColumn;
 
     @FXML
-    TableColumn<GameDTO, Integer> easyBotsNumberColumn;
+    private TableColumn<GameDTO, String> playersOnTableColumn;
 
     @FXML
-    TableColumn<GameDTO, Integer> hardBotsNumberColumn;
+    private TableColumn<GameDTO, Integer> easyBotsNumberColumn;
+
+    @FXML
+    private TableColumn<GameDTO, Integer> hardBotsNumberColumn;
 
 
     public void init(DiceMasterOverviewController diceMasterOverviewController) {
@@ -61,21 +63,59 @@ public class GamesTableController {
         this.bindSizeProperties();
         this.gamesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.tableNameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getGameConfig().getTableName()));
+        this.tableTypeColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getGameConfig().getGameType().toString()));
+
         this.playersOnTableColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(
                         String.valueOf(
                                 dataValue.getValue().getPlayers().size())
                                 + "/" + String.valueOf(dataValue.getValue().getGameConfig().getMaxPlayers())));
-        this.easyBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Integer>(dataValue.getValue().getGameConfig().getEasyBotsCount()));
-        this.hardBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<Integer>(dataValue.getValue().getGameConfig().getHardBotsCount()));
+        this.easyBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<>(dataValue.getValue().getGameConfig().getEasyBotsCount()));
+        this.hardBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<>(dataValue.getValue().getGameConfig().getHardBotsCount()));
         this.listOfGames.addAll(this.diceMasterOverviewController.getServer().getAvailableGames());
         this.gamesTable.setItems(listOfGames);
     }
 
     private void bindSizeProperties() {
+        this.gamesTable.layoutXProperty().bind(this.borderPane.widthProperty().divide(18.181));
+        this.gamesTable.layoutYProperty().bind(this.borderPane.heightProperty().divide(9.03));
+        this.gamesTable.minWidthProperty().bind(this.borderPane.widthProperty().subtract(390));
+
+        this.gamesTable.minHeightProperty().bind(this.borderPane.heightProperty().subtract(200));
+        this.gamesTable.maxHeightProperty().bind(this.borderPane.heightProperty().subtract(200));
+
+        this.tableNameColumn.minWidthProperty().bind(this.gamesTable.widthProperty().divide(2.1));
+        this.tableNameColumn.maxWidthProperty().bind(this.gamesTable.widthProperty().divide(2.1));
+
+        this.tableTypeColumn.minWidthProperty().bind(this.gamesTable.widthProperty().divide(10));
+        this.tableTypeColumn.maxWidthProperty().bind(this.gamesTable.widthProperty().divide(10));
+
+        this.playersOnTableColumn.minWidthProperty().bind(this.gamesTable.widthProperty().divide(7));
+        this.playersOnTableColumn.maxWidthProperty().bind(this.gamesTable.widthProperty().divide(7));
+
+        this.easyBotsNumberColumn.minWidthProperty().bind(this.gamesTable.widthProperty().divide(7));
+        this.easyBotsNumberColumn.maxWidthProperty().bind(this.gamesTable.widthProperty().divide(7));
+
+        this.hardBotsNumberColumn.minWidthProperty().bind(this.gamesTable.widthProperty().divide(7));
+        this.hardBotsNumberColumn.maxWidthProperty().bind(this.gamesTable.widthProperty().divide(7));
+
+        this.createGameButton.layoutXProperty().bind(
+                this.gamesTable.layoutXProperty().add(this.gamesTable.widthProperty().add(50)));
+        this.createGameButton.layoutYProperty().bind(
+                this.gamesTable.layoutYProperty().add(30));
+
+        this.joinGameAsPlayerButton.layoutXProperty().bind(
+                this.gamesTable.layoutXProperty().add(this.gamesTable.widthProperty().add(50)));
+        this.joinGameAsPlayerButton.layoutYProperty().bind(
+                this.gamesTable.layoutYProperty().add(75));
+
+        this.joinGameAsObserverButton.layoutXProperty().bind(
+                this.gamesTable.layoutXProperty().add(this.gamesTable.widthProperty().add(50)));
+        this.joinGameAsObserverButton.layoutYProperty().bind(
+                this.gamesTable.layoutYProperty().add(120));
     }
 
-    public void showCreateGameDialog() {
+    private void showCreateGameDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CreateGameDialog.fxml"));
@@ -94,7 +134,7 @@ public class GamesTableController {
         }
     }
 
-    public void createGameActionHandler(MouseEvent mouseEvent) {
+    public void createGameActionHandler() {
         showCreateGameDialog();
     }
 
@@ -105,10 +145,10 @@ public class GamesTableController {
         }
 
         List<GameDTO> listFromServer = this.diceMasterOverviewController.getServer().getAvailableGames();
-        if(listFromServer.size() > 0) {
+        if (listFromServer.size() > 0) {
             this.listOfGames.clear();
             this.listOfGames.addAll(listFromServer);
-        }else {
+        } else {
             // double check when list is empty for lower possibility of short error connection with server
             listFromServer = this.diceMasterOverviewController.getServer().getAvailableGames();
             this.listOfGames.clear();
@@ -124,7 +164,7 @@ public class GamesTableController {
         }
     }
 
-    public void joinAsPlayerGameActionHandler(MouseEvent mouseEvent) {
+    public void joinAsPlayerGameActionHandler() {
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
         if (selectedGame != null)
             if (selectedGame.getPlayers().size() < selectedGame.getGameConfig().getMaxPlayers())
@@ -133,7 +173,7 @@ public class GamesTableController {
                 this.showAlert("You cannot join the game as player when there is maximum number of player in game already!!!");
     }
 
-    public void joinAsObserverGameActionHandler(MouseEvent mouseEvent) {
+    public void joinAsObserverGameActionHandler() {
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
         if (selectedGame != null)
             this.joinToGame(selectedGame, UserType.OBSERVER);

@@ -20,12 +20,13 @@
                 <Button fx:id="joinGameAsObserverButton" layoutX="727.0" layoutY="225.0" mnemonicParsing="false"
                         prefHeight="31.0" prefWidth="220.0" text="Dołacz jako obserwator"
                         onMouseClicked="#joinAsObserverGameActionHandler"/>
-                <TableView fx:id="gamesTable" layoutX="55.0" layoutY="83.0" prefHeight="576.0" prefWidth="645.0">
+                <TableView fx:id="gamesTable" prefHeight="576.0" prefWidth="645.0">
                     <columns>
-                        <TableColumn fx:id="tableNameColumn" prefWidth="350.0" text="Table's name" />
-                        <TableColumn fx:id="playersOnTableColumn" prefWidth="100.0" text="Players/Max" />
-                        <TableColumn fx:id="easyBotsNumberColumn" prefWidth="100.0" text="Easy bots" />
-                        <TableColumn fx:id="hardBotsNumberColumn" prefWidth="100.0" text="Hard bots" />
+                        <TableColumn fx:id="tableNameColumn" text="Table's name" />
+                        <TableColumn fx:id="tableTypeColumn" text="Type" />
+                        <TableColumn fx:id="playersOnTableColumn" text="Players/Max" />
+                        <TableColumn fx:id="easyBotsNumberColumn" text="Easy bots" />
+                        <TableColumn fx:id="hardBotsNumberColumn" text="Hard bots" />
                     </columns>
                 </TableView>
             </children>
