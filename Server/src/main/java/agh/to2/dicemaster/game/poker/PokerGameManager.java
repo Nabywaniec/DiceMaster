@@ -60,7 +60,9 @@ public class PokerGameManager {
         findRoundWinner();
         game.removeParticipants(participantsToRemove);
         participantsToRemove.clear();
+        game.getPlayerList().forEach(Player::rollAllDices);
         roundNumber++;
+        notifyAllGameParticipants();
     }
 
     public synchronized void onGameStart() {

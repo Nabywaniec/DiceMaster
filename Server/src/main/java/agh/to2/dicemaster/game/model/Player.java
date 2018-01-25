@@ -35,6 +35,12 @@ public class Player extends GameParticipant {
         }
     }
 
+    public void rollAllDices() {
+        for (Dice dice : dices) {
+            dice.roll();
+        }
+    }
+
     public Dice[] getDices() {
         return dices.clone();
     }
