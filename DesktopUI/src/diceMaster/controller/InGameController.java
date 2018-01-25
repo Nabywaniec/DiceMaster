@@ -27,43 +27,43 @@ public class InGameController implements GameEventHandler {
     private Thread timerThread;
 
     @FXML
-    BorderPane borderPane;
+    private BorderPane borderPane;
 
     @FXML
-    Button reRollButton;
+    private Button reRollButton;
 
     @FXML
-    Button exitButton;
+    private Button exitButton;
 
     @FXML
-    Button skipTurnButton;
+    private Button skipTurnButton;
 
     @FXML
-    DicesField dicesField;
+    private DicesField dicesField;
 
     @FXML
-    Line splitGameWindowLine;
+    private Line splitGameWindowLine;
 
     @FXML
-    UserInGameListView playersWaitingForMove;
+    private UserInGameListView playersWaitingForMove;
 
     @FXML
-    UserInGameListView playersMoved;
+    private UserInGameListView playersMoved;
 
     @FXML
-    UserInGameFilled currentUser;
+    private UserInGameFilled currentUser;
 
     @FXML
-    Text tablesTypeText;
+    private Text tablesTypeText;
 
     @FXML
-    Text roundsToWin;
+    private Text roundsToWin;
 
     @FXML
-    Text scoreInRound;
+    private Text scoreInRound;
 
     @FXML
-    Group mainGroup;
+    private Group mainGroup;
 
     public void setAppController(DiceMasterOverviewController appController) {
         this.appController = appController;
@@ -77,7 +77,7 @@ public class InGameController implements GameEventHandler {
     }
 
     public void onGameChange(GameDTO game) {
-        if (!isStillInGame(game.getPlayers())) {
+        if (!isStillInGame(game.getPlayers(), game.getObservers())) {
             this.showAlert("You were kicked from game!");
             this.appController.showGamesTable();
         }
@@ -103,7 +103,7 @@ public class InGameController implements GameEventHandler {
     }
 
     private void startTimer() {
-        if(this.timerText == null) {
+        if (this.timerText == null) {
             this.timerText = new Text();
             this.mainGroup.getChildren().add(timerText);
         }
@@ -111,7 +111,7 @@ public class InGameController implements GameEventHandler {
         timerText.setFont(Font.font(30));
         timerText.setLayoutX(870);
         timerText.setLayoutY(490);
-        if(this.timerThread != null){
+        if (this.timerThread != null) {
             // maybe change it
             this.timerThread.stop();
         }
@@ -128,10 +128,6 @@ public class InGameController implements GameEventHandler {
         });
         this.timerThread.start();
     }
-
-    //private void stopTimer() {
-        //this.mainGroup.getChildren().remove(this.timerText);
-   // }
 
     public void setServerGame(ServerGame serverGame) {
         this.serverGame = serverGame;
@@ -163,18 +159,15 @@ public class InGameController implements GameEventHandler {
         this.playersWaitingForMove.init(beforeMove);
     }
 
-    public void handleExit(ActionEvent actionEvent) {
+    public void handleExit() {
         this.serverGame.leaveGame();
         this.appController.showGamesTable();
     }
 
-    public void handleReRoll(ActionEvent event) {
+    public void handleReRoll() {
         boolean[] dicesToReroll = new boolean[5];
         for (int i = 0; i < 5; i++)
-            if (this.dicesField.getDiceViews().get(i).isSelected())
-                dicesToReroll[i] = true;
-            else
-                dicesToReroll[i] = false;
+            dicesToReroll[i] = this.dicesField.getDiceViews().get(i).isSelected();
         MoveDTO moveDTO = new MoveDTO(dicesToReroll);
 
         for (int i = 0; i < 5; i++)
@@ -184,10 +177,9 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
-        //this.stopTimer();
     }
 
-    public void handleSkipTurn(ActionEvent actionEvent) {
+    public void handleSkipTurn() {
         boolean[] dicesToReroll = new boolean[5];
         for (int i = 0; i < 5; i++)
             dicesToReroll[i] = false;
@@ -202,7 +194,6 @@ public class InGameController implements GameEventHandler {
         this.skipTurnButton.setDisable(true);
 
         this.serverGame.makeMove(moveDTO);
-        //this.stopTimer();
     }
 
 
@@ -214,9 +205,14 @@ public class InGameController implements GameEventHandler {
         alert.show();
     }
 
-    private boolean isStillInGame(List<UserInGame> players) {
+    private boolean isStillInGame(List<UserInGame> players, List<String> observers) {
         for (UserInGame userInGame : players) {
             if (userInGame.getUserName().equals(this.appController.getUserNickName()))
+                return true;
+        }
+
+        for (String observer : observers){
+            if(observer.equals(this.appController.getUserNickName()))
                 return true;
         }
         return false;

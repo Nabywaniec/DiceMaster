@@ -35,7 +35,7 @@ public class LoginController {
         this.loginButton.layoutYProperty().bind(this.userNameTextField.layoutYProperty().add(45));
     }
 
-    public void handleLoginEvent(MouseEvent mouseEvent) {
+    public void handleLoginEvent() {
         if (userNameTextField.getText().isEmpty()) {
             showAlert("Type your nick first!");
             return;

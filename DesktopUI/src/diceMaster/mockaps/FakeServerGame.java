@@ -13,16 +13,18 @@ public class FakeServerGame extends ServerGame {
     private GameEventHandler gameEventHandler;
     private GameDTO gameDTO;
 
-    public FakeServerGame(GameDTO gameDTO, String userName, GameEventHandler gameEventHandler) {
+    FakeServerGame(GameDTO gameDTO, String userName, GameEventHandler gameEventHandler, UserType userType) {
         super(gameDTO);
         this.userName = userName;
         this.gameEventHandler = gameEventHandler;
 
 
         List<UserInGame> players = new LinkedList<>();
+        List<String> observers = new LinkedList<>();
+        if(userType == UserType.OBSERVER)
+            observers.add(this.userName);
         for (int i = 0; i < 14; i++) {
             String nick = "Player" + i;
-
             Dices dices = new Dices();
             Random rand = new Random();
             for (int j = 0; j < 5; j++)
@@ -30,13 +32,16 @@ public class FakeServerGame extends ServerGame {
 
             UserInGame u = new UserInGame(nick, dices, i + 2, false);
 
-            if (i == 9)
+            if (i==9)
+                u.setHisTurn(true);
+
+            if (i == 9 && userType == UserType.PLAYER)
                 players.add(new UserInGame(this.userName, dices, 0, true));
             else
                 players.add(u);
         }
         GameConfigDTO gc = new GameConfigDTO("takasytulacja", 14, GameType.NPLUS, 0, 0, 25);
-        this.gameDTO = new GameDTO(3, gc, players, null);
+        this.gameDTO = new GameDTO(3, gc, players, observers);
         this.gameDTO.setScoreToWin(18);
     }
 
@@ -44,7 +49,7 @@ public class FakeServerGame extends ServerGame {
         Dices thisUserDices = new Dices();
         int id = 0;
         for (int i = 0; i < this.gameDTO.getPlayers().size(); i++) {
-            if (this.gameDTO.getPlayers().get(i).getUserName() == this.userName) {
+            if (this.gameDTO.getPlayers().get(i).getUserName().equals(this.userName)) {
                 thisUserDices = this.gameDTO.getPlayers().get(i).getDices();
                 id = i;
             }

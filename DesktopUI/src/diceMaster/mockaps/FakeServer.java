@@ -16,17 +16,16 @@ public class FakeServer implements Server {
 
     @Override
     public ServerGame createGame(GameConfigDTO gameConfigDTO, GameEventHandler gameEventHandler, UserType userType) {
-        return new FakeServerGame(new GameDTO(new Random().nextInt(1000), gameConfigDTO, null, null), this.userName, gameEventHandler);
+        return new FakeServerGame(new GameDTO(new Random().nextInt(1000), gameConfigDTO, null, null), this.userName, gameEventHandler, userType);
     }
 
     @Override
     public ServerGame requestJoinGame(GameDTO gameDTO, GameEventHandler gameEventHandler, UserType userType) {
         if (userType == UserType.PLAYER)
-            return new FakeServerGame(gameDTO, this.userName, gameEventHandler);
+            return new FakeServerGame(gameDTO, this.userName, gameEventHandler, userType);
 
-        return new FakeServerGame(gameDTO, "HS", gameEventHandler);
+        return new FakeServerGame(gameDTO, this.userName, gameEventHandler, userType);
     }
-
 
     @Override
     public List<GameDTO> getAvailableGames() {
@@ -37,11 +36,11 @@ public class FakeServer implements Server {
         aaa[3] = DiceNumbers.UNKNOWN;
         aaa[4] = DiceNumbers.UNKNOWN;
         GameConfigDTO gc = new GameConfigDTO("aaa", 5, GameType.NPLUS, 2, 2, 2);
-        LinkedList<UserInGame> p = new LinkedList<UserInGame>();
+        LinkedList<UserInGame> p = new LinkedList<>();
         p.add(new UserInGame("User 1", new Dices(aaa), 0, false));
         LinkedList<String> obs = new LinkedList<>();
         obs.add("bot1");
-        LinkedList<GameDTO> toR = new LinkedList<GameDTO>();
+        LinkedList<GameDTO> toR = new LinkedList<>();
         toR.add(new GameDTO(1, gc, p, obs));
         return toR;
     }

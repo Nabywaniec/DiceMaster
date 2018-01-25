@@ -10,12 +10,10 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="diceMaster.controller.LoginController">
     <center>
         <Pane BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="loginButton"  mnemonicParsing="false" onMouseClicked="#handleLoginEvent"
-                        prefHeight="31.0" prefWidth="117.0" text="Login"/>
-                <Text fx:id="loginText" text="Give you nickname :" wrappingWidth="140"/>
-                <TextField fx:id="userNameTextField"/>
-            </children>
+            <Button fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#handleLoginEvent"
+                    prefHeight="31.0" prefWidth="117.0" text="Login"/>
+            <Text fx:id="loginText" text="Give you nickname :" wrappingWidth="140"/>
+            <TextField fx:id="userNameTextField"/>
         </Pane>
     </center>
 </BorderPane>

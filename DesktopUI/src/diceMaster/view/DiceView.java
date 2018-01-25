@@ -37,17 +37,9 @@ public class DiceView extends Group {
         this.setOnMouseClicked(event -> setSelected(!this.isSelected));
     }
 
-    public double getDiceScale() {
-        return diceScale;
-    }
-
     public void setDiceScale(double diceScale) {
         this.diceScale = diceScale;
         resizeDice();
-    }
-
-    public Integer getNumberOfDots() {
-        return numberOfDots;
     }
 
     public boolean isSelected() {
@@ -83,7 +75,6 @@ public class DiceView extends Group {
         }
         this.setNumberOfDots(this.numberOfDots);
     }
-
 
     public void setNumberOfDots(int number) {
         numberOfDots = number;

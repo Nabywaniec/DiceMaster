@@ -46,7 +46,6 @@ public class DicesField extends Group {
         }
     }
 
-
     public void setDicesDots(DiceNumbers[] dotsToSet) {
         for (int i = 0; i < 5; i++) {
             diceViews.get(i).setNumberOfDots(convertEnumToInt(dotsToSet[i]));
@@ -55,10 +54,6 @@ public class DicesField extends Group {
 
     public List<DiceView> getDiceViews() {
         return diceViews;
-    }
-
-    public double getDicesFiledScale() {
-        return dicesFiledScale;
     }
 
     public void setDicesFiledScale(double dicesFiledScale) {

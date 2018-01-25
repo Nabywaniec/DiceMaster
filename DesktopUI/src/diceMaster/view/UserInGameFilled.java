@@ -9,14 +9,8 @@ public class UserInGameFilled extends Group {
     private DicesField dices = new DicesField();
     private Text scoreText = new Text();
 
-    public void setDices(DicesField dices) {
-        this.dices = dices;
-    }
-
-
     public UserInGameFilled() {
     }
-
 
     public void init(UserInGame player) {
         this.nickText.setText(player.getUserName());
