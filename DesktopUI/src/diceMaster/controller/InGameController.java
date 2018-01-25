@@ -206,15 +206,17 @@ public class InGameController implements GameEventHandler {
     }
 
     private boolean isStillInGame(List<UserInGame> players, List<String> observers) {
-        for (UserInGame userInGame : players) {
-            if (userInGame.getUserName().equals(this.appController.getUserNickName()))
-                return true;
-        }
+        if (players != null)
+            for (UserInGame userInGame : players) {
+                if (userInGame.getUserName().equals(this.appController.getUserNickName()))
+                    return true;
+            }
 
-        for (String observer : observers){
-            if(observer.equals(this.appController.getUserNickName()))
-                return true;
-        }
+        if (observers != null)
+            for (String observer : observers) {
+                if (observer.equals(this.appController.getUserNickName()))
+                    return true;
+            }
         return false;
     }
 }

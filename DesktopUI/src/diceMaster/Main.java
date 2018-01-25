@@ -17,7 +17,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.startFakeServerConnection(primaryStage);
+        this.diceMasterOverviewController = new DiceMasterOverviewController(primaryStage,
+                Server.createDiceMasterServer("192.168.43.30",
+                        "dicemaster",
+                        "dicemasterpass")
+        );
+
+        //this.startRealServerConnection(primaryStage);
     }
 
     public static void main(String[] args) {
@@ -29,7 +35,7 @@ public class Main extends Application {
         InputStream input = null;
 
         try {
-            input = new FileInputStream("connection.properties");
+            input = new FileInputStream("./connection.properties");
             prop.load(input);
 
             this.primaryStage = primaryStage;
@@ -38,6 +44,14 @@ public class Main extends Application {
                             prop.getProperty("serverUsername"),
                             prop.getProperty("password"))
             );
+
+            /*
+            this.diceMasterOverviewController = new DiceMasterOverviewController(primaryStage,
+                    Server.createDiceMasterServer("192.168.43.30",
+                            "dicemaster",
+                            "dicemasterpass")
+            );
+            */
 
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -68,7 +68,7 @@ public class GamesTableController {
         this.playersOnTableColumn.setCellValueFactory(
                 dataValue -> new SimpleStringProperty(
                         String.valueOf(
-                                dataValue.getValue().getPlayers().size())
+                                (dataValue.getValue().getPlayers() == null) ? 0 : dataValue.getValue().getPlayers().size())
                                 + "/" + String.valueOf(dataValue.getValue().getGameConfig().getMaxPlayers())));
         this.easyBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<>(dataValue.getValue().getGameConfig().getEasyBotsCount()));
         this.hardBotsNumberColumn.setCellValueFactory(dataValue -> new SimpleObjectProperty<>(dataValue.getValue().getGameConfig().getHardBotsCount()));
@@ -167,10 +167,14 @@ public class GamesTableController {
     public void joinAsPlayerGameActionHandler() {
         GameDTO selectedGame = gamesTable.getSelectionModel().getSelectedItem();
         if (selectedGame != null)
-            if (selectedGame.getPlayers().size() < selectedGame.getGameConfig().getMaxPlayers())
+            if (selectedGame.getPlayers() != null)
+                if (selectedGame.getPlayers().size() < selectedGame.getGameConfig().getMaxPlayers())
+                    this.joinToGame(selectedGame, UserType.PLAYER);
+                else
+                    this.showAlert("You cannot join the game as player when there is maximum number of player in game already!!!");
+            else{
                 this.joinToGame(selectedGame, UserType.PLAYER);
-            else
-                this.showAlert("You cannot join the game as player when there is maximum number of player in game already!!!");
+            }
     }
 
     public void joinAsObserverGameActionHandler() {

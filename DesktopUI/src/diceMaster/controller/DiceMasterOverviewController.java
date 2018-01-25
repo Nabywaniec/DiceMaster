@@ -49,7 +49,7 @@ public class DiceMasterOverviewController {
 
             this.availableGamesChecker = new AvailableGamesChecker(gamesTableController);
             this.timer = new Timer(true);
-            this.timer.schedule(availableGamesChecker, 0, 1000);
+            this.timer.schedule(availableGamesChecker, 0, 5000);
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
