@@ -13,7 +13,7 @@ import java.util.List;
 
 public class PokerGameManager {
 
-    private final static int TURN_DURATION = 20;
+    private final static int TURN_DURATION = 20000;
     private final static int ROUND_COUNT = 5;
     private final static int TURNS_PER_ROUND = 3;
 
@@ -53,15 +53,13 @@ public class PokerGameManager {
         if (roundNumber > ROUND_COUNT) {
             onGameEnd();
         }
-
-        game.removeParticipants(participantsToRemove);
-        participantsToRemove.clear();
-
         notifyAllGameParticipants();
     }
 
     private synchronized void onRoundEnd() {
         findRoundWinner();
+        game.removeParticipants(participantsToRemove);
+        participantsToRemove.clear();
         roundNumber++;
     }
 
