@@ -219,4 +219,11 @@ public class InGameController implements GameEventHandler {
             }
         return false;
     }
+
+    private boolean isGameStarted(List<UserInGame> players){
+        for(UserInGame userInGame : players)
+            if(userInGame.isHisTurn())
+                return true;
+        return false;
+    }
 }

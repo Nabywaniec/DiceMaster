@@ -8,15 +8,21 @@ import agh.to2.dicemaster.common.api.UserInGame;
 import agh.to2.dicemaster.game.nmodel.Player;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.api.GameParticipant;
+import org.springframework.context.annotation.ComponentScan;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
+@ComponentScan(basePackages = {"agh.to2.dicemaster"})
 public class NGame extends Game {
     private GameConfigDTO gameConfigDTO;
     private Rules rules;
-    private List<Player> players = new ArrayList<>();
-    private List<GameParticipant> observers=new LinkedList<GameParticipant>();
+    private List<GameParticipant> players = new ArrayList<>();
+    private List<GameParticipant> observers = new LinkedList<GameParticipant>();
     private GameDTO gameDTO;
+
 
     public NGame(int id, GameConfigDTO gameConfigDTO) {
         super(id,gameConfigDTO);
@@ -26,12 +32,6 @@ public class NGame extends Game {
         }
         if (gameConfigDTO.getGameType() == GameType.NTIMES) {
             this.rules = new NTimes();
-        }
-        for (int i=0; i< gameConfigDTO.getEasyBotsCount();i++) {
-           // players.addPlayer(createBot(EASY));
-        }
-        for (int i=0; i< gameConfigDTO.getHardBotsCount();i++) {
-            //players.addPlayer(createBot(DIFFICULT));
         }
 
     }
@@ -54,14 +54,14 @@ public class NGame extends Game {
 
     public void createGameDTO(){
         GameDTO tmp = new GameDTO();
-        //tmp.setID(this.id);
+        tmp.setId(this.getId());
         tmp.setGameConfig(this.gameConfigDTO);
-        players.forEach(player -> createUserInGame(player));
+        players.forEach(this::createUserInGame);
     }
 
-    public UserInGame createUserInGame(Player player){
+    public UserInGame createUserInGame(GameParticipant gameParticipant){
         UserInGame tmp = new UserInGame();
-       // tmp.setUserName(player.getID);
+        tmp.setUserName(gameParticipant.getId());
         tmp.setHisTurn(false);
         return tmp;
     }
