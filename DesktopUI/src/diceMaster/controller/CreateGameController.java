@@ -170,7 +170,6 @@ public class CreateGameController extends Pane {
         spinner.getEditor().setTextFormatter(priceFormatter);
     }
 
-
     private void showAlert(String alertMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("DiceMaster - Create game");
