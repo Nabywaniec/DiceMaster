@@ -103,6 +103,7 @@ public class InGameController implements GameEventHandler {
             }
         }
 
+        this.checkIfWin(game.getPlayers(), game);
         this.setPlayersListToView(game.getPlayers());
 
         if (serverGame.getGameDTO().getGameConfig().getGameType() != GameType.POKER)
@@ -232,5 +233,17 @@ public class InGameController implements GameEventHandler {
             if(userInGame.isHisTurn())
                 return true;
         return false;
+    }
+
+    private void checkIfWin(List<UserInGame> players, GameDTO gameDTO){
+        for(UserInGame userInGame : players)
+            if(userInGame.getScore() == gameDTO.getGameConfig().getRoundsToWin())
+                if( userInGame.getUserName() == this.appController.getUserNickName()) {
+                    showAlert("You won the game!!!!!!!!!!!!");
+                    this.appController.showGamesTable();
+                }else{
+                    showAlert("You lost the game!!!!!!!!!!!!");
+                    this.appController.showGamesTable();
+                }
     }
 }
