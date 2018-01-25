@@ -5,11 +5,12 @@ import agh.to2.dicemaster.bot.DiceOutputDTO;
 import agh.to2.dicemaster.bot.IOConverter;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
+import agh.to2.dicemaster.common.api.UserInGame;
 import agh.to2.dicemaster.server.api.GameParticipant;
 import agh.to2.dicemaster.server.api.PlayerEventHandler;
 
 
-public abstract class Bot extends GameParticipant{
+public abstract class Bot extends GameParticipant {
 
     protected DiceOutputDTO result = null;
     private PlayerEventHandler playerEventHandler;
@@ -25,12 +26,19 @@ public abstract class Bot extends GameParticipant{
 
     @Override
     public void notifyGameStateChange(GameDTO gameDTO) {
-        this.gDto = gameDTO;
-        new Thread(this::makeMove).start();
+
+        for (UserInGame userInGame : gameDTO.getPlayers()) {
+            if (userInGame.getUserName().equals(this.getId()))
+                if (userInGame.isHisTurn()) {
+                    this.gDto = gameDTO;
+                    new Thread(this::makeMove).start();
+                }
+        }
+
     }
 
     private void makeMove() {
-        if(result == null){
+        if (result == null) {
             result = new DiceOutputDTO(this.gDto.getScoreToWin());
         }
 
