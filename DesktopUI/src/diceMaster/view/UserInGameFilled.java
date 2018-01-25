@@ -1,6 +1,7 @@
 package diceMaster.view;
 
 import agh.to2.dicemaster.common.api.UserInGame;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 
@@ -20,9 +21,13 @@ public class UserInGameFilled extends Group {
         this.scoreText.setY(10.0);
         this.dices.setDicesFiledScale(0.15);
         this.dices.setDicesDots(player.getDices().getDicesScore());
-        this.getChildren().clear();
-        this.getChildren().add(nickText);
-        this.getChildren().add(scoreText);
-        this.getChildren().add(dices);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                getChildren().clear();
+                getChildren().add(nickText);
+                getChildren().add(scoreText);
+                getChildren().add(dices);
+            }});
     }
 }

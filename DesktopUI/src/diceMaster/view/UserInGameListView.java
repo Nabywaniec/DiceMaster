@@ -1,6 +1,7 @@
 package diceMaster.view;
 
 import agh.to2.dicemaster.common.api.UserInGame;
+import javafx.application.Platform;
 import javafx.scene.Group;
 
 import java.util.List;
@@ -16,7 +17,12 @@ public class UserInGameListView extends Group {
             UserInGameFilled u = new UserInGameFilled();
             u.init(userInGame);
             u.setLayoutY(40 * i);
-            this.getChildren().add(u);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    getChildren().add(u);
+                }});
             i++;
         }
     }

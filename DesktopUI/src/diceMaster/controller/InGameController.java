@@ -6,6 +6,7 @@ import agh.to2.dicemaster.common.api.*;
 import diceMaster.view.DicesField;
 import diceMaster.view.UserInGameFilled;
 import diceMaster.view.UserInGameListView;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -81,9 +82,15 @@ public class InGameController implements GameEventHandler {
             this.showAlert("You were kicked from game!");
             this.appController.showGamesTable();
         }
-        this.playersWaitingForMove.getChildren().clear();
-        this.playersMoved.getChildren().clear();
-        this.currentUser.getChildren().clear();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                playersWaitingForMove.getChildren().clear();
+                playersMoved.getChildren().clear();
+                currentUser.getChildren().clear();
+            }
+        });
+
 
         for (UserInGame u : game.getPlayers()) {
             if (u.getUserName().equals(this.appController.getUserNickName())) {
