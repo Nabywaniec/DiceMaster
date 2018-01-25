@@ -18,7 +18,7 @@ public class PokerBotDifficult extends Bot {
     @Override
     DiceOutputDTO getDicesToThrow(DiceInputDTO inputDice) {
 
-        DiceOutputDTO diceOutputResult = new DiceOutputDTO();
+        DiceOutputDTO diceOutputResult = new DiceOutputDTO(0);
 
         JSONParser parser = new JSONParser();
         Object object = null;

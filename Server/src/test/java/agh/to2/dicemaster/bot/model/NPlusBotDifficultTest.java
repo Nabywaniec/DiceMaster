@@ -22,7 +22,7 @@ class NPlusBotDifficultTest {
     @org.junit.jupiter.api.Test
     void getDicesToThrow() {
 
-        NMultiplyBotDifficult bot;
+        NMultiplyBotDifficult bot=null;
         try {
             bot = (NMultiplyBotDifficult)
                     factory.createBot(BotType.DIFFICULT);
@@ -42,7 +42,8 @@ class NPlusBotDifficultTest {
         DiceInputDTO input = new DiceInputDTO(30);
         input.setMyInput(Arrays.asList(6, 6, 6, 6, 1));
 
-        HashMap<Integer, Integer> map2 = bot.getDicesToThrow(input);
+
+        HashMap<Integer, Integer> map2 = bot.getDicesToThrow(input).getDicesToThrow();
 
         Iterator it = map2.entrySet().iterator();
         Iterator it2 = dicesToThrow.entrySet().iterator();

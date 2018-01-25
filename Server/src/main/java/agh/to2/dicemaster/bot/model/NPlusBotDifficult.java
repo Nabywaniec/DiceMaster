@@ -7,7 +7,6 @@ import java.util.*;
 
 public class NPlusBotDifficult extends Bot {
 
-    private double probability = 0.0;
 
     private int getCounterOfSatisfactorySets(int[] dices, int toBeThrown, int sumFin, int counter, int size) {
 
@@ -35,30 +34,35 @@ public class NPlusBotDifficult extends Bot {
 
     }
 
-    private Map<Integer, Integer> getBestThrowMask(List<Integer> dices, int sumFin) {
+    private Map<Integer, Integer> getBestDiceToReroll(List<Integer> dices, int sumFin) {
 
         HashMap<Integer, Integer> dicesToBeThrown = new HashMap<>();
         double highestProbability = 0.0;
         int bestMask = 0;
 
-        for (int i = 0; i <= 32; i++) {
-            double currentProbability = 0.0;
+        //checking all 32 possibilities
+        for (int i = 0; i <= 31; i++) {
+
+            double currentProbability;
             int maskInt = i;
             int currentSum = sumFin;
-            int toBeThrown = 0;
+            int toBeThrown = 5;
             for (int j = 0; j < 5; j++) {
-                if (maskInt % 2 == 1) {
-                    toBeThrown++;
-                    currentSum = currentSum - dices.get(j);
+                //if i want dont want to reroll current dice
+                if (maskInt % 2 == 0) {
+                    toBeThrown--;
+                    currentSum = currentSum - dices.get(4-j);
                 }
                 maskInt = maskInt / 2;
             }
-
-            if (currentSum > 0)
+            if (currentSum > 0){
                 currentProbability = calculateProbability(toBeThrown, currentSum);
-            if (currentProbability > highestProbability) {
-                highestProbability = currentProbability;
-                bestMask = i;
+                if (currentProbability > highestProbability) {
+
+                    highestProbability = currentProbability;
+                    bestMask = i;
+
+                }
             }
 
         }
@@ -80,7 +84,7 @@ public class NPlusBotDifficult extends Bot {
         result.setMyInput(allDices);
         HashMap<Integer, Integer> dicesToThrow
                 = (HashMap<Integer, Integer>)
-                this.getBestThrowMask(allDices, input.getScoreToWin());
+                this.getBestDiceToReroll(allDices, input.getScoreToWin());
         result.setDicesToThrow(dicesToThrow);
         return result;
 
