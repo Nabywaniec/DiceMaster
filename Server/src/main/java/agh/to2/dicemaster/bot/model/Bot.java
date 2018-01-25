@@ -41,4 +41,7 @@ public abstract class Bot extends GameParticipant{
 
     }
 
+    public void setResult(DiceOutputDTO result) {
+        this.result = result;
+    }
 }
