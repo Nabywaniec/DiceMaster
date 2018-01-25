@@ -21,17 +21,18 @@ public class Timer implements Runnable {
 
     @Override
     public void run() {
+        boolean kickPlayer;
         while (!gameManager.hasEnded()) {
             delay = false;
+            kickPlayer = true;
             try {
                 TimeUnit.SECONDS.sleep(secondsToCount);
             } catch (InterruptedException ie) {
-                continue;
+                kickPlayer = false;
             }
             delay = true;
-            gameManager.kickCurretPlayer();
+            gameManager.onTurnEnd(kickPlayer);
         }
     }
-
 }
 

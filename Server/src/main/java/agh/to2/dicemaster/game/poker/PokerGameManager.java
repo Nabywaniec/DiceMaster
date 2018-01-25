@@ -35,11 +35,12 @@ public class PokerGameManager {
     }
 
 
-    public void kickCurretPlayer() {
+    public void kickCurrentPlayer() {
         participantsToRemove.add(game.getPlayerList().get(currentPlayer));
     }
 
-    public synchronized void onTurnEnd() {
+    public synchronized void onTurnEnd(boolean kickPlayer) {
+        if(kickPlayer) kickCurrentPlayer();
         currentPlayer++;
         turnNumber++;
         if (currentPlayer >= game.getPlayerList().size()) {
@@ -90,7 +91,6 @@ public class PokerGameManager {
         if (!game.getPlayerList().get(currentPlayer).equals(player)) return;
         player.rollDices(moveDTO.getDicesToReRoll());
         timerThread.interrupt();
-        onTurnEnd();
     }
 
     public synchronized void onPlayerLeft(GameParticipant gameParticipant) {
