@@ -74,7 +74,7 @@ public class PokerGameManager {
         gameState = GameState.ENDED;
     }
 
-    private void notifyAllGameParticipants() {
+    protected void notifyAllGameParticipants() {
         GameDTO gameDTO = game.getGameDTO();
         game.getPlayers().forEach(player -> player.notifyGameStateChange(gameDTO));
         game.getObservers().forEach(observer -> observer.notifyGameStateChange(gameDTO));

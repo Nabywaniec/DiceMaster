@@ -47,6 +47,8 @@ public class PokerGame extends Game {
         PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager, gameParticipant);
         observers.add(gameParticipant);
         gameParticipant.registerPlayerEventHandler(pokerPlayerEventHandler);
+
+        pokerGameManager.notifyAllGameParticipants();
     }
 
     @Override
@@ -61,6 +63,7 @@ public class PokerGame extends Game {
         if (getGameConfigDTO().getMaxPlayers() == players.size()) {
             pokerGameManager.onGameStart();
         }
+        pokerGameManager.notifyAllGameParticipants();
     }
 
     @Override
@@ -84,7 +87,8 @@ public class PokerGame extends Game {
                 .collect(Collectors.toList());
 
         List<UserInGame> playerList = new LinkedList<>();
-        for(Player player : this.players){
+        for(int j = 0 ; j < this.players.size() ; j++){
+            Player player = this.players.get(j);
 
             Dices dices = new Dices();
             int i =0 ;
@@ -98,7 +102,9 @@ public class PokerGame extends Game {
             }
 
 
-            UserInGame user = new UserInGame(player.getId(), dices,0,false);
+
+            UserInGame user = new UserInGame(player.getId(), dices,player.getGameScore(),j == pokerGameManager.getCurrentPlayer());
+            playerList.add(user);
         }
         gameDTO.setObservers(observerList);
         gameDTO.setPlayers(playerList);

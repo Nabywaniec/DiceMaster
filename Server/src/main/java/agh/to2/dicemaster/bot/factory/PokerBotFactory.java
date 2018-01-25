@@ -6,10 +6,12 @@ import agh.to2.dicemaster.bot.IllegalBotTypeException;
 import agh.to2.dicemaster.bot.model.Bot;
 import agh.to2.dicemaster.bot.model.PokerBotDifficult;
 import agh.to2.dicemaster.bot.model.PokerBotEasy;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by kamkalet on 03.01.2018.
  */
+@Service
 public class PokerBotFactory extends BotFactory {
 
     @Override
