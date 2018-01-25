@@ -13,6 +13,7 @@ public class Player extends GameParticipant {
     private int gameScore = 0;
 
     public Player(GameParticipant gameParticipant) {
+        super(gameParticipant.getId());
         this.gameParticipant = gameParticipant;
     }
 
@@ -33,8 +34,6 @@ public class Player extends GameParticipant {
             }
         }
     }
-
-
 
     public Dice[] getDices() {
         return dices.clone();

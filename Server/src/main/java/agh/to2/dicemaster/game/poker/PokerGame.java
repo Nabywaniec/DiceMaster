@@ -101,8 +101,6 @@ public class PokerGame extends Game {
                 i+=1;
             }
 
-
-
             UserInGame user = new UserInGame(player.getId(), dices,player.getGameScore(),j == pokerGameManager.getCurrentPlayer());
             playerList.add(user);
         }
