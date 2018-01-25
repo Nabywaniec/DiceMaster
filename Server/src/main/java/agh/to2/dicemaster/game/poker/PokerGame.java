@@ -1,12 +1,11 @@
 package agh.to2.dicemaster.game.poker;
 
-import agh.to2.dicemaster.common.api.GameConfigDTO;
-import agh.to2.dicemaster.common.api.GameDTO;
-import agh.to2.dicemaster.common.api.UserInGame;
-import agh.to2.dicemaster.game.model.Observer;
+import agh.to2.dicemaster.common.api.*;
+import agh.to2.dicemaster.game.model.Dice;
 import agh.to2.dicemaster.game.model.Player;
 import agh.to2.dicemaster.server.api.Game;
 import agh.to2.dicemaster.server.api.GameParticipant;
+
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,6 +21,7 @@ public class PokerGame extends Game {
 
     public PokerGame(int id, GameConfigDTO gameConfigDTO) {
         super(id, gameConfigDTO);
+        pokerGameManager = new PokerGameManager(this);
     }
 
     public List<Player> getPlayerList() {
@@ -51,6 +51,9 @@ public class PokerGame extends Game {
 
     @Override
     public void addPlayer(GameParticipant gameParticipant) {
+
+        if(this.pokerGameManager.hasStarted()) return;
+
         PokerPlayerEventHandler pokerPlayerEventHandler = new PokerPlayerEventHandler(pokerGameManager, gameParticipant);
         Player player = new Player(gameParticipant);
         players.add(player);
@@ -79,6 +82,24 @@ public class PokerGame extends Game {
                 .stream()
                 .map(GameParticipant::getId)
                 .collect(Collectors.toList());
+
+        List<UserInGame> playerList = new LinkedList<>();
+        for(Player player : this.players){
+
+            Dices dices = new Dices();
+            int i =0 ;
+            for(Dice dice : player.getDices()){
+                for(DiceNumbers diceNumbers :DiceNumbers.values()){
+                    if(diceNumbers.ordinal() == dice.getValue().ordinal()){
+                        dices.getDicesScore()[i] = diceNumbers;
+                    }
+                }
+                i+=1;
+            }
+
+
+            UserInGame user = new UserInGame(player.getId(), dices,0,false);
+        }
 
         return gameDTO;
     }

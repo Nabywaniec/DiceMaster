@@ -1,5 +1,6 @@
 package agh.to2.dicemaster.game.poker;
 
+
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.MoveDTO;
 import agh.to2.dicemaster.game.model.Player;
@@ -23,7 +24,8 @@ public class PokerGameManager {
     private Thread timerThread;
     private GameState gameState = GameState.PENDING;
 
-    private enum GameState {PENDING, STARTED, ENDED}
+
+    private enum GameState {PENDING, STARTED, ENDED;}
 
     private List<GameParticipant> participantsToRemove = new LinkedList<>();
 
@@ -33,13 +35,17 @@ public class PokerGameManager {
     }
 
 
+    public void kickCurretPlayer() {
+        participantsToRemove.add(game.getPlayerList().get(currentPlayer));
+    }
+
     public synchronized void onTurnEnd() {
         currentPlayer++;
         turnNumber++;
         if (currentPlayer >= game.getPlayerList().size()) {
             currentPlayer = 0;
         }
-        if (turnNumber > TURNS_PER_ROUND) {
+        if (turnNumber > TURNS_PER_ROUND * game.getPlayerList().size()) {
             turnNumber = 1;
             onRoundEnd();
         }
@@ -84,6 +90,7 @@ public class PokerGameManager {
         if (!game.getPlayerList().get(currentPlayer).equals(player)) return;
         player.rollDices(moveDTO.getDicesToReRoll());
         timerThread.interrupt();
+        onTurnEnd();
     }
 
     public synchronized void onPlayerLeft(GameParticipant gameParticipant) {
@@ -114,4 +121,19 @@ public class PokerGameManager {
         return gameState.equals(GameState.ENDED);
     }
 
+    public int getRoundNumber() {
+        return this.roundNumber;
+    }
+
+    public int getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public int getTurnNumber() {
+        return this.turnNumber;
+    }
+
+    public List<GameParticipant> getParticipantsToRemove() {
+        return this.participantsToRemove;
+    }
 }

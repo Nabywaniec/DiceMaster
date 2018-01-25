@@ -14,6 +14,14 @@ public abstract class Game {
     public Game(int id, GameConfigDTO gameConfigDTO) {
         this.id = id;
         this.gameConfigDTO = gameConfigDTO;
+
+        for(int i=0;i<gameConfigDTO.getEasyBotsCount();i++){
+            this.addPlayer(new GameParticipant("Bot" + i));
+        }
+
+        for(int i=0;i<gameConfigDTO.getHardBotsCount();i++){
+            this.addPlayer(new GameParticipant("BotHard + i"));
+        }
     }
 
     public abstract void addObserver(GameParticipant gameParticipant);
