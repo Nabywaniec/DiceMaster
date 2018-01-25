@@ -99,6 +99,7 @@ public class PokerGame extends Game {
 
 
             UserInGame user = new UserInGame(player.getId(), dices,0,false);
+            gameDTO.getPlayers().add(user);
         }
 
         return gameDTO;
