@@ -9,9 +9,11 @@ import agh.to2.dicemaster.common.DTO.RegistrationConfirmationDTO;
 import agh.to2.dicemaster.common.api.GameConfigDTO;
 import agh.to2.dicemaster.common.api.GameDTO;
 import agh.to2.dicemaster.common.api.UserType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,11 +75,13 @@ public class DiceMasterServer implements Server {
 
     private List<GameDTO> convertToGameDTOList(Object responseObject) {
         List<GameDTO> result = new ArrayList<>();
-        if (responseObject instanceof List) {
-            List gameDTOS = (List) responseObject;
+        ObjectMapper objectMapper = new ObjectMapper();
+        if (responseObject instanceof Collection) {
+            Collection gameDTOS = (Collection) responseObject;
 
             for (Object o : gameDTOS) {
-                if (o instanceof GameDTO) {
+                o = objectMapper.convertValue(o, GameDTO.class);
+                if (o != null) {
                     result.add((GameDTO) o);
                 }
             }
@@ -105,8 +109,6 @@ public class DiceMasterServer implements Server {
 
         return false;
     }
-
-
 
     private void validateRegistered() {
         if (!registered) {

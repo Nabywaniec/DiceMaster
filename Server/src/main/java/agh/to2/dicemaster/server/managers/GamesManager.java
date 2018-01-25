@@ -6,8 +6,6 @@ import agh.to2.dicemaster.common.api.UserType;
 import agh.to2.dicemaster.game.factory.GameFactory;
 import agh.to2.dicemaster.server.User;
 import agh.to2.dicemaster.server.api.Game;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -42,7 +40,7 @@ public class GamesManager {
     }
 
     public synchronized Collection<GameDTO> getAllAsGameDTO() {
-        return games.values().stream().map(Game::getGameDTO).collect(Collectors.toSet());
+        return games.values().stream().map(Game::getGameDTO).collect(Collectors.toList());
     }
 
     public synchronized Game removeGame(int gameId) {
