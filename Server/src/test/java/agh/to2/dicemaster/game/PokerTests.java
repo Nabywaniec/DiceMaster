@@ -114,7 +114,7 @@ public class PokerTests extends Thread {
 
         PokerGameManager pokerGameManager1 = pokerGame.getPokerGameManager();
         for (int i = 0; i < 27; i++) {
-            pokerGameManager1.onTurnEnd();
+            pokerGameManager1.onTurnEnd(false);
         }
 
         assertEquals(pokerGameManager1, false);
@@ -124,7 +124,7 @@ public class PokerTests extends Thread {
         assertEquals(pokerGameManager1.hasEnded(), false);
 
         for(int i=0;i<18;i++){
-            pokerGameManager1.onTurnEnd();
+            pokerGameManager1.onTurnEnd(false);
         }
         assertEquals(pokerGameManager1.hasEnded(), true);
 
@@ -157,7 +157,7 @@ public class PokerTests extends Thread {
         PokerGameManager pokerGameManager1 = pokerGame.getPokerGameManager();
         pokerGameManager1.onPlayerLeft(gameParticipant1);
         assertEquals(pokerGameManager1.getParticipantsToRemove().size(), 1);
-        pokerGameManager1.onTurnEnd();
+        pokerGameManager1.onTurnEnd(false);
         assertEquals(pokerGame.getPlayerList().size(), 1);
 
     }

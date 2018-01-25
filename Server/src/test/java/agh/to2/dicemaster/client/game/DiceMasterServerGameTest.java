@@ -1,4 +1,4 @@
-package client.game;
+package agh.to2.dicemaster.client.game;
 
 
 import agh.to2.dicemaster.client.api.Server;

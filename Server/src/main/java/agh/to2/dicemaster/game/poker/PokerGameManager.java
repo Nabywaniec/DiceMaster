@@ -18,7 +18,7 @@ public class PokerGameManager {
     private final static int TURNS_PER_ROUND = 3;
 
     private final PokerGame game;
-    private int currentPlayer;
+    private int currentPlayer = -1;
     private int roundNumber = 1;
     private int turnNumber = 1;
     private Thread timerThread;
@@ -67,6 +67,7 @@ public class PokerGameManager {
 
     public synchronized void onGameStart() {
         gameState = GameState.STARTED;
+        currentPlayer = 0;
         timerThread = new Thread(new Timer(this, TURN_DURATION));
         timerThread.start();
     }

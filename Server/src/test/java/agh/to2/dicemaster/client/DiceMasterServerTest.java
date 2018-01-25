@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.UUID;
 
-import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 import static org.junit.Assert.*;
 
 // FIXME: 08.01.18 Make the test pass

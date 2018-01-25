@@ -29,23 +29,23 @@ public class RegisteredClientListener implements MessageListener {
         String inQueueName = message.getMessageProperties().getConsumerQueue();
         RequestType requestType = RequestType.valueOf((String) message.getMessageProperties().getHeaders().get(CommunicationConstants.HEADER_REQUEST_TYPE));
 
-//        TODO: check when this is called without the Request/Reply pattern
-        String replyToQueueName = message.getMessageProperties().getReplyToAddress().getRoutingKey();
-
         switch (requestType){
             case LEAVE_GAME:
                 registeredClientReceiver.onUserLeftGameRequest(inQueueName);
                 break;
             case GET_AVAILABLE_GAMES:
-                registeredClientReceiver.onGetAvailableGamesRequest(replyToQueueName);
+                String replyToQueueNameGetAvailableGames = message.getMessageProperties().getReplyToAddress().getRoutingKey();
+                registeredClientReceiver.onGetAvailableGamesRequest(replyToQueueNameGetAvailableGames);
                 break;
             case CREATE_GAME:
+                String replyToQueueNameCreateGame = message.getMessageProperties().getReplyToAddress().getRoutingKey();
                 CreateGameRequestDTO createGameRequest = (CreateGameRequestDTO) messageConverter.fromMessage(message);
-                registeredClientReceiver.onCreateGameRequest(createGameRequest.getGameConfigDTO(),createGameRequest.getUserType(), inQueueName, replyToQueueName);
+                registeredClientReceiver.onCreateGameRequest(createGameRequest.getGameConfigDTO(),createGameRequest.getUserType(), inQueueName, replyToQueueNameCreateGame);
                 break;
             case JOIN_GAME:
+                String replyToQueueNameJoinGame = message.getMessageProperties().getReplyToAddress().getRoutingKey();
                 JoinGameRequestDTO joinGameRequest = (JoinGameRequestDTO) messageConverter.fromMessage(message);
-                registeredClientReceiver.onJoinGameRequest(joinGameRequest.getGameDTO(), joinGameRequest.getUserType(), inQueueName, replyToQueueName);
+                registeredClientReceiver.onJoinGameRequest(joinGameRequest.getGameDTO(), joinGameRequest.getUserType(), inQueueName, replyToQueueNameJoinGame);
                 break;
             case MAKE_MOVE:
                 MoveDTO move = (MoveDTO) messageConverter.fromMessage(message);
